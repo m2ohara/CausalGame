@@ -1,0 +1,19 @@
+
+influenceDisk.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+InfluenceDiskOrange
+  rotate: false
+  xy: 1, 1
+  size: 72, 65
+  orig: 72, 65
+  offset: 0, 0
+  index: -1
+InfluenceDiskBlue
+  rotate: false
+  xy: 75, 1
+  size: 72, 65
+  orig: 72, 65
+  offset: 0, 0
+  index: -1

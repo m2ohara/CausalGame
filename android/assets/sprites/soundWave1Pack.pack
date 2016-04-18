@@ -1,0 +1,61 @@
+
+soundWave1Pack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SoundWave11
+  rotate: false
+  xy: 1, 200
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave12
+  rotate: false
+  xy: 1, 1
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave13
+  rotate: false
+  xy: 222, 200
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave14
+  rotate: false
+  xy: 222, 1
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave18
+  rotate: false
+  xy: 222, 1
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave15
+  rotate: false
+  xy: 443, 200
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave16
+  rotate: false
+  xy: 443, 1
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1
+SoundWave17
+  rotate: false
+  xy: 664, 200
+  size: 219, 197
+  orig: 219, 197
+  offset: 0, 0
+  index: -1

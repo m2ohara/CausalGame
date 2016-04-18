@@ -1,0 +1,19 @@
+
+CellA.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+CellA2
+  rotate: false
+  xy: 1, 1
+  size: 72, 65
+  orig: 72, 65
+  offset: 0, 0
+  index: -1
+CellA1
+  rotate: false
+  xy: 75, 1
+  size: 72, 65
+  orig: 72, 65
+  offset: 0, 0
+  index: -1

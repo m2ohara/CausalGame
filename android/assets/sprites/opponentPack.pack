@@ -1,0 +1,54 @@
+
+opponentPack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+OpponentAction1
+  rotate: false
+  xy: 1, 285
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction2
+  rotate: false
+  xy: 1, 143
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction3
+  rotate: false
+  xy: 203, 285
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction4b
+  rotate: false
+  xy: 1, 1
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction5
+  rotate: false
+  xy: 203, 143
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction6
+  rotate: false
+  xy: 405, 285
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+OpponentAction7
+  rotate: false
+  xy: 203, 1
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
