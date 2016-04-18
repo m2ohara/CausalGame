@@ -16,7 +16,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-            	Gdx.app.setLogLevel(LOG_INFO);
             	CausalGamesLogger.get().write("Initiating gwt application");
                 return new Game();
         }

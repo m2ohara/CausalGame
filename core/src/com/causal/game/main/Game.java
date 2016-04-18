@@ -72,6 +72,9 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		
+    	Gdx.app.setLogLevel(3);
+    	Gdx.app.debug(this.toString(), "Creating Game");
 
 		plState = PlayerState.get();
 		plState.loadDummy();

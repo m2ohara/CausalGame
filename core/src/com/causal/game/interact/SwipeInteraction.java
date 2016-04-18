@@ -49,7 +49,7 @@ public class SwipeInteraction {
 					invalidInteraction = false;
 					interactor = hitActor;
 
-					CausalGamesLogger.get().write("", "First follower hit facing "+hitActor.getOrientation());
+					Gdx.app.debug(this.toString(),"First follower hit facing "+hitActor.getOrientation());
 					System.out.println("First follower hit facing "+hitActor.getOrientation());
 				}
 				//If next
