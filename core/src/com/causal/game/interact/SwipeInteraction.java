@@ -154,7 +154,7 @@ public class SwipeInteraction {
 
 	private void setConnectorSprite(GameSprite lastHitActor) {
 
-		Actor connector = new Image(new TextureAtlas(Gdx.files.internal("sprites//connectorPack.pack")).getRegions().get(connectorSprite));
+		Actor connector = new Image(new TextureAtlas(Gdx.files.internal("sprites/connectorPack.pack")).getRegions().get(connectorSprite));
 		connectors.add(connector);
 
 		connector.setOrigin(connector.getWidth()/2, connector.getHeight()/2);

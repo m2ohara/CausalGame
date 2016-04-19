@@ -52,7 +52,7 @@ public class SwipeSprite {
 		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
 		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
 		
-//		Gdx.app.debug(this.toString(),  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
+		Gdx.app.debug(this.toString(),  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
 		GameProperties.get().getStage().addActor(sourceSprite);
 	}
@@ -106,7 +106,7 @@ public class SwipeSprite {
 					else {
 						sourceSprite.setVisible(true);
 					}
-//					Gdx.app.debug(this.toString(),  "Stopped valid drag");
+					Gdx.app.debug(this.toString(),  "Stopped valid drag");
 				}
 			}
 			

@@ -3,7 +3,7 @@ package com.causal.game.logging;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
-public class CausalGamesLogger {
+public class Logger {
 	
 	private FileHandle logFile;
 	
@@ -11,13 +11,13 @@ public class CausalGamesLogger {
 	
 	public static CausalGamesLogger get() {
 		if(instance == null) {
-			instance = new CausalGamesLogger();
+//			instance = new CausalGamesLogger();
 		}
 		
 		return instance;
 	}
 	
-	CausalGamesLogger() {
+	private Logger() {
 		logFile = Gdx.files.local("LogFile.txt");
 	}
 	
