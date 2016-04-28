@@ -59,7 +59,7 @@ public class GameGenerator {
 			}
 		}
 		
-		populateLevelCrowdScreen();
+//		populateLevelCrowdScreen();
 		setCrowdValidDirections();
 	}
 	

@@ -38,7 +38,7 @@ public class OpposerInteractionType implements IInteractionType {
 	//On autonomous interaction complete
 	public void complete() {
 		interactee.interactStatus = Status.INFLUENCED;
-		interactor.influenceType = InfluenceType.OPPOSE;
+		interactee.influenceType = InfluenceType.OPPOSE;
 		interactor.changeOrientationOnInvalid();
 		interactor.isInteracting = false;
 		interactee.isActive = true;

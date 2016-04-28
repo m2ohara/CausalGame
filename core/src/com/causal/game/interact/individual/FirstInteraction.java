@@ -41,7 +41,7 @@ public class FirstInteraction implements IIndividualInteraction {
 	
 	public void setFirstInfluencedSprite() {
 			System.out.println("Setting first interactor handsign for status: "+interactor.interactStatus);
-			Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.behaviour.getInfluenceType().ordinal()));
+			Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
 	
 			handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
 			handSign.setPosition(interactor.getStartingX(), interactor.getStartingY());

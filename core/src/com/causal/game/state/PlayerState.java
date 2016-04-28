@@ -3,6 +3,9 @@ package com.causal.game.state;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.causal.game.data.FollowerRepo;
+import com.causal.game.data.FollowerTypeRepo;
+import com.causal.game.data.PlayerRepo;
 //import com.causal.game.data.FollowerRepo;
 //import com.causal.game.data.FollowerTypeRepo;
 //import com.causal.game.data.PlayerRepo;
@@ -43,7 +46,7 @@ public class PlayerState {
 		followers.add(new Follower(Head.GOSSIPER, 1, "sprites/Meep/Gossiper/Default.pack"));
 		followers.add(new Follower(Head.INFLUENCER, 2, "sprites/Meep/Promoter/Default.pack"));
 		followers.add(new Follower(Head.DECEIVER, 3, "sprites/Meep/Deceiver/Default.pack"));
-		this.playerStateEntity = new PlayerStateEntity(0, 1, 1000, 1000, 5);
+		this.playerStateEntity = new PlayerStateEntity(0, 2, 1000, 1000, 5);
 	}
 
 	

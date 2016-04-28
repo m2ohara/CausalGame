@@ -1,5 +1,6 @@
 package com.causal.game.setup;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.causal.game.main.GameProperties;
@@ -53,18 +54,10 @@ public class VoteGameRules implements IGameRules {
 		
 		for(Actor a : actors.getChildren()) {
 			GameSprite actor = (GameSprite) a;
-//			if(actor.interactStatus == Status.SELECTED) {
-//				if(winState == State.WIN) {
-//					forVotes+=1;
-//				}
-//				if(winState == State.LOSE) {
-//					againstVotes+=1;
-//				}			
-//			}
-			if(actor.influenceType == InfluenceType.SUPPORT) {
+			if((actor.interactStatus == Status.INFLUENCED || actor.interactStatus == Status.SELECTED) && actor.influenceType == InfluenceType.SUPPORT) {
 				forVotes+=1;
 			}
-			else if(actor.influenceType == InfluenceType.OPPOSE) {
+			else if((actor.interactStatus == Status.INFLUENCED || actor.interactStatus == Status.SELECTED) && actor.influenceType == InfluenceType.OPPOSE) {
 				againstVotes+=1;
 			}
 		}
@@ -77,6 +70,7 @@ public class VoteGameRules implements IGameRules {
 	}
 	
 	private void checkIsFinished(int forVotes, int againstVotes) {
+		Gdx.app.debug("", "F "+forVotes+", A "+againstVotes+", T "+totalVotes);	
 		if(forVotes + againstVotes == totalVotes) {
 			setEndScore(forVotes, againstVotes);
 			

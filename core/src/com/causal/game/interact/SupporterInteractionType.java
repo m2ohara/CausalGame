@@ -39,7 +39,7 @@ public class SupporterInteractionType implements IInteractionType {
 	//On autonomous interaction complete
 	public void complete() {
 		interactee.interactStatus = Status.INFLUENCED;
-		interactor.influenceType = InfluenceType.SUPPORT;
+		interactee.influenceType = InfluenceType.SUPPORT;
 		interactor.changeOrientationOnInvalid();
 		interactor.isInteracting = false;
 		interactee.isActive = true;

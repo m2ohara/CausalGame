@@ -35,7 +35,7 @@ public class PromoterAutonomousBehaviour implements IInteraction {
 	
 	private void setInteractionResult(GameSprite interactor, GameSprite interactee) {
 		if(interactee.interactStatus == Status.NEUTRAL && interactee.isActive == true) {
-			//Oppose
+			//Promote
 			interactionType = new SupporterInteractionType(interactor, interactee);
 		}
 	}

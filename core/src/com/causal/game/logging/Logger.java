@@ -11,7 +11,7 @@ public class Logger {
 	
 	public static CausalGamesLogger get() {
 		if(instance == null) {
-//			instance = new CausalGamesLogger();
+			instance = new CausalGamesLogger();
 		}
 		
 		return instance;
