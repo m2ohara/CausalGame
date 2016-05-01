@@ -129,9 +129,7 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		Stage stage = GameProperties.get().getStage();
-		stage.draw();
-		stage.act(Gdx.graphics.getDeltaTime());
+		GameProperties.get().renderStage();
 		batch.end();
 		
 		if(scoreState != null && scoreState.getCurrentState() != State.FINISHED) {
@@ -140,8 +138,8 @@ public class Game extends ApplicationAdapter {
 	}
 	
 	@Override
-	public void resize(int width, int heigth) {
-		GameProperties.get().getStage().getViewport().update(width, heigth, true);
+	public void resize(int width, int height) {
+		GameProperties.get().resizeStage(height, width);
 	}
 	@Override
 	public void dispose() {
@@ -239,13 +237,9 @@ public class Game extends ApplicationAdapter {
 	private void setSpeechScreen() {
 		
 		if(Assets.get().isLoaded()) {
-//			setToStage(getImage("SpeechScreen", "screens//screensPack"), 0, 0);
-//			Actor btn = getButton("CreateSpeechBtn");
-//			setToStage(btn, 0, -260);
-			
-			setToStage(getImage("MechanicsScreen", "screens/screensPack"), 0, 0);
-			Actor btn = getButton("PlayGameBtn");
-			setToStage(btn, 0, 290);
+			setToStage(getImage("SpeechScreen", "screens//screensPack"), 0, 0);
+			Actor btn = getButton("CreateSpeechBtn");
+			setToStage(btn, 0, -260);
 			
 			btn.addListener(new ClickListener() {
 				 public void clicked(InputEvent event, float x, float y) {
@@ -318,7 +312,7 @@ public class Game extends ApplicationAdapter {
 
 		gameGenerator.populateFullCrowdScreen();
 		
-		GameProperties.get().getStage().addActor(GameProperties.get().getActorGroup());
+		GameProperties.get().addActorToStage(GameProperties.get().getActorGroup());
 		
 		setFollowerScreen();
 	
@@ -359,7 +353,7 @@ public class Game extends ApplicationAdapter {
 		targetImage.setColor(Color.CYAN);
 		targetImage.setPosition(origX, origY);
 		targetImage.setScale(WorldSystem.get().getLevelScaleFactor());
-		GameProperties.get().getStage().addActor(targetImage);
+		GameProperties.get().addActorToStage(targetImage);
 		targetImage.setTouchable(Touchable.disabled);
 		
 		return targetImage;
@@ -520,7 +514,7 @@ public class Game extends ApplicationAdapter {
 	private void setRewardImage(String framesPath, float origX, float origY) {
 		Image targetImage = new Image(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
 		targetImage.setPosition(origX, origY);
-		GameProperties.get().getStage().addActor(targetImage);
+		GameProperties.get().addActorToStage(targetImage);
 		targetImage.setTouchable(Touchable.disabled);
 	}
 	

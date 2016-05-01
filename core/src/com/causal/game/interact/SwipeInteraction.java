@@ -174,7 +174,7 @@ public class SwipeInteraction {
 	}
 	
 	private void removeConnectors() {
-		GameProperties.get().getStage().getActors().removeAll(connectors, false);
+		GameProperties.get().removeAllActorsFromStage(connectors);
 	}
 
 }

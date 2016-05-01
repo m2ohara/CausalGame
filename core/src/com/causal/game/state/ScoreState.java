@@ -67,7 +67,7 @@ public class ScoreState {
 	private void setRewardImage(String framesPath, float origX, float origY) {
 		Image targetImage = new Image(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
 		targetImage.setPosition(origX, origY);
-		GameProperties.get().getStage().addActor(targetImage);
+		GameProperties.get().addActorToStage(targetImage);
 		targetImage.setTouchable(Touchable.disabled);
 	}
 

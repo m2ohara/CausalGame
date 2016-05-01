@@ -40,8 +40,6 @@ public class GameSprite  extends Image {
 	public Status interactStatus = Status.NEUTRAL;
 	public InfluenceType influenceType = InfluenceType.NONE;
 	public InteractorType interactorType = InteractorType.None;
-//	public boolean isIntermediateInteractor = false;
-//	public boolean isFirstInteractor = false;
 	public int scoreStatus = 0;
 	
 	private ArrayList<Orientation> validDirections;
@@ -152,7 +150,7 @@ public class GameSprite  extends Image {
 			public void clicked(InputEvent event, float x, float y) 
 		    {
 				if(GameScoreState.validTouchAction()) {
-					System.out.println("Pressed at: x: "+x+", y: "+y+"");
+					Gdx.app.debug("GameSprite", "Pressed at: x: "+x+", y: "+y+"");
 					behaviour.onTouch();
 				}
 		    }

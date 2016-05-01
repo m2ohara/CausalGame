@@ -59,7 +59,7 @@ public class MoveableSprite
 		
 //		System.out.println("Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
-		GameProperties.get().getStage().addActor(sourceSprite);
+		GameProperties.get().addActorToStage(sourceSprite);
 	}
 	
 	private DragAndDrop dragAndDrop;

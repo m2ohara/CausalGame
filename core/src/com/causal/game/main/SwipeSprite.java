@@ -54,7 +54,7 @@ public class SwipeSprite {
 		
 		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
-		GameProperties.get().getStage().addActor(sourceSprite);
+		GameProperties.get().addActorToStage(sourceSprite);
 	}
 	
 	private void setDragAndDrop() {	
