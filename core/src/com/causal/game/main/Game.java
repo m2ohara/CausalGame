@@ -461,9 +461,9 @@ public class Game extends ApplicationAdapter {
 		
 		setEndScoreValue();
 		
-		setFollowerRewards();
-		
 		ScoreState.get().setLevel();
+		
+		setFollowerRewards();
 		
 		final Actor btn = getButton("PlayGameBtn");
 		setToStage(btn, 0, -260);	
