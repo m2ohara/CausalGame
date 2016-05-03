@@ -130,7 +130,7 @@ public class SwipeSprite {
 						lastValidTarget = this;
 					}
 					else if(((GameSprite)target).interactStatus == Status.NEUTRAL) {
-						Gdx.app.debug("SwipeSprite",  "Invalid drag at " + x + ", " + y);
+						Gdx.app.debug("SwipeSprite",  "Invalid hit at " + x + ", " + y);
 						validSwipe = false;
 					}
 				}

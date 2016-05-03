@@ -165,12 +165,17 @@ public class Game extends ApplicationAdapter {
 	
 	private Actor getImage(String type, String pack) {
 
-		TextureAtlas txAtlas;
-		Skin txSkin;
+		TextureAtlas txAtlas = null;
+		Skin txSkin = null;
 		
-		txAtlas = new TextureAtlas(Gdx.files.internal(pack+".pack"));
-		txSkin = new Skin(txAtlas);
-		
+		try {
+			txAtlas = new TextureAtlas(Gdx.files.internal(pack+".pack"));
+			txSkin = new Skin(txAtlas);
+		}
+		catch(Exception e) {
+		    Gdx.app.log("Game", "Exception "+e.getMessage());			
+		}
+	
 		Actor image = new Image(txSkin.getDrawable(type));
 		image.setTouchable(Touchable.disabled);
 		return image;
@@ -219,13 +224,16 @@ public class Game extends ApplicationAdapter {
 	
 	private void setPlayButton() {
 		
-		setToStage(getImage("TitleScreen", "screens/screensPack"), 0, 0);
-		Actor btn = getButton("PlayGameBtn");
+		final Actor screen = getImage("TitleScreen", "screens/screensPack");
+		setToStage(screen, 0, 0);
+		final Actor btn = getButton("PlayGameBtn");
 		setToStage(btn, 0, -260);
 		
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
+				 btn.remove();
 				 setSpeechScreen();
+				 screen.remove();
 			 }
 		});
 	}
@@ -237,12 +245,14 @@ public class Game extends ApplicationAdapter {
 	private void setSpeechScreen() {
 		
 		if(Assets.get().isLoaded()) {
-			setToStage(getImage("SpeechScreen", "screens//screensPack"), 0, 0);
-			Actor btn = getButton("CreateSpeechBtn");
+			final Actor screen = getImage("SpeechScreen", "screens/screensPack");
+			setToStage(screen, 0, 0);
+			final Actor btn = getButton("CreateSpeechBtn");
 			setToStage(btn, 0, -260);
 			
 			btn.addListener(new ClickListener() {
 				 public void clicked(InputEvent event, float x, float y) {
+					 btn.remove();
 					 displaySpeechScroll();
 				 }
 			});
@@ -253,13 +263,14 @@ public class Game extends ApplicationAdapter {
 		Actor icon = getImage("Scroll", "icons/iconsPack");
 		setToStage(icon, 0, -60);
 		
-		Actor btn = getButton("PlayGameBtn");
+		final Actor btn = getButton("PlayGameBtn");
 		setToStage(btn, 0, -260);
 		
 		setGameVoteRules();
 		
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
+				 btn.remove();
 				 setCrowdScreen();
 			 }
 		});
@@ -298,7 +309,6 @@ public class Game extends ApplicationAdapter {
 		Label label2 = new Label("BY "+winAmount+" VOTES TO WIN", skin);
 		setToStage(label2, 0, -90);
 		
-//		setGestureDetector(new GestureDetector(new GameGestures(stage, interactionType, vType)));
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
 		GameProperties.get().swipeSprite = new SwipeSprite(interactionType, vType);
 	}
@@ -342,8 +352,8 @@ public class Game extends ApplicationAdapter {
 		
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
-				 activateGame(followers, placeHolders);
 				 btn.remove();
+				 activateGame(followers, placeHolders);
 			 }
 		});
 	}
@@ -455,10 +465,11 @@ public class Game extends ApplicationAdapter {
 		
 		ScoreState.get().setLevel();
 		
-		Actor btn = getButton("PlayGameBtn");
+		final Actor btn = getButton("PlayGameBtn");
 		setToStage(btn, 0, -260);	
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
+				btn.remove();
 				disposeGame();
 				setSpeechScreen();
 			 }
@@ -507,7 +518,7 @@ public class Game extends ApplicationAdapter {
 	private void setRewardFollowers(List<Follower> rewardedFollowers) {
 		
 		for(int count = 0; count < rewardedFollowers.size(); count++) {
-			setRewardImage(rewardedFollowers.get(count).type.imagePath, WorldSystem.get().getHudXCoords().get(count), WorldSystem.get().getHudYCoords().get(count));
+			setRewardImage(rewardedFollowers.get(count).type.imagePath, WorldSystem.get().getHudXCoords().get(count), WorldSystem.get().getRewardYCoord());
 		}
 	}
 	

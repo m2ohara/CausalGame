@@ -27,6 +27,8 @@ public class WorldSystem {
 	private ArrayList<Float> hudXCoords = new ArrayList<Float>();
 	private ArrayList<Float> hudYCoords = new ArrayList<Float>();
 	
+	private Float rewardYCoord;
+	
 	public static WorldSystem get() {
 		if(instance == null) {
 			instance = new WorldSystem();
@@ -44,6 +46,8 @@ public class WorldSystem {
 		setGameCoords();
 		
 		setHudCoords();
+		
+		setYRewardCoord();
 	}
 	
 	private void setGameCoords() {
@@ -105,6 +109,19 @@ public class WorldSystem {
 	
 	public ArrayList<Float> getHudYCoords() {
 		return hudYCoords;
+	}
+	
+	private void setYRewardCoord() {
+		//Start from centre
+		float centreY = (Gdx.graphics.getHeight() / 2) - 10; 
+		float ySpan = headSpriteH*5;
+		float startY = centreY + (ySpan/2);
+		float spanLengthY = startY - 370;
+		rewardYCoord = (float) (spanLengthY - (headSpriteH*0.5));
+	}
+	
+	public Float getRewardYCoord() {
+		return rewardYCoord;
 	}
 
 
