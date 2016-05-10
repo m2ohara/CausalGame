@@ -1,5 +1,6 @@
 package com.causal.game.interact.individual;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
@@ -22,17 +23,17 @@ public class IndividualInteraction implements IInteractionType {
 	
 	private void setInteraction() {
 		if(interactor.interactorType == InteractorType.First && interactor.influenceType == InfluenceType.NONE) {
-			System.out.println("Setting first interaction for interactor "+interactor.hashCode());
+			Gdx.app.debug("IndividualInteraction", "Setting first interaction for interactor "+interactor.hashCode());
 			interactorInteraction = new FirstInteraction(interactor);
 		}
 		
 		if(interactor.interactorType == InteractorType.Intermediate && interactor.influenceType == InfluenceType.NONE) {
-			System.out.println("Setting intermediate interaction for interactor "+interactor.hashCode());
+			Gdx.app.debug("IndividualInteraction", "Setting intermediate interaction for interactor "+interactor.hashCode());
 			interactorInteraction = new IntermediateInteraction(interactor, interactor.behaviour.getInfluenceType());
 		}
 		
 		if(interactee.interactorType == InteractorType.Intermediate && interactee.influenceType == InfluenceType.NONE) {
-			System.out.println("Setting intermediate interaction for interactee "+interactee .hashCode());
+			Gdx.app.debug("IndividualInteraction", "Setting intermediate interaction for interactee "+interactee .hashCode());
 			interacteeInteraction = new IntermediateInteraction(interactee, interactor.behaviour.getInfluenceType());
 		}
 		

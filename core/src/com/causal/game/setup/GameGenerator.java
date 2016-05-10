@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -55,7 +56,7 @@ public class GameGenerator {
 				GameProperties.get().addToActorGroup(current);
 				
 				if(y == WorldSystem.get().getSystemHeight()-1) { 
-					System.out.println("Setting actor at coords "+current.getX()+", "+current.getY()); }
+					Gdx.app.debug("GameGenerator", "Setting actor at coords "+current.getX()+", "+current.getY()); }
 			}
 		}
 		

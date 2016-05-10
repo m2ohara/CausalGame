@@ -19,8 +19,9 @@ import com.causal.game.main.GameSprite.Status;
 
 public class SwipeSprite {
 	
+	private static SwipeSprite instance;
 	private DragAndDrop dragAndDrop;
-	private Actor sourceSprite;
+	private static Actor sourceSprite;
 	private Actor dragSprite;
 	private TextureRegion sourceTexture = new TextureAtlas(Gdx.files.internal("sprites/Meep/Effects/Effects.pack")).getRegions().get(1);
 	private ArrayList<Target> targets = new ArrayList<Target>();
@@ -31,7 +32,14 @@ public class SwipeSprite {
 	private static SwipeInteraction interaction = null;
 	private GameSprite startSprite = null;
 	
-	public SwipeSprite(IInteractionType interactionType, int influenceType) {
+	public static SwipeSprite create(IInteractionType interactionType, int influenceType) {
+		if(instance == null) {
+			instance = new SwipeSprite(interactionType, influenceType);
+		}
+		return instance;
+	}
+	
+	private SwipeSprite(IInteractionType interactionType, int influenceType) {
 		
 		interaction = new SwipeInteraction(interactionType, influenceType);
 		GameProperties.get().setSwipeInteraction(interaction);
@@ -41,12 +49,12 @@ public class SwipeSprite {
 		this.startSprite = startSprite;
 	}
 	
-	public void activate() {
-		setSourceSprite(startSprite.getX(), startSprite.getY());
+	public void activate(boolean isVisible) {
+		setSourceSprite(startSprite.getX(), startSprite.getY(), isVisible);
 		setDragAndDrop();
 	}
 	
-	private void setSourceSprite(float x, float y) {
+	private void setSourceSprite(float x, float y, boolean isVisible) {
 		sourceSprite = new Image(sourceTexture);
 		sourceSprite.setOrigin(sourceSprite.getWidth()/2, sourceSprite.getWidth()/2);
 		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
@@ -55,6 +63,8 @@ public class SwipeSprite {
 		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
 		GameProperties.get().addActorToStage(sourceSprite);
+		
+		sourceSprite.setVisible(isVisible);
 	}
 	
 	private void setDragAndDrop() {	
@@ -162,6 +172,10 @@ public class SwipeSprite {
 		
 		targets.add(targetToAdd);
 		dragAndDrop.addTarget(targetToAdd);
+	}
+	
+	public static void setVisible() {
+		sourceSprite.setVisible(true);
 	}
 	
 	private void onComplete(Actor lastActor) {

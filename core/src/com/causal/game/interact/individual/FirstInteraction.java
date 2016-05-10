@@ -23,12 +23,11 @@ public class FirstInteraction implements IIndividualInteraction {
 		//If first
 		if(interactor.interactorType == InteractorType.First && !isStatusSet) {
 			if(interactor.influenceType == InfluenceType.NONE){
-				System.out.println("Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
+				Gdx.app.debug("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
 				interactor.influenceType = (interactor.behaviour.getInfluenceType());
 				setFirstInfluencedSprite();
 				isStatusSet = true;
 			}
-//			interactor.isInteracting = true;
 			if(interactor.interactStatus == Status.SELECTED) {
 				interactor.interactStatus = Status.INFLUENCED;
 			}
@@ -40,7 +39,7 @@ public class FirstInteraction implements IIndividualInteraction {
 	}
 	
 	public void setFirstInfluencedSprite() {
-			System.out.println("Setting first interactor handsign for status: "+interactor.interactStatus);
+			Gdx.app.debug("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
 			Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
 	
 			handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);

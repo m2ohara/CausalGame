@@ -57,7 +57,9 @@ public class Game extends ApplicationAdapter {
 	State winState = null;
 	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
+	Label touchActionCounter = null;
 	Label endScoreCounter = null;
+	Label swipeCounter = null;
 	boolean isAssetsLoaded = false;
 	
 	public static float universalTimeRatio = 0.7f;
@@ -310,7 +312,7 @@ public class Game extends ApplicationAdapter {
 		setToStage(label2, 0, -90);
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
-		GameProperties.get().swipeSprite = new SwipeSprite(interactionType, vType);
+		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 	}
 	
 	private void setCrowdScreen() {
@@ -396,8 +398,10 @@ public class Game extends ApplicationAdapter {
 		
 		//Set remaining votes icon
 		setVoteCount();
-		
 		setReputationCount();
+		
+		setTapCount();
+		setSwipeCount();
 		
 		GameProperties.get().swipeSprite.activate();
 		
@@ -422,6 +426,26 @@ public class Game extends ApplicationAdapter {
 		setToStage(remainingVotesCounter, 40, 200);
 	}
 	
+	private void setTapCount() {
+		final Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		font.getData().scale(3.5f);
+		skin.add("default", new LabelStyle(font, Color.YELLOW));
+		String value = Integer.toString(GameProperties.get().getTapCount());
+		touchActionCounter = new Label(value, skin);
+		setToStage(touchActionCounter, -70, -250);
+	}
+	
+	private void setSwipeCount() {
+		final Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		font.getData().scale(3.5f);
+		skin.add("default", new LabelStyle(font, Color.YELLOW));
+		String value =  Integer.toString(GameProperties.get().getSwipeCount());
+		swipeCounter = new Label(value, skin);
+		setToStage(swipeCounter, 70, -250);
+	}
+	
 	private void updateScoreState() {
 		scoreState.update();
 		
@@ -431,9 +455,21 @@ public class Game extends ApplicationAdapter {
 			remainingVotesCounter.setText(value);
 		}
 		
+		if(GameProperties.get().getTapCount() >= 0) {
+			String value = Integer.toString(GameProperties.get().getTapCount());
+			touchActionCounter.setText(value);
+		}
+		
+		if(GameProperties.get().getSwipeCount() >= 0) {
+			String value = Integer.toString(GameProperties.get().getSwipeCount());
+			swipeCounter.setText(value);
+		}
+		
+		
 		if(scoreState.getCurrentState() == GameScoreState.State.WIN) {
 			Actor image = getImage("WinSprite", "sprites/textPack");
 			setScoreStateSprite(image);
+
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.LOSE) {
 			Actor image = getImage("LoseSprite", "sprites/textPack");
@@ -442,10 +478,13 @@ public class Game extends ApplicationAdapter {
 		else if(scoreState.getCurrentState() == GameScoreState.State.DRAW) {
 			Actor image = getImage("DrawSprite", "sprites/textPack");
 			setScoreStateSprite(image);
-
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.FINISHED) {	
 			setEndGameScreen();
+		}
+		
+		if(scoreState.getCurrentState() != GameScoreState.State.PLAYING) {
+			GameProperties.get().isAutoInteractionAllowed = true;
 		}
 	}
 	
@@ -453,7 +492,7 @@ public class Game extends ApplicationAdapter {
 		image.setOriginX(image.getHeight()/2);
 		image.setOriginY(image.getWidth()/2);
 		image.scaleBy(-0.5f);
-		setToStage(image, -50, -130);
+		setToStage(image, -40, 155);
 	}
 	
 	private void setEndGameScreen() {
@@ -539,5 +578,4 @@ public class Game extends ApplicationAdapter {
 
 	public enum Head { GOSSIPER, INFLUENCER, DECEIVER}
 
-	public enum Interact { SOUNDWAVE }
 }

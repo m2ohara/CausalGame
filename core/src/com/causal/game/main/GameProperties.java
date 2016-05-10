@@ -25,9 +25,12 @@ public class GameProperties {
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
 	private int tapLimit;
 	private Stage stage = null;
+	private int swipeCount;
+	private int swipeLimit;
 
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
+		swipeLimit = PlayerState.get().getInfluenceLimit();
 	}
 
 	public static GameProperties get() {
@@ -77,7 +80,7 @@ public class GameProperties {
 		//Ensure HeadSprite actor gets hit
 		setActorGroupOriginToZero();
 		actor.getSourceSprite().setTouchable(Touchable.disabled);
-		Gdx.app.debug(this.toString(), "Replacing actor at "+actor.getCurrentX()+", "+actor.getCurrentY());
+		Gdx.app.debug("GameProperties", "Replacing actor at "+actor.getCurrentX()+", "+actor.getCurrentY());
 		Actor actorToRemove = stage.hit(actor.getCurrentX(), actor.getCurrentY(), true);
 		try {
 			//Remove current actor at coordinates
@@ -85,7 +88,8 @@ public class GameProperties {
 			actorToRemove.remove();
 
 			GameSprite actorToAdd = new GameSprite(actor.getType(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
-			Gdx.app.log("GameProperties", "Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
+			Gdx.app.debug(this.toString().substring(this.toString().lastIndexOf(".")), 
+					"Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
 			actorToAdd.setValidOrientations();
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
@@ -99,7 +103,7 @@ public class GameProperties {
 			
 		}
 		catch(Exception ex) {
-			Gdx.app.log(this.toString(), "Exception replacing actor on stage "+ex);
+			Gdx.app.error("GameProperties", "Exception replacing actor on stage "+ex);
 		}
 		setActorGroupOriginToCentre();
 	}
@@ -120,8 +124,8 @@ public class GameProperties {
 	private int tapCount = 0;
 	private ArrayList<Integer> tappedObjects = new ArrayList<Integer>();
 	public void updateTapCount(int tappedObj) {
-		if(!isAutoInteractionAllowed && tapCount < tapLimit) {
-			Gdx.app.log(this.toString(), "Updating tap count from "+tapCount+". Can interact "+isAutoInteractionAllowed);
+		if(!isAutoInteractionAllowed && tapCount < tapLimit && !(tappedObjects.contains(tappedObj))) {
+			Gdx.app.debug("GameProperties", "Updating tap count from "+tapCount+". Can interact "+isAutoInteractionAllowed);
 			tapCount++;
 			tappedObjects.add(tappedObj);
 		}
@@ -141,6 +145,22 @@ public class GameProperties {
 		}
 		
 		return false;
+	}
+	
+	public int getTapCount() {
+		return tapLimit - tapCount;
+	}
+	
+	public void updateSwipeCount(int swipe) {
+		swipeCount += swipe;
+	}
+	
+	public void resetSwipeCount() {
+		swipeCount = 0;;
+	}
+	
+	public int getSwipeCount() {
+		return swipeLimit - swipeCount;
 	}
 
 	public void dispose() {

@@ -23,7 +23,7 @@ public class IntermediateInteraction implements IIndividualInteraction {
 		if(interactor.interactorType == InteractorType.Intermediate){
 			//Set interactee to interactor's influence type
 
-			System.out.println("Setting intermediate interactee influence: "+interactor.influenceType);
+			Gdx.app.debug("IntermediateInteraction","Setting intermediate interactee influence: "+interactor.influenceType);
 		}
 	}
 	

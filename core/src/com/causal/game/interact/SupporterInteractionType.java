@@ -33,7 +33,7 @@ public class SupporterInteractionType implements IInteractionType {
 	public void setStatus() {
 		interactor.interactStatus = Status.INFLUENCED;
 		interactor.influenceType = InfluenceType.SUPPORT;
-		System.out.println("Setting intermediate supporter");
+		Gdx.app.debug("SupporterInteraction", "Setting intermediate supporter");
 	}
 	
 	//On autonomous interaction complete
@@ -44,7 +44,7 @@ public class SupporterInteractionType implements IInteractionType {
 		interactor.isInteracting = false;
 		interactee.isActive = true;
 		setInfluencedSprite();
-		System.out.println("Autonomous supporter interaction complete");
+		Gdx.app.debug("SupporterInteraction", "Autonomous supporter interaction complete");
 	}
 	
 	public void setInfluencedSprite() {

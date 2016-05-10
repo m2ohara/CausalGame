@@ -20,7 +20,6 @@ import com.causal.game.state.PlayerState;
 public class SwipeInteraction {
 	//Interacting
 	GameSprite interactor;
-	private int hitCount = 0;
 	GameSprite lastHitActor = null;
 	boolean invalidInteraction = false;
 	private IInteractionType interactionType = null;
@@ -52,13 +51,13 @@ public class SwipeInteraction {
 					Gdx.app.debug("SwipeInteraction","First follower hit facing "+hitActor.getOrientation());
 				}
 				//If next
-				else if(interactor != null && !isFirst && !invalidInteraction && PlayerState.get().getInfluenceLimit() > hitCount && hitActor.interactStatus == Status.NEUTRAL && isValidInteraction(hitActor)) {
+				else if(interactor != null && !isFirst && !invalidInteraction && GameProperties.get().getSwipeCount() > 0 && hitActor.interactStatus == Status.NEUTRAL && isValidInteraction(hitActor)) {
 						Gdx.app.debug("SwipeInteraction", "Next follower hit facing "+hitActor.getOrientation());
 						lastHitActor.isActive = false;
 						hitActor.isActive = false;
 						interact(lastHitActor, hitActor );
 						setConnectorSprite(lastHitActor);
-						hitCount += 1;
+						GameProperties.get().updateSwipeCount(1);
 						GameScoreState.addUserPoints(1);
 
 
@@ -104,7 +103,7 @@ public class SwipeInteraction {
 	public void reset() {
 		if(firstInteraction != null) {firstInteraction.startInteraction();}
 		interactor = null;
-		hitCount = 0;
+		GameProperties.get().resetSwipeCount();
 		lastHitActor = null;
 		firstInteraction = null;
 		removeConnectors();
@@ -120,14 +119,14 @@ public class SwipeInteraction {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)-1) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)) {
 					isValid = true;
-//					Gdx.app.debug("SwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
+					Gdx.app.debug("SwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
 				}
 			}
 			else if(lastHitActor.getOrientation() == Orientation.N) {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)+1)) {
 					isValid = true;
-//					Gdx.app.debug("SwipeInteraction","Follower hit above");
+					Gdx.app.debug("SwipeInteraction","Follower hit above");
 				}
 
 			}
@@ -135,14 +134,14 @@ public class SwipeInteraction {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)-1)) {
 					isValid = true;
-//					Gdx.app.debug("SwipeInteraction","Follower hit below");
+					Gdx.app.debug("SwipeInteraction","Follower hit below");
 				}
 			}
 			else if(lastHitActor.getOrientation() == Orientation.W) {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)+1) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)) {
 					isValid = true;
-//					Gdx.app.debug("SwipeInteraction","Follower hit to the left");
+					Gdx.app.debug("SwipeInteraction","Follower hit to the left");
 				}
 			}
 		}

@@ -29,7 +29,7 @@ public class LastInteraction implements IIndividualInteraction {
 			interactor.changeOrientationOnInvalid();
 			setSelectedInteractee();
 			GameProperties.get().resetTapCount();
-			System.out.println("Setting last interactee influence: "+interactor.influenceType);
+			Gdx.app.debug("LastInteraction", "Setting last interactee influence: "+interactor.influenceType);
 		}
 	}
 	
