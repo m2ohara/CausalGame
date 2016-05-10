@@ -38,7 +38,7 @@ public class IndividualInteraction implements IInteractionType {
 		}
 		
 		if(interactee.interactorType == InteractorType.Last && interactee.influenceType == InfluenceType.NONE) {
-			System.out.println("Setting last interaction for interactee "+interactee.hashCode());
+			Gdx.app.debug("IndividualInteraction", "Setting last interaction for interactee "+interactee.hashCode());
 			interacteeInteraction = new LastInteraction(interactee, interactor.behaviour.getInfluenceType());
 		}
 	}

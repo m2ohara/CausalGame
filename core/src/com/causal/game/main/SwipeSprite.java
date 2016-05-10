@@ -49,22 +49,20 @@ public class SwipeSprite {
 		this.startSprite = startSprite;
 	}
 	
-	public void activate(boolean isVisible) {
-		setSourceSprite(startSprite.getX(), startSprite.getY(), isVisible);
+	public void activate() {
+		setSourceSprite(startSprite.getX(), startSprite.getY());
 		setDragAndDrop();
 	}
 	
-	private void setSourceSprite(float x, float y, boolean isVisible) {
+	private void setSourceSprite(float x, float y) {
 		sourceSprite = new Image(sourceTexture);
 		sourceSprite.setOrigin(sourceSprite.getWidth()/2, sourceSprite.getWidth()/2);
 		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
 		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
 		
-		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
+		Gdx.app.log("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
 		GameProperties.get().addActorToStage(sourceSprite);
-		
-		sourceSprite.setVisible(isVisible);
 	}
 	
 	private void setDragAndDrop() {	
@@ -174,10 +172,6 @@ public class SwipeSprite {
 		dragAndDrop.addTarget(targetToAdd);
 	}
 	
-	public static void setVisible() {
-		sourceSprite.setVisible(true);
-	}
-	
 	private void onComplete(Actor lastActor) {
 		
 		if(validSwipe) {
@@ -191,8 +185,6 @@ public class SwipeSprite {
 			
 			startSprite = (GameSprite)lastActor;
 			interaction.reset();
-			
-			activate();
 		}
 	
 	}

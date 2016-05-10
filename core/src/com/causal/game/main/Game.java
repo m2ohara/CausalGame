@@ -429,17 +429,17 @@ public class Game extends ApplicationAdapter {
 	private void setTapCount() {
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(3.5f);
+		font.getData().scale(1.5f);
 		skin.add("default", new LabelStyle(font, Color.YELLOW));
 		String value = Integer.toString(GameProperties.get().getTapCount());
 		touchActionCounter = new Label(value, skin);
-		setToStage(touchActionCounter, -70, -250);
+		setToStage(touchActionCounter, -30, -250);
 	}
 	
 	private void setSwipeCount() {
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(3.5f);
+		font.getData().scale(1.5f);
 		skin.add("default", new LabelStyle(font, Color.YELLOW));
 		String value =  Integer.toString(GameProperties.get().getSwipeCount());
 		swipeCounter = new Label(value, skin);

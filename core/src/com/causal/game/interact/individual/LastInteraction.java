@@ -42,6 +42,8 @@ public class LastInteraction implements IIndividualInteraction {
 		//Disable to GameSprite can be hit
 		handSign.setTouchable(Touchable.disabled);
 		GameProperties.get().addActorToStage(handSign);
+		
+		GameProperties.get().swipeSprite.activate();
 	}
 	
 	private void setSelectedInteractee() {
