@@ -44,8 +44,8 @@ public class PlayerState {
 		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER));
 		
 		followers.add(new Follower(Head.GOSSIPER, 1, "sprites/Meep/Gossiper/Default.pack"));
-		followers.add(new Follower(Head.INFLUENCER, 2, "sprites/Meep/Promoter/Default.pack"));
-		followers.add(new Follower(Head.DECEIVER, 3, "sprites/Meep/Deceiver/Default.pack"));
+//		followers.add(new Follower(Head.INFLUENCER, 2, "sprites/Meep/Promoter/Default.pack"));
+//		followers.add(new Follower(Head.DECEIVER, 3, "sprites/Meep/Deceiver/Default.pack"));
 		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
 	}
 

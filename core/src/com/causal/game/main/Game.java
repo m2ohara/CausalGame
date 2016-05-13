@@ -53,7 +53,7 @@ public class Game extends ApplicationAdapter {
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
 	GameGenerator gameGenerator = null;
-	int winAmount = 0;
+//	int winAmount = 0;
 	State winState = null;
 	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
@@ -285,30 +285,30 @@ public class Game extends ApplicationAdapter {
 		String voteType = "";
 		int vType = rand.nextInt(2);
 		if(vType == 0) {
-			voteType = "PASS";
-			winState = State.WIN;
+			voteType = "WHITE";
+			winState = State.SUPPORT;
 			interactionType = new IndividualInteractionType();
 		}
 		else {
-			voteType = "DEFEAT";
-			winState = State.LOSE;
+			voteType = "RED";
+			winState = State.OPPOSE;
 			interactionType = new IndividualInteractionType();
 		}
 		
-		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
-		winAmount = rand.nextInt(amount-8)+7;
+//		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
+//		winAmount = rand.nextInt(amount-8)+7;
 		
 		gameGenerator = new GameGenerator();
-		gameGenerator.setLevelWinAmount(winAmount);
+		gameGenerator.setLevelWinAmount(winState);
 		
 		
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
 		font.getData().scale(1f);
 		skin.add("default", new LabelStyle(font, Color.BLACK));
-		Label label = new Label(""+voteType+" THE BILL", skin);
+		Label label = new Label("GET "+gameGenerator.getLevelWinAmount()+" "+voteType+" VOTES", skin);
 		setToStage(label, 0, 0);
-		Label label2 = new Label("BY "+winAmount+" VOTES TO WIN", skin);
+		Label label2 = new Label("TO WIN THE CROWD", skin);
 		setToStage(label2, 0, -90);
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
@@ -373,7 +373,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void activateGame(List<MoveableSprite> followers, ArrayList<Image> placeHolders) {
 		
-		scoreState = new GameScoreState(winAmount, winState, GameProperties.get().getActorGroup().getChildren().size);
+		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), winState, GameProperties.get().getActorGroup().getChildren().size);
 		
 		//Set dropped followers into game
 		for(MoveableSprite follower : followers) {
@@ -466,12 +466,12 @@ public class Game extends ApplicationAdapter {
 		}
 		
 		
-		if(scoreState.getCurrentState() == GameScoreState.State.WIN) {
+		if(scoreState.getCurrentState() == GameScoreState.State.SUPPORT) {
 			Actor image = getImage("WinSprite", "sprites/textPack");
 			setScoreStateSprite(image);
 
 		}
-		else if(scoreState.getCurrentState() == GameScoreState.State.LOSE) {
+		else if(scoreState.getCurrentState() == GameScoreState.State.OPPOSE) {
 			Actor image = getImage("LoseSprite", "sprites/textPack");
 			setScoreStateSprite(image);
 		}

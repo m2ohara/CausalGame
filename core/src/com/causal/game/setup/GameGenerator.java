@@ -15,6 +15,7 @@ import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.state.FollowerType;
+import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 
 public class GameGenerator {
@@ -22,6 +23,9 @@ public class GameGenerator {
 	public float removalProb;
 	private Vector2 starterCoords;
 	public Random rand;
+	private int supportCount;
+	private int opposeCount;
+	private int levelWinAmount;
 	
 	public GameGenerator() {
 		rand = new Random();
@@ -40,12 +44,15 @@ public class GameGenerator {
 				float rand = crowdSetter.nextFloat();
 				if(rand < 0.33) {
 					current = new GameSprite(Head.GOSSIPER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
+					incrementVoteType(2);
 				}
 				else if(rand >= 0.33 && rand < 0.66) {
 					current = new GameSprite(Head.INFLUENCER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
+					incrementVoteType(0);
 				}
 				else {
 					current = new GameSprite(Head.DECEIVER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
+					incrementVoteType(1);
 				}
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
 					current.interactStatus = Status.SELECTED;
@@ -224,13 +231,35 @@ public class GameGenerator {
 		}
 	}
 	
-	private int levelWinAmount;
-	public void setLevelWinAmount(int levelWinAmount) {
-		this.levelWinAmount = levelWinAmount;
-	}
-	
 	private void setRemovalProb() {
 		removalProb = ((float)((PlayerState.get().getLevel() / 2)*2)/10); 
+	}
+	
+	private void incrementVoteType(int type) {
+		if(type == 0 || type == 2) {
+			supportCount += 1;
+		}
+		else if(type == 1 || type == 2) {
+			opposeCount += 1;
+		}
+	}
+	
+	public void setLevelWinAmount(State winState) {
+		
+		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
+		levelWinAmount = winState == State.SUPPORT 
+				? rand.nextInt((amount+PlayerState.get().getLevel())-opposeCount) 
+						: rand.nextInt((amount+PlayerState.get().getLevel())-supportCount);
+	}
+	
+	public void setLevelWinAmount() {
+//		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
+//		levelWinAmount = rand.nextInt(amount-8)+7;		
+	}
+
+	
+	public int getLevelWinAmount() {
+		return levelWinAmount;
 	}
 
 }

@@ -5,7 +5,7 @@ import com.causal.game.setup.VoteGameRules;
 
 public class GameScoreState {
 	
-	public enum State {PLAYING, WIN, LOSE, DRAW, NOTPLAYING, FINISHED}
+	public enum State {PLAYING, SUPPORT, OPPOSE, DRAW, NOTPLAYING, FINISHED}
 	
 	static int totalPoints = 0;
 	private static int touchActionPoints = 4;//TODO: Add to DB

@@ -41,7 +41,7 @@ public class VoteGameRules implements IGameRules {
 		if(currentState != State.FINISHED) {
 			calculateVotes();
 		}
-		else if(currentState == State.WIN || currentState == State.LOSE || currentState == State.DRAW) {
+		else if(currentState == State.SUPPORT || currentState == State.OPPOSE || currentState == State.DRAW) {
 			currentState = State.NOTPLAYING;
 		}
 		
@@ -88,22 +88,22 @@ public class VoteGameRules implements IGameRules {
 	private void setGameState(int forVotes, int againstVotes) {
 		
 		if(currentState == State.PLAYING) {
-			if(winState == State.WIN) {
+			if(winState == State.SUPPORT) {
 	
 				if(forVotes >= winVotes) {
-					currentState =  State.WIN;
+					currentState =  State.SUPPORT;
 				}
 				else if((totalVotes - (forVotes + againstVotes)) < (winVotes - forVotes)) {
-					currentState =  State.LOSE;
+					currentState =  State.OPPOSE;
 				}
 				endState = currentState;
 			}
-			else if(winState == State.LOSE) {
+			else if(winState == State.OPPOSE) {
 				if(againstVotes >= winVotes) {
-					currentState =  State.WIN;
+					currentState =  State.SUPPORT;
 				}
 				else if((totalVotes - (forVotes + againstVotes)) < (winVotes - againstVotes)) {
-					currentState =  State.LOSE;
+					currentState =  State.OPPOSE;
 				}
 				endState = currentState;
 			}
@@ -115,10 +115,10 @@ public class VoteGameRules implements IGameRules {
 	}
 	
 	private void updateRemainingVotes(int forVotes, int againstVotes) {
-		if(winState == State.WIN) {
+		if(winState == State.SUPPORT) {
 			remainingVotes = winVotes - forVotes;
 		}
-		else if(winState == State.LOSE) {
+		else if(winState == State.OPPOSE) {
 			remainingVotes = winVotes - againstVotes;
 		}
 	}
@@ -142,16 +142,16 @@ public class VoteGameRules implements IGameRules {
 	private State endState = null;
 	private int endScore = 0;
 	private void setEndScore(int forVotes, int againstVotes) {
-		if(winState == State.WIN) {
-			if(endState == State.WIN) {
+		if(winState == State.SUPPORT) {
+			if(endState == State.SUPPORT) {
 				endScore = scoreWinMultiplier * forVotes;
 			}
 			else {
 				endScore = scoreLoseMultiplier * forVotes;
 			}
 		}
-		else if(winState == State.LOSE) {
-			if(endState == State.WIN) {
+		else if(winState == State.OPPOSE) {
+			if(endState == State.SUPPORT) {
 				endScore = scoreWinMultiplier * againstVotes;
 			}
 			else {
