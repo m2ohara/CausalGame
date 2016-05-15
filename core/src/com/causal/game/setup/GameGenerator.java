@@ -23,9 +23,10 @@ public class GameGenerator {
 	public float removalProb;
 	private Vector2 starterCoords;
 	public Random rand;
-	private int supportCount;
-	private int opposeCount;
-	private int levelWinAmount;
+	private int supportCount = 0;
+	private int opposeCount = 0;
+	private int levelWinAmount = 0;
+	private int setWinAmount = 0;
 	
 	public GameGenerator() {
 		rand = new Random();
@@ -239,17 +240,32 @@ public class GameGenerator {
 		if(type == 0 || type == 2) {
 			supportCount += 1;
 		}
-		else if(type == 1 || type == 2) {
+		if(type == 1 || type == 2) {
 			opposeCount += 1;
 		}
 	}
 	
 	public void setLevelWinAmount(State winState) {
 		
+		rand = new Random();
+		rand.setSeed(rand.hashCode());
+		setWinAmount++;
 		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
-		levelWinAmount = winState == State.SUPPORT 
-				? rand.nextInt((amount+PlayerState.get().getLevel())-opposeCount) 
-						: rand.nextInt((amount+PlayerState.get().getLevel())-supportCount);
+		levelWinAmount = rand.nextInt(amount+PlayerState.get().getLevel())+amount/2;
+		
+		Gdx.app.log("GameGenerator", "Win state "+winState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
+		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.log("GameGenerator", "Level win amount"+levelWinAmount);
+		
+		if(setWinAmount < 100) {
+			if(winState == State.SUPPORT && levelWinAmount > supportCount) {
+				setLevelWinAmount(winState);
+			}
+			if(winState == State.OPPOSE && levelWinAmount > opposeCount) {
+				setLevelWinAmount(winState);
+			}
+			else return;
+		}
 	}
 	
 	public void setLevelWinAmount() {

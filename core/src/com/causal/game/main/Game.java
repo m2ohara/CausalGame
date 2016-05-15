@@ -295,10 +295,12 @@ public class Game extends ApplicationAdapter {
 			interactionType = new IndividualInteractionType();
 		}
 		
-//		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
-//		winAmount = rand.nextInt(amount-8)+7;
+		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 		
 		gameGenerator = new GameGenerator();
+		
+		gameGenerator.populateFullCrowdScreen();
+		
 		gameGenerator.setLevelWinAmount(winState);
 		
 		
@@ -312,7 +314,6 @@ public class Game extends ApplicationAdapter {
 		setToStage(label2, 0, -90);
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
-		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 	}
 	
 	private void setCrowdScreen() {
@@ -320,9 +321,6 @@ public class Game extends ApplicationAdapter {
 		Actor screen = getImage("GameScreen", "screens/screensPack");
 		screen.setTouchable(Touchable.disabled);
 		setToStage(screen, 0, 0);
-		
-
-		gameGenerator.populateFullCrowdScreen();
 		
 		GameProperties.get().addActorToStage(GameProperties.get().getActorGroup());
 		
