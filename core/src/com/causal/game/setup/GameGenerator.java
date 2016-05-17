@@ -36,18 +36,16 @@ public class GameGenerator {
 	public void populateFullCrowdScreen() {
 		
 		List<FollowerType> types = PlayerState.get().getFollowerTypes();
-		Random crowdSetter = new Random();
-		int starterX = crowdSetter.nextInt(WorldSystem.get().getSystemWidth()-1);
 		starterCoords = new Vector2(starterX, WorldSystem.get().getSystemHeight()-1);
 		for(int x = 0; x < WorldSystem.get().getSystemWidth(); x++) {
 			for(int y = 0; y < WorldSystem.get().getSystemHeight(); y++) {
 				GameSprite current = null;
-				float rand = crowdSetter.nextFloat();
-				if(rand < 0.33) {
+				setCrowdProperties();
+				if(followerTypeProb < 0.33) {
 					current = new GameSprite(Head.GOSSIPER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
 					incrementVoteType(2);
 				}
-				else if(rand >= 0.33 && rand < 0.66) {
+				else if(followerTypeProb >= 0.33 && followerTypeProb < 0.66) {
 					current = new GameSprite(Head.INFLUENCER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
 					incrementVoteType(0);
 				}
@@ -70,6 +68,13 @@ public class GameGenerator {
 		
 //		populateLevelCrowdScreen();
 		setCrowdValidDirections();
+	}
+	
+	protected float followerTypeProb;
+	protected int starterX = -1;
+	public void setCrowdProperties() {
+		starterX = starterX == -1 ? rand.nextInt(WorldSystem.get().getSystemWidth()-1) : starterX;
+		followerTypeProb = rand.nextFloat();
 	}
 	
 	public void populateLevelCrowdScreen() {
@@ -132,7 +137,7 @@ public class GameGenerator {
 		
 		
 		GameMember current = startMember;
-//		System.out.println("Start "+current.coords.x+" "+current.coords.y);
+		Gdx.app.debug("GameGenerator", "Start "+current.coords.x+" "+current.coords.y);
 		int foundMembers = 1;
 		boolean startingPlacement = true;
 		int neighbourIdx = 0;
@@ -142,7 +147,7 @@ public class GameGenerator {
 			if(current.isFound == false) {
 //				Get neighbours, set current as found
 				current.isFound = true;
-//				System.out.println("Found "+current.coords.x+" "+current.coords.y);
+				Gdx.app.debug("GameGenerator", "Found "+current.coords.x+" "+current.coords.y);
 				foundMembers++;
 				neighbourIdx = 0;
 			}
@@ -153,7 +158,7 @@ public class GameGenerator {
 					break;
 				}
 				current = current.parentMember;
-//				System.out.println("Backtracking to "+current.coords.x+" "+current.coords.y);
+				Gdx.app.debug("GameGenerator", "Backtracking to "+current.coords.x+" "+current.coords.y);
 				neighbourIdx = 0;
 			}
 			else {
@@ -161,7 +166,7 @@ public class GameGenerator {
 				if(current.neighbours.get(neighbourIdx).isFound == false) {
 					GameMember parent = current;
 					current = current.neighbours.get(neighbourIdx);
-//					System.out.println("Checking "+current.coords.x+" "+current.coords.y);
+					Gdx.app.debug("GameGenerator", "Checking "+current.coords.x+" "+current.coords.y);
 					current.parentMember = parent;
 				}
 				neighbourIdx++;
@@ -176,7 +181,7 @@ public class GameGenerator {
 		
 		gameMembers.clear();
 		
-//		System.out.println("Is valid "+isValid);
+		Gdx.app.debug("GameGenerator", "Is valid "+isValid);
 		return isValid;
 	}
 	
@@ -253,9 +258,9 @@ public class GameGenerator {
 		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
 		levelWinAmount = rand.nextInt(amount+PlayerState.get().getLevel())+amount/2;
 		
-		Gdx.app.log("GameGenerator", "Win state "+winState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
-		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
-		Gdx.app.log("GameGenerator", "Level win amount"+levelWinAmount);
+		Gdx.app.debug("GameGenerator", "Win state "+winState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
+		Gdx.app.debug("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.debug("GameGenerator", "Level win amount"+levelWinAmount);
 		
 		if(setWinAmount < 100) {
 			if(winState == State.SUPPORT && levelWinAmount > supportCount) {
@@ -267,12 +272,6 @@ public class GameGenerator {
 			else return;
 		}
 	}
-	
-	public void setLevelWinAmount() {
-//		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
-//		levelWinAmount = rand.nextInt(amount-8)+7;		
-	}
-
 	
 	public int getLevelWinAmount() {
 		return levelWinAmount;
