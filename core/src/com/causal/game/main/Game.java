@@ -38,6 +38,7 @@ import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
+import com.causal.game.tutorial.TutorialGenerator;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -297,7 +298,7 @@ public class Game extends ApplicationAdapter {
 		
 		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 		
-		gameGenerator = new GameGenerator();
+		gameGenerator = new TutorialGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		
@@ -391,7 +392,7 @@ public class Game extends ApplicationAdapter {
 		
 		//Activate crowd members
 		for(GameSprite actor : GameProperties.get().getGameSprites()) {
-			actor.setBehaviour(interactionType);
+			actor.activate(interactionType);
 		}
 		
 		//Set remaining votes icon

@@ -2,10 +2,9 @@ package com.causal.game.touch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Observer;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.Interactee;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
@@ -15,7 +14,7 @@ import com.causal.game.main.WorldSystem.Orientation;
 public class SpriteOrientation {
 	
 	private ArrayList<Orientation> validDirections;
-	private Orientation orientation;
+	protected Orientation orientation;
 	private Random rand = new Random();
 	private int xGameCoord;
 	private int yGameCoord;
@@ -81,7 +80,7 @@ public class SpriteOrientation {
 	private void setNextOrientation() {
 		int index = validDirections.indexOf(orientation)+1 == validDirections.size() ? 0 : validDirections.indexOf(orientation)+1;
 		orientation = this.validDirections.get(index);
-//		System.out.println("Switching orientation to "+orientation+" at idx "+index);
+		Gdx.app.debug("SpriteOrientation", "Switching orientation to "+orientation+" at idx "+index);
 	}
 	
 	private boolean isValidInteractee() {

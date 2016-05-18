@@ -27,6 +27,8 @@ public class GameGenerator {
 	private int opposeCount = 0;
 	private int levelWinAmount = 0;
 	private int setWinAmount = 0;
+	protected float followerTypeProb;
+	protected int starterX = -1;
 	
 	public GameGenerator() {
 		rand = new Random();
@@ -42,15 +44,15 @@ public class GameGenerator {
 				GameSprite current = null;
 				setCrowdProperties();
 				if(followerTypeProb < 0.33) {
-					current = new GameSprite(Head.GOSSIPER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
+					current = setGameSprite(Head.GOSSIPER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
 					incrementVoteType(2);
 				}
 				else if(followerTypeProb >= 0.33 && followerTypeProb < 0.66) {
-					current = new GameSprite(Head.INFLUENCER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
+					current = setGameSprite(Head.INFLUENCER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
 					incrementVoteType(0);
 				}
 				else {
-					current = new GameSprite(Head.DECEIVER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
+					current = setGameSprite(Head.DECEIVER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
 					incrementVoteType(1);
 				}
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
@@ -70,11 +72,13 @@ public class GameGenerator {
 		setCrowdValidDirections();
 	}
 	
-	protected float followerTypeProb;
-	protected int starterX = -1;
 	public void setCrowdProperties() {
 		starterX = starterX == -1 ? rand.nextInt(WorldSystem.get().getSystemWidth()-1) : starterX;
 		followerTypeProb = rand.nextFloat();
+	}
+	
+	public GameSprite setGameSprite(Head type, float x, float y, String framesPath, boolean isActive) {
+		return new GameSprite(type, x, y, framesPath, isActive);
 	}
 	
 	public void populateLevelCrowdScreen() {

@@ -19,7 +19,7 @@ public class Interactee {
 			interactee = WorldSystem.get().getMemberFromCoords(
 					xGameCoord + 1,
 					(yGameCoord));
-	//		System.out.println("Member type " + interactor.status
+	//		Gdx.app.debug("Interactee", "Member type " + interactor.status
 	//				+ "  influencing to the right at "
 	//				+ (xGameCoord + 1) + ", "
 	//				+ yGameCoord);
@@ -30,7 +30,7 @@ public class Interactee {
 			interactee = WorldSystem.get().getMemberFromCoords(
 					xGameCoord,
 					(yGameCoord - 1));
-	//		System.out.println("Member type " + interactor.status
+	//		Gdx.app.debug("Interactee", "Member type " + interactor.status
 	//				+ "  influencing above at "
 	//				+ xGameCoord + ", "
 	//				+ (yGameCoord - 1));
@@ -42,20 +42,20 @@ public class Interactee {
 			interactee = WorldSystem.get().getMemberFromCoords(
 					xGameCoord,
 					(yGameCoord + 1));
-	//		System.out.println("Member type " + interactor.status
-	//				+ "  influencing below at "
-	//				+ xGameCoord + ", "
-	//				+ (yGameCoord + 1));
+//			Gdx.app.debug("Interactee", "Member type " + interactor.status
+//					+ "  influencing below at "
+//					+ xGameCoord + ", "
+//					+ (yGameCoord + 1));
 		}
 		if (orientation == Orientation.W
 				&& (xGameCoord - 1) > -1) {
 			interactee = WorldSystem.get().getMemberFromCoords(
 					xGameCoord - 1,
 					(yGameCoord));
-	//		System.out.println("Member type " + interactor.status
-	//				+ " influencing to the left at "
-	//				+ (xGameCoord + 1) + ", "
-	//				+ yGameCoord);
+//			Gdx.app.debug("Interactee", "Member type " + interactee.status
+//					+ " influencing to the left at "
+//					+ (xGameCoord + 1) + ", "
+//					+ yGameCoord);
 		}
 		
 		return interactee;

@@ -43,7 +43,7 @@ public class GameSprite  extends Image {
 	public int scoreStatus = 0;
 	
 	private ArrayList<Orientation> validDirections;
-	private SpriteOrientation changeOrientation;
+	protected SpriteOrientation changeOrientation;
 	
 	public boolean isInteracting = false;
 	private boolean isActing = false;
@@ -96,7 +96,7 @@ public class GameSprite  extends Image {
 		changeOrientation = new SpriteOrientation(getXGameCoord(), getYGameCoord());
 	}
 	
-	public void setBehaviour(IInteractionType manInteraction) {
+	public void activate(IInteractionType manInteraction) {
 		
 		if(type == type.GOSSIPER) {
 			IBehaviourProperties properties = new GossiperProperties();
