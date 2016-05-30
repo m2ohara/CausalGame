@@ -6,9 +6,8 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.causal.game.interact.GenericInteraction;
 import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
@@ -27,46 +26,47 @@ public class OnAnimateTalkingAct implements IOnAct{
 	private float frameLength = 0.2f * GameProperties.get().getUniversalTimeRatio();
 	private float frameTime = frameLength;
 	private int frameCount = 0;
+	private AtlasRegion currentFrame = null;
 	
 	private HashMap<String, Array<AtlasRegion>> animationFrames = new HashMap<String, Array<AtlasRegion>>();
 	private Array<AtlasRegion> frames;
 	
-	private GameSprite actor;
-	
-	private SpriteOrientation changeOrientation;
+	private GenericInteraction interaction;
+	private SpriteOrientation spriteOrientation;
 	private float interactP;
 	private float rotateP;
 	private Random rand = new Random();
 	
-	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, GameSprite actor, SpriteOrientation onRandom) 
+	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, GenericInteraction interaction, SpriteOrientation onRandom, String framesPath) 
 	{
 
 		this.rotateP = rotateProbability;
 		this.interactP = interactProbability;
-		this.actor = actor;
-		this.changeOrientation = onRandom;
+		this.interaction = interaction;
+		this.spriteOrientation = onRandom;
 		
-		frames = new TextureAtlas(Gdx.files.internal(actor.getFramesPath()+"Default.pack")).getRegions();
+		frames = new TextureAtlas(Gdx.files.internal(framesPath+"Default.pack")).getRegions();
+		currentFrame = frames.first();
 		
-		setFramePacks(actor.getFramesPath());
+		setFramePacks(framesPath);
 		
-		this.changeOrientation.onRandomChange();
+		this.spriteOrientation.onRandomChange();
 		changeSpriteOrientation();
 		
 	}
 
 	@Override
-	public void performActing(float delta) {
+	public void performActing(float delta, Status interactStatus, boolean isInteracting) {
 		
 		//Change actor's orientation
 		if(animateStateTime >= animateStateLength) {
 			animateStateTime = 0.0f;		
-			setFrame();
+			setFrame(interactStatus);
 		}
 		
 		//Animate frames for current direction
 		if(animateStateTime < animateStateLength) {
-			updateSprite(delta, actor);
+			updateSprite(delta);
 		}
 		
 		//Attempt interaction
@@ -76,7 +76,7 @@ public class OnAnimateTalkingAct implements IOnAct{
 		}
 		
 		//If not interacting increment states
-		if(!actor.isInteracting && actor.interactorType == InteractorType.None) {
+		if(!isInteracting) {
 			animateStateTime += delta;
 			attemptInteractStateTime += delta;
 		}
@@ -87,7 +87,7 @@ public class OnAnimateTalkingAct implements IOnAct{
 		
 	}
 	
-	private void updateSprite(float delta, GameSprite actor) {
+	private void updateSprite(float delta) {
 	
 		if(frameTime >= frameLength) {
 			frameTime = 0.0f;
@@ -96,22 +96,23 @@ public class OnAnimateTalkingAct implements IOnAct{
 				frameCount = 0;
 			}
 			
-			actor.setDrawable(new TextureRegionDrawable(new TextureRegion(frames.get(frameCount++))));
+			currentFrame = frames.get(frameCount++);
 			
 		}
 		
 		frameTime += delta;
 	}
+	
 	private void attemptAutonomousInteraction() {
 		Random rand = new Random();
 		if(rand.nextFloat() < this.interactP) {
-			actor.interaction.interact(actor, GameProperties.get().getActorGroup(), changeOrientation.getOrientation());
+			interaction.interact(spriteOrientation.getOrientation());
 			
 		}
 	}
 	
 	private void continueAutonomousInteraction() {
-		actor.interaction.interact(actor, GameProperties.get().getActorGroup(), changeOrientation.getOrientation());
+		interaction.interact(spriteOrientation.getOrientation());
 	}
 	
 	private void setFramePacks(String framesPath) {
@@ -132,10 +133,10 @@ public class OnAnimateTalkingAct implements IOnAct{
 		animationFrames.put("TalkBelow", talkBelow);
 	}
 	
-	public void setFrame() {
+	private void setFrame(Status interactStatus) {
 		//Based on rotation probability
-		if(actor.interactStatus == Status.INFLUENCED && rand.nextFloat() < this.rotateP) {
-			this.changeOrientation.onCyclicChange();
+		if(interactStatus == Status.INFLUENCED && rand.nextFloat() < this.rotateP) {
+			this.spriteOrientation.onCyclicChange();
 			changeSpriteOrientation();
 		}
 		
@@ -144,18 +145,23 @@ public class OnAnimateTalkingAct implements IOnAct{
 	@Override
 	public void changeSpriteOrientation() {
 		
-		if(changeOrientation.getOrientation() == Orientation.N) {
+		if(spriteOrientation.getOrientation() == Orientation.N) {
 			frames = animationFrames.get("TalkAbove");
 		}
-		else if(changeOrientation.getOrientation() == Orientation.E) {
+		else if(spriteOrientation.getOrientation() == Orientation.E) {
 			frames = animationFrames.get("TalkRight");
 		}
-		else if(changeOrientation.getOrientation() == Orientation.W) {
+		else if(spriteOrientation.getOrientation() == Orientation.W) {
 			frames = animationFrames.get("TalkLeft");
 		}
-		else if(changeOrientation.getOrientation() == Orientation.S) {
+		else if(spriteOrientation.getOrientation() == Orientation.S) {
 			frames = animationFrames.get("TalkBelow");
 		}
+	}
+
+	@Override
+	public AtlasRegion getCurrentFrame() {
+		return currentFrame;
 	}
 
 }

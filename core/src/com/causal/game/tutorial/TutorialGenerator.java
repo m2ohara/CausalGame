@@ -10,9 +10,17 @@ import com.causal.game.setup.GameGenerator;
 
 public class TutorialGenerator extends GameGenerator {
 	
-	private int idx = 0;
-	private List<Float> followerTypeProbList = Arrays.asList(new Float(0.1), new Float(1), new Float(0.34), new Float(0.1), new Float(0.34), new Float(1), new Float(0.1), new Float(0.34), new Float(1));
+	private static final double YELLOW = 0.1;
+	private static final double RED = 1;
+	private static final double BLUE = 0.34;
+	
 	private int orientationIdx = -1;
+	private int idx = 0;
+	private List<Float> followerTypeProbList = Arrays.asList(
+			new Float(YELLOW), new Float(RED), new Float(BLUE), 
+			new Float(YELLOW), new Float(BLUE), new Float(RED), 
+			new Float(YELLOW), new Float(BLUE), new Float(RED));
+
 	private List<Orientation> orientations = Arrays.asList(
 			Orientation.N, Orientation.S, Orientation.N, 
 			Orientation.E, Orientation.S, Orientation.E, 

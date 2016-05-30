@@ -66,7 +66,7 @@ public class SwipeInteractSprite extends Image{
 	
 	public void setAction() {
 		//If first interaction
-		if(interactor.interactorType == InteractorType.First) {
+		if(interactor.interactorType == InteractorType.FIRST) {
 			startFirstInteraction();
 		}
 		
@@ -115,7 +115,7 @@ public class SwipeInteractSprite extends Image{
 	
 	private void setInteractor() {
 		interactor.behaviour.changeOrientation();
-		interactor.interactorType = InteractorType.None;
+		interactor.interactorType = InteractorType.NONE;
 		interactor.isInteracting = false;
 	}
 	

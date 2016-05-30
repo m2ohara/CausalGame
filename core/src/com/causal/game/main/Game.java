@@ -38,9 +38,10 @@ import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
+import com.causal.game.tutorial.TutorialGenerator;
 
 public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
+	
 	Texture background;
 	OrthographicCamera camera;
 	private boolean isAndroid = false;
@@ -80,8 +81,6 @@ public class Game extends ApplicationAdapter {
 
 		plState = PlayerState.get();
 		plState.loadDummy();
-		
-		batch = new SpriteBatch();
 		
 		stage = setView();
 		
@@ -127,12 +126,8 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		
 		if(!isAssetsLoaded) { loadAssets();}
-		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
+
 		GameProperties.get().renderStage();
-		batch.end();
 		
 		if(scoreState != null && scoreState.getCurrentState() != State.FINISHED) {
 			updateScoreState();

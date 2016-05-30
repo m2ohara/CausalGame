@@ -83,17 +83,17 @@ public class SwipeInteraction {
 		if(interactee.interactStatus == Status.NEUTRAL) {
 			
 			interactee.interactStatus = Status.INFLUENCED;
-			interactee.interactorType = InteractorType.Last;
+			interactee.interactorType = InteractorType.LAST;
 			
 			if(firstInteraction == null) {
 				Gdx.app.debug("SwipeInteraction","Assigning first interaction");
-				interactor.interactorType = InteractorType.First;
+				interactor.interactorType = InteractorType.FIRST;
 				firstInteraction = new SwipeInteractSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 			else {
 				Gdx.app.debug("SwipeInteraction","Assigning next interaction");
 				interactor.interactStatus = Status.INFLUENCED;
-				interactor.interactorType = InteractorType.Intermediate;
+				interactor.interactorType = InteractorType.INTERMEDIATE;
 				new SwipeInteractSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 

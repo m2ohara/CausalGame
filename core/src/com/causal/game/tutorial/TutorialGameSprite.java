@@ -15,7 +15,7 @@ public class TutorialGameSprite extends GameSprite{
 	}
 	
 	public void setValidOrientations() {
-		changeOrientation = new TutorialSpriteOrientation(getXGameCoord(), getYGameCoord(), orientation);
+		spriteOrientation = new TutorialSpriteOrientation(getXGameCoord(), getYGameCoord(), orientation);
 	}
 
 }

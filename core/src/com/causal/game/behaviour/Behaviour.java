@@ -1,16 +1,15 @@
 package com.causal.game.behaviour;
 
-import java.util.ArrayList;
-
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.touch.SpriteOrientation;
 import com.causal.game.touch.TouchAction;
 
-public class Behaviour implements ISpriteBehaviour {
+public class Behaviour {
 
 	//Members
 	private boolean isActive = true;
@@ -23,6 +22,7 @@ public class Behaviour implements ISpriteBehaviour {
 		
 		this.isActive = isActive;
 		this.actType = onAct;
+//		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), this, changeOrientation);
 		this.onTouch = touchAction;
 		
 		this.changeOrientation = changeOrientation;
@@ -30,8 +30,6 @@ public class Behaviour implements ISpriteBehaviour {
 	}
 	
 
-	
-	@Override
 	public void onTouch() {
 		
 //		if(isActive) {
@@ -44,18 +42,15 @@ public class Behaviour implements ISpriteBehaviour {
 		
 	}
 
-	@Override
-	public void onAct(float delta, GameSprite actor, ArrayList<Orientation> invalidDirections) {
+	public void onAct(float delta, Status actorStatus, boolean isInteracting) {
 		
 		if(isActive) {
-			
-			actType.performActing(delta);		
+			actType.performActing(delta, actorStatus, isInteracting);		
 		}
 		
 	}
 	
 	//Orientation logic
-	@Override
 	public Orientation getOrientation() {
 		return changeOrientation.getOrientation();
 	}
@@ -75,5 +70,9 @@ public class Behaviour implements ISpriteBehaviour {
 	
 	public InfluenceType getInfluenceType() {
 		return properties.getInfluenceType();
+	}
+	
+	public AtlasRegion getCurrentFrame() {
+		return actType.getCurrentFrame();
 	}
 }

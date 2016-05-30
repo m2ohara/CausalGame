@@ -22,22 +22,22 @@ public class IndividualInteraction implements IInteractionType {
 	}
 	
 	private void setInteraction() {
-		if(interactor.interactorType == InteractorType.First && interactor.influenceType == InfluenceType.NONE) {
+		if(interactor.interactorType == InteractorType.FIRST && interactor.influenceType == InfluenceType.NONE) {
 			Gdx.app.debug("IndividualInteraction", "Setting first interaction for interactor "+interactor.hashCode());
 			interactorInteraction = new FirstInteraction(interactor);
 		}
 		
-		if(interactor.interactorType == InteractorType.Intermediate && interactor.influenceType == InfluenceType.NONE) {
+		if(interactor.interactorType == InteractorType.INTERMEDIATE && interactor.influenceType == InfluenceType.NONE) {
 			Gdx.app.debug("IndividualInteraction", "Setting intermediate interaction for interactor "+interactor.hashCode());
 			interactorInteraction = new IntermediateInteraction(interactor, interactor.behaviour.getInfluenceType());
 		}
 		
-		if(interactee.interactorType == InteractorType.Intermediate && interactee.influenceType == InfluenceType.NONE) {
+		if(interactee.interactorType == InteractorType.INTERMEDIATE && interactee.influenceType == InfluenceType.NONE) {
 			Gdx.app.debug("IndividualInteraction", "Setting intermediate interaction for interactee "+interactee .hashCode());
 			interacteeInteraction = new IntermediateInteraction(interactee, interactor.behaviour.getInfluenceType());
 		}
 		
-		if(interactee.interactorType == InteractorType.Last && interactee.influenceType == InfluenceType.NONE) {
+		if(interactee.interactorType == InteractorType.LAST && interactee.influenceType == InfluenceType.NONE) {
 			Gdx.app.debug("IndividualInteraction", "Setting last interaction for interactee "+interactee.hashCode());
 			interacteeInteraction = new LastInteraction(interactee, interactor.behaviour.getInfluenceType());
 		}

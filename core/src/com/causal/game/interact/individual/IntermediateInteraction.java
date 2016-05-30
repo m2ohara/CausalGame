@@ -20,7 +20,7 @@ public class IntermediateInteraction implements IIndividualInteraction {
 	}
 	
 	public void setStatus() {
-		if(interactor.interactorType == InteractorType.Intermediate){
+		if(interactor.interactorType == InteractorType.INTERMEDIATE){
 			//Set interactee to interactor's influence type
 
 			Gdx.app.debug("IntermediateInteraction","Setting intermediate interactee influence: "+interactor.influenceType);

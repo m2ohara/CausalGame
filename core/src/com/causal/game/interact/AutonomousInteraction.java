@@ -1,16 +1,16 @@
 package com.causal.game.interact;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem.Orientation;
 
 public class AutonomousInteraction {
 	
-	public IInteraction interactionBehaviour = null;
+	public IInteraction interactionBehaviour;
+	public GameSprite interactor;
 
-	public void interact(GameSprite interactor, Group actorGroup, Orientation orientation) {
+	public void interact(Orientation orientation) {
 //		System.out.println("Interactor with status "+interactor.interactStatus);
 		// As long as interactor isn't neutral
 		if (interactor.interactStatus == Status.INFLUENCED) {
@@ -65,14 +65,14 @@ public class AutonomousInteraction {
 
 			// Perform interaction
 			if (interactee != null) {
-				interact(interactor, interactee);
+				interact(interactee);
 			}
 
 		}
 
 	}
 
-	protected void interact(GameSprite interactor, GameSprite interactee) {
+	protected void interact(GameSprite interactee) {
 
 		if (this.interactionBehaviour != null) {
 			this.interactionBehaviour.interact(interactor, interactee);

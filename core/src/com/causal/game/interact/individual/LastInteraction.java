@@ -24,7 +24,7 @@ public class LastInteraction implements IIndividualInteraction {
 	}
 	
 	public void setStatus() {
-		if(interactor.interactorType == InteractorType.Last && interactor.influenceType == InfluenceType.NONE){
+		if(interactor.interactorType == InteractorType.LAST && interactor.influenceType == InfluenceType.NONE){
 			interactor.interactStatus = Status.SELECTED;
 			interactor.changeOrientationOnInvalid();
 			setSelectedInteractee();

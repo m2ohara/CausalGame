@@ -21,7 +21,7 @@ public class FirstInteraction implements IIndividualInteraction {
 	
 	public void setStatus() {
 		//If first
-		if(interactor.interactorType == InteractorType.First && !isStatusSet) {
+		if(interactor.interactorType == InteractorType.FIRST && !isStatusSet) {
 			if(interactor.influenceType == InfluenceType.NONE){
 				Gdx.app.debug("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
 				interactor.influenceType = (interactor.behaviour.getInfluenceType());

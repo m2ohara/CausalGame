@@ -32,7 +32,7 @@ public class IndividualInteractionType implements IInteractionType {
 	//Swipe interaction
 	public void setStatus() {
 		//If first
-		if(interactor.interactorType == InteractorType.First) {
+		if(interactor.interactorType == InteractorType.FIRST) {
 			if(interactor.interactStatus != Status.INFLUENCED){
 				interactor.influenceType = (interactor.behaviour.getInfluenceType());
 				interactor.interactStatus = Status.INFLUENCED;
@@ -43,13 +43,13 @@ public class IndividualInteractionType implements IInteractionType {
 			System.out.println("Setting first interactor status: "+interactor.interactStatus);
 		}
 		//If intermediate
-		else if(interactor.interactorType == InteractorType.Intermediate && interactee.interactorType == InteractorType.Intermediate){
+		else if(interactor.interactorType == InteractorType.INTERMEDIATE && interactee.interactorType == InteractorType.INTERMEDIATE){
 			//Set interactee to interactor's influence type
 			interactor.influenceType = (interactor.behaviour.getInfluenceType());
 			interactor.interactStatus = Status.INFLUENCED;
 			System.out.println("Setting intermediate interactee status: "+interactee.interactStatus);
 		}
-		else if(interactee.interactorType == InteractorType.Last){
+		else if(interactee.interactorType == InteractorType.LAST){
 			//If last
 			interactor.influenceType = (interactor.behaviour.getInfluenceType());
 			interactee.interactStatus = Status.SELECTED;
@@ -70,10 +70,10 @@ public class IndividualInteractionType implements IInteractionType {
 	}
 	
 	public void setInfluencedSprite() {
-		if(interactor.interactorType == InteractorType.Intermediate && interactee.interactorType == InteractorType.Intermediate) {
+		if(interactor.interactorType == InteractorType.INTERMEDIATE && interactee.interactorType == InteractorType.INTERMEDIATE) {
 			setIntermediateInfluencedSprite();
 		}
-		else if(interactee.interactorType == InteractorType.Last) {
+		else if(interactee.interactorType == InteractorType.LAST) {
 			setLastInfluencedSprite();
 		}
 
