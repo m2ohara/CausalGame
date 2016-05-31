@@ -3,6 +3,7 @@ package com.causal.game.behaviour;
 import java.util.Random;
 
 import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.state.PlayerState;
 
 
 public class GossiperProperties implements IBehaviourProperties {
@@ -23,6 +24,9 @@ public class GossiperProperties implements IBehaviourProperties {
 	}
 	public InfluenceType getInfluenceType() {
 		return InfluenceType.values()[rand.nextInt(2)];
+	}
+	public String getFramesPath() {
+		return PlayerState.get().getFollowerTypes().get(0).getImagePath();
 	}
 
 }

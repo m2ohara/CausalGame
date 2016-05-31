@@ -15,8 +15,8 @@ import com.causal.game.behaviour.Behaviour;
 import com.causal.game.behaviour.DeceiverProperties;
 import com.causal.game.behaviour.GossiperProperties;
 import com.causal.game.behaviour.IBehaviourProperties;
+import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.behaviour.PromoterProperties;
-import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.interact.DeceiverAutonomousBehaviour;
 import com.causal.game.interact.GenericInteraction;
 import com.causal.game.interact.GossiperAutonomousBehaviour;
@@ -33,7 +33,7 @@ import com.causal.game.touch.SpriteOrientation;
 public class GameSprite  extends Image {
 	
 	public Behaviour behaviour;
-//	public AutonomousInteraction interaction;
+	public ISpriteBehaviour spriteBehaviour;
 	
 	public float startingX;
 	public float startingY;
@@ -43,7 +43,6 @@ public class GameSprite  extends Image {
 	public InteractorType interactorType = InteractorType.NONE;
 	public int scoreStatus = 0;
 	
-	private ArrayList<Orientation> validDirections;
 	protected SpriteOrientation spriteOrientation;
 	
 	public boolean isInteracting = false;
@@ -93,8 +92,35 @@ public class GameSprite  extends Image {
 		this.type = type;
 	}
 	
+	public GameSprite(ISpriteBehaviour spriteBehaviour, float x, float y, String framesPath, boolean isActive) {
+		super(new TextureAtlas(Gdx.files.internal(framesPath+defaultPack)).getRegions().get(0));
+
+		//Centre origin in frame for rotation;
+		TextureRegion currentFrame  = new TextureAtlas(Gdx.files.internal(framesPath+defaultPack)).getRegions().get(0);
+		this.setOrigin(currentFrame.getRegionWidth()/2, currentFrame.getRegionHeight()/2);
+		this.setPosition(x, y);
+		
+		float scaleFactor = WorldSystem.get().getLevelScaleFactor();
+		this.setScale(scaleFactor);
+		
+		this.startingX = x;
+		this.startingY = y;
+		this.framesPath = framesPath;
+		this.type = type;
+	}
+	
 	public void setValidOrientations() {
 		spriteOrientation = new SpriteOrientation(getXGameCoord(), getYGameCoord());
+	}
+	
+	public void create(IInteractionType interactionType) {
+		
+		behaviour = spriteBehaviour.create(interactionType, getXGameCoord(), getYGameCoord(), isActive, this);
+		
+		//Refactor into Behaviour
+		setTouchAction();
+
+		this.isActing = true;
 	}
 	
 	public void activate(IInteractionType manInteraction) {

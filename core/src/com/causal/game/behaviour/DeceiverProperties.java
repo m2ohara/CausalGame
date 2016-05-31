@@ -1,6 +1,7 @@
 package com.causal.game.behaviour;
 
 import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.state.PlayerState;
 
 public class DeceiverProperties implements IBehaviourProperties {
 	
@@ -27,6 +28,10 @@ public class DeceiverProperties implements IBehaviourProperties {
 	@Override
 	public InfluenceType getInfluenceType() {
 		return influenceType;
+	}
+	
+	public String getFramesPath() {
+		return PlayerState.get().getFollowerTypes().get(2).getImagePath();
 	}
 
 }

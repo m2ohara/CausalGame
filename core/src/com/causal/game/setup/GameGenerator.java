@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.causal.game.behaviour.GossiperBehaviour;
+import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.Game.Head;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
@@ -78,6 +80,10 @@ public class GameGenerator {
 	}
 	
 	public GameSprite setGameSprite(Head type, float x, float y, String framesPath, boolean isActive) {
+		return new GameSprite(type, x, y, framesPath, isActive);
+	}
+	
+	public GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {
 		return new GameSprite(type, x, y, framesPath, isActive);
 	}
 	

@@ -132,7 +132,7 @@ public class MoveableSprite
 				Gdx.app.debug("MoveableSprite","Dropped at " + x + ", " + y);
 
 				//Hide original drop target if displayed
-				hidePlaceholderTarget();
+//				hidePlaceholderTarget();
 				
 				//Set dragActor new source coordinates
 				resetLocation(getActor().getX(), getActor().getY(), true);
@@ -156,16 +156,16 @@ public class MoveableSprite
 				
 				Gdx.app.debug("MoveableSprite","Accepted: " + payload.getObject() + " " + x + ", " + y);
 				
-				hidePlaceholderTarget();
+//				setPlaceholderTarget();
 				
 				resetLocation(origX, origY, false);
 			}
 		});
 	}
-	
-	private void hidePlaceholderTarget() {
+	//TOOO: Resolve issue of covering unused sprites
+	private void setPlaceholderTarget() {
 		if(isPlaceholderActive) {
-			placeholderImage.toBack();
+			placeholderImage.toBack();;
 			placeholderImage.setTouchable(Touchable.disabled);
 		}
 	}

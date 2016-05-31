@@ -9,8 +9,8 @@ import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.OpposerInteractionType;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
-import com.causal.game.main.WorldSystem;
 import com.causal.game.main.GameSprite.Status;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.state.GameScoreState;
 

@@ -2,6 +2,7 @@ package com.causal.game.behaviour;
 
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.Status;
+import com.causal.game.state.PlayerState;
 
 public class PromoterProperties implements IBehaviourProperties {
 
@@ -28,6 +29,10 @@ public class PromoterProperties implements IBehaviourProperties {
 	@Override
 	public InfluenceType getInfluenceType() {
 		return influenceType;
+	}
+	
+	public String getFramesPath() {
+		return PlayerState.get().getFollowerTypes().get(1).getImagePath();
 	}
 
 }

@@ -332,7 +332,7 @@ public class Game extends ApplicationAdapter {
 		List<FollowerType> types = plState.getFollowerTypes();
 		
 		for(int i = 0; i < types.size(); i++) {
-			Image placeHolder = createTargetImage(types.get(i).imagePath+"Default.pack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
+			Image placeHolder = (Image)createTargetImage("icons/iconsPack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
 			placeHolders.add(placeHolder);
 			for(Follower follower : plFollowers) {
 				if(follower.type.head == types.get(i).head) {
@@ -353,9 +353,8 @@ public class Game extends ApplicationAdapter {
 		});
 	}
 	
-	private Image createTargetImage(String framesPath, float origX, float origY) {
-		Image targetImage = new Image(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
-		targetImage.setColor(Color.CYAN);
+	private Actor createTargetImage(String framesPath, float origX, float origY) {
+		Actor targetImage = getImage("ExpressionBox", framesPath);
 		targetImage.setPosition(origX, origY);
 		targetImage.setScale(WorldSystem.get().getLevelScaleFactor());
 		GameProperties.get().addActorToStage(targetImage);

@@ -2,6 +2,8 @@ package com.causal.game.behaviour;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
+import com.causal.game.act.OnAnimateTalkingAct;
+import com.causal.game.interact.GenericInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.Status;
@@ -15,17 +17,26 @@ public class Behaviour {
 	private boolean isActive = true;
 	private TouchAction onTouch;
 	public IOnAct actType;
-	private SpriteOrientation changeOrientation;
+	private SpriteOrientation spriteOrientation;
 	private IBehaviourProperties properties;
 	
 	public Behaviour(boolean isActive, IOnAct onAct, TouchAction touchAction, IBehaviourProperties properties, SpriteOrientation changeOrientation) {
 		
 		this.isActive = isActive;
 		this.actType = onAct;
-//		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), this, changeOrientation);
 		this.onTouch = touchAction;
 		
-		this.changeOrientation = changeOrientation;
+		this.spriteOrientation = changeOrientation;
+		this.properties = properties;
+	}
+	
+	public Behaviour(boolean isActive, GenericInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, SpriteOrientation spriteOrientation) {
+		
+		this.isActive = isActive;
+		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
+		this.onTouch = touchAction;
+		
+		this.spriteOrientation = spriteOrientation;
 		this.properties = properties;
 	}
 	
@@ -35,7 +46,7 @@ public class Behaviour {
 //		if(isActive) {
 ////			onTouch.onAction();
 //		}
-		if(GameProperties.get().isTapAllowed(this.hashCode()) && changeOrientation.cyclicChange()) {
+		if(GameProperties.get().isTapAllowed(this.hashCode()) && spriteOrientation.cyclicChange()) {
 			actType.changeSpriteOrientation();
 			GameProperties.get().updateTapCount(this.hashCode());
 		}
@@ -52,11 +63,11 @@ public class Behaviour {
 	
 	//Orientation logic
 	public Orientation getOrientation() {
-		return changeOrientation.getOrientation();
+		return spriteOrientation.getOrientation();
 	}
 	
 	public boolean changeOrientationOnInvalid() {
-		if(changeOrientation.cyclicChangeOnInvalidInteractee()) {
+		if(spriteOrientation.cyclicChangeOnInvalidInteractee()) {
 			actType.changeSpriteOrientation();	
 			return true;
 		}
@@ -64,7 +75,7 @@ public class Behaviour {
 	}
 	
 	public void changeOrientation() {
-		changeOrientation.onCyclicChange();
+		spriteOrientation.onCyclicChange();
 		actType.changeSpriteOrientation();	
 	}
 	
