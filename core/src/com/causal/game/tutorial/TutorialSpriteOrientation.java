@@ -7,10 +7,10 @@ public class TutorialSpriteOrientation extends SpriteOrientation {
 	
 	private Orientation presetOrientation;
 	
-	public TutorialSpriteOrientation(int xGameCoord, int yGameCoord, Orientation orientation) 
+	public TutorialSpriteOrientation(int xGameCoord, int yGameCoord, Orientation presetOrientation) 
 	{
 		super(xGameCoord, yGameCoord);
-		presetOrientation = orientation;
+		this.presetOrientation = presetOrientation;
 	}
 	
 	public Orientation onRandomChange() {

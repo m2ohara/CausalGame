@@ -2,9 +2,8 @@ package com.causal.game.interact;
 
 import java.util.Random;
 
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.AutoInteractSprite;
-import com.causal.game.main.GameSprite.InteractorType;
+import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
 
 public class GossiperAutonomousBehaviour implements IInteraction {

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameSprite.InteractorType;
 import com.causal.game.state.PlayerState;
-import com.causal.game.state.GameScoreState;
 
 public class SwipeInteractSprite extends Image{
 	

@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.causal.game.interact.IInteractionType;
-import com.causal.game.interact.SwipeInteraction;
 import com.causal.game.main.GameSprite.Status;
+import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class SwipeSprite {
 	
@@ -29,7 +29,7 @@ public class SwipeSprite {
 	private Target lastValidTarget;
 	private Actor lastValidActor;
 	
-	private static SwipeInteraction interaction = null;
+	private static TutorialSwipeInteraction interaction = null;
 	private GameSprite startSprite = null;
 	
 	public static SwipeSprite create(IInteractionType interactionType, int influenceType) {
@@ -41,7 +41,7 @@ public class SwipeSprite {
 	
 	private SwipeSprite(IInteractionType interactionType, int influenceType) {
 		
-		interaction = new SwipeInteraction(interactionType, influenceType);
+		interaction = new TutorialSwipeInteraction(interactionType, influenceType);
 		GameProperties.get().setSwipeInteraction(interaction);
 	}
 	
@@ -60,7 +60,7 @@ public class SwipeSprite {
 		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
 		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
 		
-		Gdx.app.log("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
+		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
 		GameProperties.get().addActorToStage(sourceSprite);
 	}

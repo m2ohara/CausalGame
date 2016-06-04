@@ -3,9 +3,9 @@ package com.causal.game.state;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.causal.game.data.FollowerRepo;
-import com.causal.game.data.FollowerTypeRepo;
-import com.causal.game.data.PlayerRepo;
+import com.causal.game.behaviour.DeceiverBehaviour;
+import com.causal.game.behaviour.GossiperBehaviour;
+import com.causal.game.behaviour.PromoterBehaviour;
 //import com.causal.game.data.FollowerRepo;
 //import com.causal.game.data.FollowerTypeRepo;
 //import com.causal.game.data.PlayerRepo;
@@ -39,14 +39,15 @@ public class PlayerState {
 	public void loadDummy() {
 		
 		//Dummy data
-		followerTypes.add(new FollowerType("sprites/Meep/Gossiper/", Head.GOSSIPER));
-		followerTypes.add(new FollowerType("sprites/Meep/Promoter/", Head.INFLUENCER));
-		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER));
+		followerTypes.add(new FollowerType("sprites/Meep/Gossiper/", Head.GOSSIPER, new GossiperBehaviour()));
+		followerTypes.add(new FollowerType("sprites/Meep/Promoter/", Head.INFLUENCER, new PromoterBehaviour()));
+		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER, new DeceiverBehaviour()));
 		
-		followers.add(new Follower(Head.GOSSIPER, 1, "sprites/Meep/Gossiper/Default.pack"));
-//		followers.add(new Follower(Head.INFLUENCER, 2, "sprites/Meep/Promoter/Default.pack"));
-//		followers.add(new Follower(Head.DECEIVER, 3, "sprites/Meep/Deceiver/Default.pack"));
-//		followers.add(new Follower(Head.GOSSIPER, 4, "sprites/Meep/Gossiper/Default.pack"));
+		followers.add(new Follower(followerTypes.get(0), 1));
+		followers.add(new Follower(followerTypes.get(1), 2));
+		followers.add(new Follower(followerTypes.get(2), 3));
+		followers.add(new Follower(followerTypes.get(0), 4));
+		followers.add(new Follower(followerTypes.get(0), 5));
 		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
 	}
 

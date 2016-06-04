@@ -1,17 +1,20 @@
 package com.causal.game.state;
 
+import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.Game.Head;
 
 public class FollowerType {
 	
 	public Head head;
 	public String imagePath;
+	private ISpriteBehaviour behaviour;
 
 	private int id;
 	
-	public FollowerType(String path, Head head) {
+	public FollowerType(String path, Head head, ISpriteBehaviour behaviour) {
 		this.head = head;
 		this.imagePath = path;
+		this.behaviour = behaviour;
 	}
 	
 	public FollowerType(int typeId, String imagePath) {
@@ -26,6 +29,10 @@ public class FollowerType {
 	
 	public String getImagePath() {
 		return imagePath;
+	}
+	
+	public ISpriteBehaviour getBehaviour() {
+		return behaviour;
 	}
 	
 

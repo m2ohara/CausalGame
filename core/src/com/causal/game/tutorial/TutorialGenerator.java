@@ -3,8 +3,8 @@ package com.causal.game.tutorial;
 import java.util.Arrays;
 import java.util.List;
 
+import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
-import com.causal.game.main.Game.Head;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.setup.GameGenerator;
 
@@ -36,12 +36,12 @@ public class TutorialGenerator extends GameGenerator {
 		idx++;
 	}
 	
-	public GameSprite setGameSprite(Head type, float x, float y, String framesPath, boolean isActive) {
+	public GameSprite getGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive) {
 		orientationIdx+=1;
 		if(orientationIdx == 9) {
 			orientationIdx = 0;
 		}
-		return new TutorialGameSprite(type, x, y, framesPath, isActive, orientations.get(orientationIdx));
+		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, orientations.get(orientationIdx), orientations.get(orientationIdx));
 	}
 
 }

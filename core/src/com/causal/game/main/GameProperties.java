@@ -1,13 +1,11 @@
 package com.causal.game.main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,26 +14,24 @@ import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.SwipeInteraction;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.state.PlayerState;
+import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class GameProperties {
 
 	private static GameProperties instance;
 
 	public boolean isAutoInteractionAllowed = false;
-	public SwipeInteraction swipeInteraction = null;
+	public TutorialSwipeInteraction swipeInteraction = null;
 	public SwipeSprite swipeSprite = null;
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
 	private int tapLimit;
 	private Stage stage = null;
 	private int swipeCount;
 	private int swipeLimit;
-//	private SpriteBatch batch;
 
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
 		swipeLimit = PlayerState.get().getInfluenceLimit();
-//		batch = new SpriteBatch();
-//		batch.disableBlending();
 	}
 
 	public static GameProperties get() {
@@ -46,7 +42,7 @@ public class GameProperties {
 		return instance;
 	}
 	
-	public void setSwipeInteraction(SwipeInteraction swipeInteraction) {
+	public void setSwipeInteraction(TutorialSwipeInteraction swipeInteraction) {
 		this.swipeInteraction = swipeInteraction;
 	}
 	
@@ -78,7 +74,7 @@ public class GameProperties {
 		this.actorGroup.addActor(actor);
 	}
 
-	public List<MoveableSprite> actorsToReplace = Arrays.asList();
+	public List<MoveableSprite> actorsToReplace = new ArrayList<MoveableSprite>();
 
 	public void replaceActorInGroup(MoveableSprite actor) {
 		
@@ -92,7 +88,7 @@ public class GameProperties {
 			actorGroup.removeActor(actorToRemove);
 			actorToRemove.remove();
 
-			GameSprite actorToAdd = new GameSprite(actor.getType(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
+			GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
 			Gdx.app.debug(this.toString().substring(this.toString().lastIndexOf(".")), 
 					"Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
 			actorToAdd.setValidOrientations();
@@ -171,7 +167,7 @@ public class GameProperties {
 	public void dispose() {
 		stage.clear();
 		actorGroup = new Group();
-		actorsToReplace = Arrays.asList();
+		actorsToReplace = new ArrayList<MoveableSprite>();
 		gameSprites.clear();
 		isAutoInteractionAllowed = false;
 	}
@@ -179,6 +175,10 @@ public class GameProperties {
 	//Encapsulated stage logic
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+	
+	public Actor getGameScreenActor(String name) {
+		return stage.getActors().select(a -> a.getName() == name).iterator().next();
 	}
 
 	public void addActorToStage(Actor actor) {

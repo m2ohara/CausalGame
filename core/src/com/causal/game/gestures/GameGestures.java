@@ -8,13 +8,14 @@ import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.SwipeInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
+import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class GameGestures  implements GestureListener {
 		
 		boolean isFirstHit = true;
 		private Stage stage = null;
 		//TODO: Fully refactor into GameProperties
-		public static SwipeInteraction interaction = null;
+		public static TutorialSwipeInteraction interaction = null;
 		
 		public GameGestures(Stage stage) {
 			this.stage = stage;
@@ -22,7 +23,7 @@ public class GameGestures  implements GestureListener {
 		
 		public GameGestures(Stage stage, IInteractionType followerInteractAction, int influenceType) {
 			this.stage = stage;
-			interaction = new SwipeInteraction(followerInteractAction, influenceType);
+			interaction = new TutorialSwipeInteraction(followerInteractAction, influenceType);
 			GameProperties.get().setSwipeInteraction(interaction);
 		}
 

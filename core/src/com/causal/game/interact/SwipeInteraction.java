@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.individual.IndividualInteraction;
-import com.causal.game.logging.CausalGamesLogger;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InteractorType;
@@ -15,12 +14,11 @@ import com.causal.game.main.SwipeInteractSprite;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.state.GameScoreState;
-import com.causal.game.state.PlayerState;
 
 public class SwipeInteraction {
 	//Interacting
 	GameSprite interactor;
-	GameSprite lastHitActor = null;
+	protected GameSprite lastHitActor = null;
 	boolean invalidInteraction = false;
 	private IInteractionType interactionType = null;
 	private int connectorSprite;
@@ -51,7 +49,7 @@ public class SwipeInteraction {
 					Gdx.app.debug("SwipeInteraction","First follower hit facing "+hitActor.getOrientation());
 				}
 				//If next
-				else if(interactor != null && !isFirst && !invalidInteraction && GameProperties.get().getSwipeCount() > 0 && hitActor.interactStatus == Status.NEUTRAL && isValidInteraction(hitActor)) {
+				else if(interactor != null && !isFirst && !invalidInteraction && GameProperties.get().getSwipeCount() > 0 && hitActor.interactStatus == Status.NEUTRAL && this.isValidInteraction(hitActor)) {
 						Gdx.app.debug("SwipeInteraction", "Next follower hit facing "+hitActor.getOrientation());
 						lastHitActor.isActive = false;
 						hitActor.isActive = false;

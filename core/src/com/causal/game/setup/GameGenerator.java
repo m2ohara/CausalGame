@@ -9,9 +9,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.causal.game.behaviour.DeceiverBehaviour;
 import com.causal.game.behaviour.GossiperBehaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
-import com.causal.game.main.Game.Head;
+import com.causal.game.behaviour.PromoterBehaviour;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
@@ -46,15 +47,15 @@ public class GameGenerator {
 				GameSprite current = null;
 				setCrowdProperties();
 				if(followerTypeProb < 0.33) {
-					current = setGameSprite(Head.GOSSIPER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
+					current = getGameSprite(new GossiperBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
 					incrementVoteType(2);
 				}
 				else if(followerTypeProb >= 0.33 && followerTypeProb < 0.66) {
-					current = setGameSprite(Head.INFLUENCER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
+					current = getGameSprite(new PromoterBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
 					incrementVoteType(0);
 				}
 				else {
-					current = setGameSprite(Head.DECEIVER, WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
+					current = getGameSprite(new DeceiverBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
 					incrementVoteType(1);
 				}
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
@@ -77,10 +78,6 @@ public class GameGenerator {
 	public void setCrowdProperties() {
 		starterX = starterX == -1 ? rand.nextInt(WorldSystem.get().getSystemWidth()-1) : starterX;
 		followerTypeProb = rand.nextFloat();
-	}
-	
-	public GameSprite setGameSprite(Head type, float x, float y, String framesPath, boolean isActive) {
-		return new GameSprite(type, x, y, framesPath, isActive);
 	}
 	
 	public GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.InteractorType;
 import com.causal.game.main.GameSprite.Status;
 

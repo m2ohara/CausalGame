@@ -2,8 +2,6 @@ package com.causal.game.data;
 
 import java.sql.Connection;
 
-import com.causal.game.data.IActionResolver;
-
 
 public class SqlConnection {
 	

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Array;
+import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.Game.Head;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.state.Follower;
@@ -24,6 +25,7 @@ public class MoveableSprite
 {
 	
 	private Head type = null;
+	private ISpriteBehaviour behaviour = null;
 	private String framesPath = null;
 	private Array<AtlasRegion> frames;
 	private TextureRegion currentFrame;
@@ -36,10 +38,11 @@ public class MoveableSprite
 	
 	public MoveableSprite(Follower follower, float x, float y, Image sourceTargetImage) {
 		this.type = follower.type.head;
+		this.behaviour = follower.getFollowerType().getBehaviour();
 		this.origX = x;
 		this.origY = y;
 		this.framesPath = follower.type.imagePath;
-		this.frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
+		this.frames = new TextureAtlas(Gdx.files.internal(framesPath+"Default.pack")).getRegions();
 		currentFrame = frames.get(0);
 		
 		this.placeholderImage = sourceTargetImage;
@@ -132,7 +135,7 @@ public class MoveableSprite
 				Gdx.app.debug("MoveableSprite","Dropped at " + x + ", " + y);
 
 				//Hide original drop target if displayed
-//				hidePlaceholderTarget();
+				hidePlaceholderTarget();
 				
 				//Set dragActor new source coordinates
 				resetLocation(getActor().getX(), getActor().getY(), true);
@@ -156,16 +159,18 @@ public class MoveableSprite
 				
 				Gdx.app.debug("MoveableSprite","Accepted: " + payload.getObject() + " " + x + ", " + y);
 				
-//				setPlaceholderTarget();
+				hidePlaceholderTarget();
 				
 				resetLocation(origX, origY, false);
 			}
 		});
 	}
-	//TOOO: Resolve issue of covering unused sprites
-	private void setPlaceholderTarget() {
+
+	private void hidePlaceholderTarget() {
 		if(isPlaceholderActive) {
-			placeholderImage.toBack();;
+			placeholderImage.toBack();
+			Gdx.app.debug("MoveableSprite","Setting placeholder to z index ");
+			placeholderImage.setZIndex(GameProperties.get().getGameScreenActor("GameScreen").getZIndex()+1);
 			placeholderImage.setTouchable(Touchable.disabled);
 		}
 	}
@@ -200,6 +205,10 @@ public class MoveableSprite
 	
 	public Actor getTargetImage() {
 		return this.placeholderImage;
+	}
+	
+	public ISpriteBehaviour getBehaviour() {
+		return this.behaviour;
 	}
 	
 

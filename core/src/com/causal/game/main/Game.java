@@ -8,11 +8,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -174,6 +172,7 @@ public class Game extends ApplicationAdapter {
 		}
 	
 		Actor image = new Image(txSkin.getDrawable(type));
+		image.setName(type);
 		image.setTouchable(Touchable.disabled);
 		return image;
 	}
@@ -292,7 +291,7 @@ public class Game extends ApplicationAdapter {
 		
 		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 		
-		gameGenerator = new GameGenerator();
+		gameGenerator = new TutorialGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		
@@ -385,7 +384,8 @@ public class Game extends ApplicationAdapter {
 		
 		//Activate crowd members
 		for(GameSprite actor : GameProperties.get().getGameSprites()) {
-			actor.activate(interactionType);
+//			actor.activate(interactionType);
+			actor.create(interactionType);
 		}
 		
 		//Set remaining votes icon
@@ -538,7 +538,7 @@ public class Game extends ApplicationAdapter {
 		Random rand = new Random();
 		for(int i =0; i < count; i++) {
 			FollowerType type = types.get(rand.nextInt(types.size()));
-			rewardedFollowers.add(new Follower(type.head, 0, type.imagePath+"Default.pack"));
+			rewardedFollowers.add(new Follower(type, 0));
 		}
 		
 		plState.addFollowers(rewardedFollowers);
@@ -554,7 +554,7 @@ public class Game extends ApplicationAdapter {
 	}
 	
 	private void setRewardImage(String framesPath, float origX, float origY) {
-		Image targetImage = new Image(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
+		Image targetImage = new Image(new TextureAtlas(Gdx.files.internal(framesPath+"Default.pack")).getRegions().get(0));
 		targetImage.setPosition(origX, origY);
 		GameProperties.get().addActorToStage(targetImage);
 		targetImage.setTouchable(Touchable.disabled);

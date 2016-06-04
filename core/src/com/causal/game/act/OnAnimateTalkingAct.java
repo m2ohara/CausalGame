@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.GenericInteraction;
 import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InteractorType;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.touch.SpriteOrientation;

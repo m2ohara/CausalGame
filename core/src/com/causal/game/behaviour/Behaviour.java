@@ -20,16 +20,6 @@ public class Behaviour {
 	private SpriteOrientation spriteOrientation;
 	private IBehaviourProperties properties;
 	
-	public Behaviour(boolean isActive, IOnAct onAct, TouchAction touchAction, IBehaviourProperties properties, SpriteOrientation changeOrientation) {
-		
-		this.isActive = isActive;
-		this.actType = onAct;
-		this.onTouch = touchAction;
-		
-		this.spriteOrientation = changeOrientation;
-		this.properties = properties;
-	}
-	
 	public Behaviour(boolean isActive, GenericInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, SpriteOrientation spriteOrientation) {
 		
 		this.isActive = isActive;

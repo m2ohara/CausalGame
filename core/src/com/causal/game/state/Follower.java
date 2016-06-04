@@ -1,15 +1,14 @@
 package com.causal.game.state;
 
-import com.causal.game.main.Game.Head;
 
 public class Follower {
 	
 	public FollowerType type = null;
 	private int id = 0;
 	
-	public Follower(Head type, int id, String spritePath) {
+	public Follower(FollowerType type, int id) {
 		this.id = id;
-		this.type = new FollowerType(spritePath, type);
+		this.type = type;
 	}
 	
 	public Follower(int id, FollowerType type) {
