@@ -13,9 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
+import com.causal.game.gestures.ISwipeInteraction;
+import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameSprite.Status;
-import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class SwipeSprite {
 	
@@ -29,7 +30,7 @@ public class SwipeSprite {
 	private Target lastValidTarget;
 	private Actor lastValidActor;
 	
-	private static TutorialSwipeInteraction interaction = null;
+	private static ISwipeInteraction interaction = null;
 	private GameSprite startSprite = null;
 	
 	public static SwipeSprite create(IInteractionType interactionType, int influenceType) {
@@ -41,7 +42,7 @@ public class SwipeSprite {
 	
 	private SwipeSprite(IInteractionType interactionType, int influenceType) {
 		
-		interaction = new TutorialSwipeInteraction(interactionType, influenceType);
+		interaction = new SwipeInteraction(interactionType, influenceType);
 		GameProperties.get().setSwipeInteraction(interaction);
 	}
 	

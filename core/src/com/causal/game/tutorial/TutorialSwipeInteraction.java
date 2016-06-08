@@ -1,8 +1,8 @@
 package com.causal.game.tutorial;
 
 import com.badlogic.gdx.Gdx;
+import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
-import com.causal.game.interact.SwipeInteraction;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.GameSprite.Status;

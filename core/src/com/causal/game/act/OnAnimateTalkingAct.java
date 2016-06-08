@@ -12,6 +12,7 @@ import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.SpriteOrientation;
 
 public class OnAnimateTalkingAct implements IOnAct{
@@ -30,18 +31,18 @@ public class OnAnimateTalkingAct implements IOnAct{
 	private Array<AtlasRegion> frames;
 	
 	private GenericInteraction interaction;
-	private SpriteOrientation spriteOrientation;
+	private ISpriteOrientation spriteOrientation;
 	private float interactP;
 	private float rotateP;
 	private Random rand = new Random();
 	
-	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, GenericInteraction interaction, SpriteOrientation onRandom, String framesPath) 
+	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, GenericInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
 	{
 
 		this.rotateP = rotateProbability;
 		this.interactP = interactProbability;
 		this.interaction = interaction;
-		this.spriteOrientation = onRandom;
+		this.spriteOrientation = spriteOrientation;
 		
 		frames = new TextureAtlas(Gdx.files.internal(framesPath+"Default.pack")).getRegions();
 		currentFrame = frames.first();

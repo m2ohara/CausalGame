@@ -11,17 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
-import com.causal.game.interact.SwipeInteraction;
+import com.causal.game.gestures.ISwipeInteraction;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.state.PlayerState;
-import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class GameProperties {
 
 	private static GameProperties instance;
 
 	public boolean isAutoInteractionAllowed = false;
-	public TutorialSwipeInteraction swipeInteraction = null;
+	public ISwipeInteraction swipeInteraction = null;
 	public SwipeSprite swipeSprite = null;
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
 	private int tapLimit;
@@ -42,11 +41,11 @@ public class GameProperties {
 		return instance;
 	}
 	
-	public void setSwipeInteraction(TutorialSwipeInteraction swipeInteraction) {
+	public void setSwipeInteraction(ISwipeInteraction swipeInteraction) {
 		this.swipeInteraction = swipeInteraction;
 	}
 	
-	public SwipeInteraction getSwipeInteraction() {
+	public ISwipeInteraction getSwipeInteraction() {
 		return this.swipeInteraction;
 	}
 
@@ -91,7 +90,7 @@ public class GameProperties {
 			GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
 			Gdx.app.debug(this.toString().substring(this.toString().lastIndexOf(".")), 
 					"Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
-			actorToAdd.setValidOrientations();
+//			actorToAdd.setValidOrientations();
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
 				actorToAdd.setColor(Color.YELLOW);

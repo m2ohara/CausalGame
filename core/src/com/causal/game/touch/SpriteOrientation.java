@@ -11,7 +11,7 @@ import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 
-public class SpriteOrientation {
+public class SpriteOrientation implements ISpriteOrientation {
 	
 	private ArrayList<Orientation> validDirections;
 	protected Orientation orientation;
@@ -39,6 +39,7 @@ public class SpriteOrientation {
 		}
 	}
 	
+	@Override
 	public void onCyclicChange() {
 		Orientation firstOrientation = orientation;
 		//Change orientation to next value in list while it is valid until end
@@ -69,6 +70,7 @@ public class SpriteOrientation {
 		
 	}
 	
+	@Override
 	public Orientation onRandomChange() {
 		//Change actor's orientation
 		int choice = rand.nextInt(this.validDirections.size());
@@ -88,6 +90,7 @@ public class SpriteOrientation {
 		return interactee.isInteracteeNeutral(xGameCoord, yGameCoord, orientation);
 	}
 	
+	@Override
 	public Orientation getOrientation() {
 		return orientation;
 	}

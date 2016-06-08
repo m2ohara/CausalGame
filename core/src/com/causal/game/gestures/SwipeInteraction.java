@@ -1,10 +1,11 @@
-package com.causal.game.interact;
+package com.causal.game.gestures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.individual.IndividualInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
@@ -15,18 +16,16 @@ import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.state.GameScoreState;
 
-public class SwipeInteraction {
-	//Interacting
-	GameSprite interactor;
+public class SwipeInteraction implements ISwipeInteraction {
+
+	private GameSprite interactor;
 	protected GameSprite lastHitActor = null;
 	boolean invalidInteraction = false;
 	private IInteractionType interactionType = null;
 	private int connectorSprite;
 	private float interactionStateLength = 3f;
 	private int interactionStages = 3;
-	//TODO: Clean up orientation logic
 	SwipeInteractSprite firstInteraction = null;
-//	private Orientation orientation = null;
 	private Array<Actor> connectors = new Array<Actor>();
 
 	public SwipeInteraction(IInteractionType interactionType, int connectorSprite) {

@@ -5,26 +5,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.causal.game.interact.IInteractionType;
-import com.causal.game.interact.SwipeInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
-import com.causal.game.tutorial.TutorialSwipeInteraction;
+//import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class GameGestures  implements GestureListener {
 		
 		boolean isFirstHit = true;
 		private Stage stage = null;
 		//TODO: Fully refactor into GameProperties
-		public static TutorialSwipeInteraction interaction = null;
+		public static ISwipeInteraction interaction = null;
 		
 		public GameGestures(Stage stage) {
 			this.stage = stage;
 		}
 		
-		public GameGestures(Stage stage, IInteractionType followerInteractAction, int influenceType) {
+		public GameGestures(Stage stage, IInteractionType interactionType, int influenceType) {
 			this.stage = stage;
-			interaction = new TutorialSwipeInteraction(followerInteractAction, influenceType);
-			GameProperties.get().setSwipeInteraction(interaction);
+			interaction = GameProperties.get().getSwipeInteraction();
+
 		}
 
 		@Override

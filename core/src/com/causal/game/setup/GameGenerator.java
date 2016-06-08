@@ -72,7 +72,7 @@ public class GameGenerator {
 		}
 		
 //		populateLevelCrowdScreen();
-		setCrowdValidDirections();
+//		setCrowdValidDirections();
 	}
 	
 	public void setCrowdProperties() {
@@ -106,13 +106,13 @@ public class GameGenerator {
 		
 	}
 	
-	private void setCrowdValidDirections() {
-		
-		for(GameSprite sprite : GameProperties.get().getGameSprites()) {
-			sprite.setValidOrientations();
-		}
-		
-	}
+//	private void setCrowdValidDirections() {
+//		
+//		for(GameSprite sprite : GameProperties.get().getGameSprites()) {
+//			sprite.setValidOrientations();
+//		}
+//		
+//	}
 	
 	ArrayList<GameMember> gameMembers = new ArrayList<GameMember>();
 	private void setGameMembers() {

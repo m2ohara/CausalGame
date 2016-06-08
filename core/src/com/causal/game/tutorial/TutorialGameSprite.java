@@ -16,9 +16,9 @@ public class TutorialGameSprite extends GameSprite{
 		this.swipeOrientation = swipeOrientation;
 	}
 	
-	public void setValidOrientations() {
-		spriteOrientation = new TutorialSpriteOrientation(getXGameCoord(), getYGameCoord(), presetOrientation);
-	}
+//	public void setValidOrientations() {
+//		spriteOrientation = new TutorialSpriteOrientation(getXGameCoord(), getYGameCoord(), presetOrientation);
+//	}
 	
 	public Orientation getSwipeOrientation() {
 		return this.swipeOrientation;

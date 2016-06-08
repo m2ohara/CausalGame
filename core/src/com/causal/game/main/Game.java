@@ -291,7 +291,7 @@ public class Game extends ApplicationAdapter {
 		
 		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
 		
-		gameGenerator = new TutorialGenerator();
+		gameGenerator = new GameGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		

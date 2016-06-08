@@ -14,6 +14,7 @@ import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.Game.Head;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.state.GameScoreState;
+import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.SpriteOrientation;
 
 public class GameSprite  extends Image {
@@ -28,8 +29,6 @@ public class GameSprite  extends Image {
 	public InfluenceType influenceType = InfluenceType.NONE;
 	public InteractorType interactorType = InteractorType.NONE;
 	public int scoreStatus = 0;
-	
-	protected SpriteOrientation spriteOrientation;
 	
 	public boolean isInteracting = false;
 	private boolean isActing = false;
@@ -118,10 +117,6 @@ public class GameSprite  extends Image {
 	
 	public String getFramesPath() {
 		return framesPath;
-	}
-	
-	public void setValidOrientations() {
-		spriteOrientation = new SpriteOrientation(getXGameCoord(), getYGameCoord());
 	}
 
 	public Orientation getOrientation() {
