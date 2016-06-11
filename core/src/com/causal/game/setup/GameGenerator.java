@@ -15,6 +15,7 @@ import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.behaviour.PromoterBehaviour;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
+import com.causal.game.main.SwipeSprite;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.state.FollowerType;
@@ -62,7 +63,7 @@ public class GameGenerator {
 					current.interactStatus = Status.SELECTED;
 					current.setName("startingGameSprite");
 					current.setColor(Color.YELLOW);
-					GameProperties.get().swipeSprite.setStartSprite(current);
+					SwipeSprite.get().setStartSprite(current);
 				}
 				GameProperties.get().addToActorGroup(current);
 				

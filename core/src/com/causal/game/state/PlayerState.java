@@ -10,6 +10,8 @@ import com.causal.game.behaviour.PromoterBehaviour;
 //import com.causal.game.data.FollowerTypeRepo;
 //import com.causal.game.data.PlayerRepo;
 import com.causal.game.data.PlayerStateEntity;
+import com.causal.game.gestures.SwipeInteraction;
+import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.Game.Head;
 
 public class PlayerState {

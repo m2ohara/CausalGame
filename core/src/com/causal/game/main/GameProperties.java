@@ -21,7 +21,6 @@ public class GameProperties {
 
 	public boolean isAutoInteractionAllowed = false;
 	public ISwipeInteraction swipeInteraction = null;
-	public SwipeSprite swipeSprite = null;
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
 	private int tapLimit;
 	private Stage stage = null;
@@ -31,6 +30,7 @@ public class GameProperties {
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
 		swipeLimit = PlayerState.get().getInfluenceLimit();
+		
 	}
 
 	public static GameProperties get() {
@@ -94,7 +94,7 @@ public class GameProperties {
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
 				actorToAdd.setColor(Color.YELLOW);
-				GameProperties.get().swipeSprite.setStartSprite(actorToAdd);
+				SwipeSprite.get().setStartSprite(actorToAdd);
 			}
 			actorGroup.addActor(actorToAdd);
 			//Remove placeholder

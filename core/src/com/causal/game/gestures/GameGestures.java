@@ -13,8 +13,6 @@ public class GameGestures  implements GestureListener {
 		
 		boolean isFirstHit = true;
 		private Stage stage = null;
-		//TODO: Fully refactor into GameProperties
-		public static ISwipeInteraction interaction = null;
 		
 		public GameGestures(Stage stage) {
 			this.stage = stage;
@@ -22,8 +20,6 @@ public class GameGestures  implements GestureListener {
 		
 		public GameGestures(Stage stage, IInteractionType interactionType, int influenceType) {
 			this.stage = stage;
-			interaction = GameProperties.get().getSwipeInteraction();
-
 		}
 
 		@Override
@@ -57,7 +53,7 @@ public class GameGestures  implements GestureListener {
 			
 			if(actor != null && actor.getClass().equals(GameSprite.class) && ((GameSprite)actor).isActing()) {
 				//TODO: Refactor interaction into GameSprite
-				interaction.interactHit((GameSprite)actor, isFirstHit);
+				GameProperties.get().getSwipeInteraction().interactHit((GameSprite)actor, isFirstHit);
 				isFirstHit = false;
 			}
 			
@@ -67,7 +63,7 @@ public class GameGestures  implements GestureListener {
 		@Override
 		public boolean panStop(float x, float y, int pointer, int button) {
 			isFirstHit = true;
-			interaction.reset();
+			GameProperties.get().getSwipeInteraction().reset();
 			return false;
 		}
 

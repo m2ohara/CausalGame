@@ -29,21 +29,16 @@ public class SwipeSprite {
 	private boolean validSwipe = true;
 	private Target lastValidTarget;
 	private Actor lastValidActor;
-	
-	private static ISwipeInteraction interaction = null;
 	private GameSprite startSprite = null;
 	
-	public static SwipeSprite create(IInteractionType interactionType, int influenceType) {
+	public static SwipeSprite get() {
 		if(instance == null) {
-			instance = new SwipeSprite(interactionType, influenceType);
+			instance = new SwipeSprite();
 		}
 		return instance;
 	}
 	
-	private SwipeSprite(IInteractionType interactionType, int influenceType) {
-		
-		interaction = new SwipeInteraction(interactionType, influenceType);
-		GameProperties.get().setSwipeInteraction(interaction);
+	private SwipeSprite() {
 	}
 	
 	public void setStartSprite(GameSprite startSprite) {
@@ -86,7 +81,7 @@ public class SwipeSprite {
 				Payload payload = new Payload();
 				payload.setObject(dragSprite);
 				payload.setDragActor(dragSprite);
-				interaction.interactHit(startSprite, true);
+				GameProperties.get().getSwipeInteraction().interactHit(startSprite, true);
 				sourceSprite.setVisible(false);
 				Gdx.app.debug("SwipeSprite", "Starting drag");
 
@@ -133,7 +128,7 @@ public class SwipeSprite {
 				//On hit
 				if(!isHit) {
 					isHit = true;
-					if(interaction.interactHit((GameSprite)target, false)) {
+					if(GameProperties.get().getSwipeInteraction().interactHit((GameSprite)target, false)) {
 						Gdx.app.debug("SwipeSprite",  "Valid drag at " + x + ", " + y);
 						lastValidActor = target;
 						lastValidTarget = this;
@@ -185,7 +180,7 @@ public class SwipeSprite {
 			lastValidTarget = null;
 			
 			startSprite = (GameSprite)lastActor;
-			interaction.reset();
+			GameProperties.get().getSwipeInteraction().reset();
 		}
 	
 	}

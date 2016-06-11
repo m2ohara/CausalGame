@@ -1,14 +1,15 @@
 package com.causal.game.tutorial;
 
 import com.badlogic.gdx.Gdx;
+import com.causal.game.gestures.ISwipeInteraction;
 import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameSprite;
-import com.causal.game.main.WorldSystem;
 import com.causal.game.main.GameSprite.Status;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 
-public class TutorialSwipeInteraction extends SwipeInteraction {
+public class TutorialSwipeInteraction extends SwipeInteraction implements ISwipeInteraction {
 
 	public TutorialSwipeInteraction(IInteractionType interactionType,
 			int connectorSprite) {

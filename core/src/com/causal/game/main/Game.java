@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.causal.game.gestures.DefaultGestures;
 import com.causal.game.gestures.GameGestures;
+import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.IndividualInteractionType;
 import com.causal.game.setup.GameGenerator;
@@ -36,7 +37,6 @@ import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
-import com.causal.game.tutorial.TutorialGenerator;
 
 public class Game extends ApplicationAdapter {
 	
@@ -289,7 +289,7 @@ public class Game extends ApplicationAdapter {
 			interactionType = new IndividualInteractionType();
 		}
 		
-		GameProperties.get().swipeSprite = SwipeSprite.create(interactionType, vType);
+		GameProperties.get().setSwipeInteraction(new SwipeInteraction(interactionType, vType));
 		
 		gameGenerator = new GameGenerator();
 		
@@ -384,7 +384,6 @@ public class Game extends ApplicationAdapter {
 		
 		//Activate crowd members
 		for(GameSprite actor : GameProperties.get().getGameSprites()) {
-//			actor.activate(interactionType);
 			actor.create(interactionType);
 		}
 		
@@ -395,7 +394,7 @@ public class Game extends ApplicationAdapter {
 		setTapCount();
 		setSwipeCount();
 		
-		GameProperties.get().swipeSprite.activate();
+		SwipeSprite.get().activate();
 		
 	}
 	
