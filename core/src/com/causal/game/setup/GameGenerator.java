@@ -34,31 +34,22 @@ public class GameGenerator {
 	protected float followerTypeProb;
 	protected int starterX = -1;
 	
+	protected ISetGameSprites setGameSprite;
+	
 	public GameGenerator() {
 		rand = new Random();
 		setRemovalProb();
+		setGameSprite = new SetGameSprite();
 	}
 	
 	public void populateFullCrowdScreen() {
 		
-		List<FollowerType> types = PlayerState.get().getFollowerTypes();
 		starterCoords = new Vector2(starterX, WorldSystem.get().getSystemHeight()-1);
 		for(int x = 0; x < WorldSystem.get().getSystemWidth(); x++) {
 			for(int y = 0; y < WorldSystem.get().getSystemHeight(); y++) {
 				GameSprite current = null;
 				setCrowdProperties();
-				if(followerTypeProb < 0.33) {
-					current = getGameSprite(new GossiperBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(0).imagePath, true);
-					incrementVoteType(2);
-				}
-				else if(followerTypeProb >= 0.33 && followerTypeProb < 0.66) {
-					current = getGameSprite(new PromoterBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(1).imagePath, true);
-					incrementVoteType(0);
-				}
-				else {
-					current = getGameSprite(new DeceiverBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), types.get(2).imagePath, true);
-					incrementVoteType(1);
-				}
+				current = setGameSprite.createGameSprite(rand.nextFloat(), x, y);
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
 					current.interactStatus = Status.SELECTED;
 					current.setName("startingGameSprite");
@@ -71,6 +62,9 @@ public class GameGenerator {
 					Gdx.app.debug("GameGenerator", "Setting actor at coords "+current.getX()+", "+current.getY()); }
 			}
 		}
+		
+		supportCount = setGameSprite.getSupportCount();
+		opposeCount = setGameSprite.getOpposeCount();
 		
 //		populateLevelCrowdScreen();
 //		setCrowdValidDirections();
