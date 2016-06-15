@@ -9,5 +9,9 @@ public interface ISpriteOrientation {
 	Orientation getOrientation();
 	
 	void onCyclicChange();
+	
+	boolean cyclicChange();
+	
+	boolean cyclicChangeOnInvalidInteractee();
 
 }

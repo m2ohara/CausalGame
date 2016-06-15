@@ -1,13 +1,13 @@
 package com.causal.game.tutorial;
 
-import com.causal.game.behaviour.GossiperBehaviour;
+import com.causal.game.behaviour.DeceiverBehaviour;
 import com.causal.game.main.WorldSystem.Orientation;
 
-public class TutorialGossiperBehaviour extends GossiperBehaviour {
+public class TutorialDeceiverBehaviour extends DeceiverBehaviour {
 	
 	private Orientation presetOrientation;
 	
-	public TutorialGossiperBehaviour(Orientation presetOrientation) {
+	public TutorialDeceiverBehaviour(Orientation presetOrientation) {
 		super();
 		this.presetOrientation = presetOrientation;
 	}
@@ -16,5 +16,4 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	protected void setSpriteOrientation(int xGameCoord, int yGameCoord) {
 		spriteOrientation = new TutorialSpriteOrientation(xGameCoord, yGameCoord, presetOrientation);
 	}
-
 }

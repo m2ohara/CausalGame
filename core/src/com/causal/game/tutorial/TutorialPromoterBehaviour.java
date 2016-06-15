@@ -1,13 +1,13 @@
 package com.causal.game.tutorial;
 
-import com.causal.game.behaviour.GossiperBehaviour;
+import com.causal.game.behaviour.PromoterBehaviour;
 import com.causal.game.main.WorldSystem.Orientation;
 
-public class TutorialGossiperBehaviour extends GossiperBehaviour {
+public class TutorialPromoterBehaviour extends PromoterBehaviour {
 	
 	private Orientation presetOrientation;
 	
-	public TutorialGossiperBehaviour(Orientation presetOrientation) {
+	public TutorialPromoterBehaviour(Orientation presetOrientation) {
 		super();
 		this.presetOrientation = presetOrientation;
 	}

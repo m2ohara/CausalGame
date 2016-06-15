@@ -1,10 +1,10 @@
 package com.causal.game.tutorial;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.main.WorldSystem.Orientation;
-import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.SpriteOrientation;
 
-public class TutorialSpriteOrientation extends SpriteOrientation implements ISpriteOrientation {
+public class TutorialSpriteOrientation extends SpriteOrientation {
 	
 	private Orientation presetOrientation;
 	
@@ -16,6 +16,7 @@ public class TutorialSpriteOrientation extends SpriteOrientation implements ISpr
 	
 	@Override
 	public Orientation onRandomChange() {
+		Gdx.app.log("TutorialSpriteOrientation", "Setting sprite "+xGameCoord+", "+yGameCoord+" to orientation index "+presetOrientation);
 		orientation = presetOrientation;
 		return orientation;
 	}

@@ -49,7 +49,7 @@ public class GameGenerator {
 			for(int y = 0; y < WorldSystem.get().getSystemHeight(); y++) {
 				GameSprite current = null;
 				setCrowdProperties();
-				current = setGameSprite.createGameSprite(rand.nextFloat(), x, y);
+				current = setGameSprite.createGameSprite(followerTypeProb, x, y);
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
 					current.interactStatus = Status.SELECTED;
 					current.setName("startingGameSprite");

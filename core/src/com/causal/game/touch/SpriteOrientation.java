@@ -16,8 +16,8 @@ public class SpriteOrientation implements ISpriteOrientation {
 	private ArrayList<Orientation> validDirections;
 	protected Orientation orientation;
 	private Random rand = new Random();
-	private int xGameCoord;
-	private int yGameCoord;
+	protected int xGameCoord;
+	protected int yGameCoord;
 	private Interactee interactee;
 	
 	public SpriteOrientation(int xGameCoord, int yGameCoord) 

@@ -35,7 +35,7 @@ import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
-import com.causal.game.tutorial.TutorialGenerator;
+import com.causal.game.tutorial.TutorialGameGenerator;
 import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class Game extends ApplicationAdapter {
@@ -51,7 +51,7 @@ public class Game extends ApplicationAdapter {
 	
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
-	TutorialGenerator gameGenerator = null;
+	TutorialGameGenerator gameGenerator = null;
 //	int winAmount = 0;
 	State winState = null;
 	IInteractionType interactionType = null;
@@ -291,7 +291,7 @@ public class Game extends ApplicationAdapter {
 		
 		GameProperties.get().setSwipeInteraction(new TutorialSwipeInteraction(interactionType, vType));
 		
-		gameGenerator = new TutorialGenerator();
+		gameGenerator = new TutorialGameGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		

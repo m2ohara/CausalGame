@@ -8,7 +8,7 @@ import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
-import com.causal.game.touch.SpriteOrientation;
+import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.TouchAction;
 
 public class Behaviour {
@@ -17,10 +17,10 @@ public class Behaviour {
 	private boolean isActive = true;
 	private TouchAction onTouch;
 	public IOnAct actType;
-	private SpriteOrientation spriteOrientation;
+	private ISpriteOrientation spriteOrientation;
 	private IBehaviourProperties properties;
 	
-	public Behaviour(boolean isActive, GenericInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, SpriteOrientation spriteOrientation) {
+	public Behaviour(boolean isActive, GenericInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, ISpriteOrientation spriteOrientation) {
 		
 		this.isActive = isActive;
 		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
