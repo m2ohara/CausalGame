@@ -177,7 +177,12 @@ public class GameProperties {
 	}
 	
 	public Actor getGameScreenActor(String name) {
-		return stage.getActors().select(a -> a.getName() == name).iterator().next();
+		for(Actor actor : stage.getActors()) {
+			if(actor.getName() == name) {
+				return actor;
+			}
+		}
+		return null;
 	}
 
 	public void addActorToStage(Actor actor) {

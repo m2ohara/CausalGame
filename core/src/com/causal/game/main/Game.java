@@ -27,16 +27,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.causal.game.gestures.DefaultGestures;
 import com.causal.game.gestures.GameGestures;
+import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.IndividualInteractionType;
+import com.causal.game.setup.GameGenerator;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
-import com.causal.game.tutorial.TutorialGameGenerator;
-import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class Game extends ApplicationAdapter {
 	
@@ -51,7 +51,7 @@ public class Game extends ApplicationAdapter {
 	
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
-	TutorialGameGenerator gameGenerator = null;
+	GameGenerator gameGenerator = null;
 //	int winAmount = 0;
 	State winState = null;
 	IInteractionType interactionType = null;
@@ -234,7 +234,7 @@ public class Game extends ApplicationAdapter {
 		});
 	}
 	
-	private void setTutorialScreen() {
+	private void setScreen() {
 		
 	}
 	
@@ -289,9 +289,9 @@ public class Game extends ApplicationAdapter {
 			interactionType = new IndividualInteractionType();
 		}
 		
-		GameProperties.get().setSwipeInteraction(new TutorialSwipeInteraction(interactionType, vType));
+		GameProperties.get().setSwipeInteraction(new SwipeInteraction(interactionType, vType));
 		
-		gameGenerator = new TutorialGameGenerator();
+		gameGenerator = new GameGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		

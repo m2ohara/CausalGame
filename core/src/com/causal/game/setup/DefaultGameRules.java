@@ -46,11 +46,11 @@ public class DefaultGameRules implements IGameRules {
 	
 	private void setZeroSumGameState(int forPoints, int againstPoints) {
 		if(forPoints > (againstPoints + (totalPoints - (forPoints + againstPoints)))) {
-			currentState =  State.WIN;
+			currentState =  State.SUPPORT;
 		}
 		else if(againstPoints > (forPoints + (totalPoints - (forPoints + againstPoints)))) {
 			//Loss
-			currentState =  State.LOSE;
+			currentState =  State.OPPOSE;
 		}
 		else if((forPoints + againstPoints == totalPoints) && forPoints == againstPoints) {
 			//Draw
