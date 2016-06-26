@@ -49,7 +49,8 @@ public class OnAnimateTalkingAct implements IOnAct{
 		
 		setFramePacks(framesPath);
 		
-		this.spriteOrientation.onRandomChange();
+		spriteOrientation.onRandomChange();
+		Gdx.app.debug("OnAnimateTalkingAct", "Random sprite changed for "+interaction.interactor.getXGameCoord()+", "+interaction.interactor.getYGameCoord());		
 		changeSpriteOrientation();
 		
 	}

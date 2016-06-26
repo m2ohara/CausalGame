@@ -21,7 +21,7 @@ public class DeceiverBehaviour implements ISpriteBehaviour {
 				new GenericInteraction(gameSprite, new DeceiverAutonomousBehaviour()),
 				new DeceiverTouchAction(interactionType, xGameCoord, yGameCoord), 
 				new DeceiverProperties(),
-				new SpriteOrientation(xGameCoord, yGameCoord));
+				spriteOrientation);
 	}
 	
 	protected void setSpriteOrientation(int xGameCoord, int yGameCoord) {

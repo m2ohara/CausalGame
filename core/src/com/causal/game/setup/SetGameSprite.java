@@ -1,5 +1,6 @@
 package com.causal.game.setup;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.behaviour.DeceiverBehaviour;
 import com.causal.game.behaviour.GossiperBehaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
@@ -13,7 +14,6 @@ public class SetGameSprite implements ISetGameSprites {
 	private int supportCount = 0;
 	private int opposeCount = 0;
 
-	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
 		GameSprite current;
 		if(probability < 0.33) {
@@ -40,6 +40,7 @@ public class SetGameSprite implements ISetGameSprites {
 	}
 	
 	public GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {
+		Gdx.app.debug("SetGameSprite", "Getting sprite "+x+", "+y);
 		return new GameSprite(type, x, y, framesPath, isActive);
 	}
 	

@@ -1,5 +1,6 @@
 package com.causal.game.behaviour;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
 import com.causal.game.act.OnAnimateTalkingAct;
@@ -26,6 +27,7 @@ public class Behaviour {
 		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
 		this.onTouch = touchAction;
 		
+		Gdx.app.debug("Behaviour", "Created animation for "+interaction.interactor.getXGameCoord()+", "+interaction.interactor.getYGameCoord());		
 		this.spriteOrientation = spriteOrientation;
 		this.properties = properties;
 	}

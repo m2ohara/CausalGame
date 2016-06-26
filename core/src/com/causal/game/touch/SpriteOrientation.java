@@ -70,11 +70,11 @@ public class SpriteOrientation implements ISpriteOrientation {
 		
 	}
 	
-	@Override
 	public Orientation onRandomChange() {
 		//Change actor's orientation
 		int choice = rand.nextInt(this.validDirections.size());
 		orientation = this.validDirections.get(choice);
+		Gdx.app.log("SpriteOrientation", "Setting sprite "+xGameCoord+", "+yGameCoord+" to orientation index "+orientation);
 		return orientation;
 	
 	}

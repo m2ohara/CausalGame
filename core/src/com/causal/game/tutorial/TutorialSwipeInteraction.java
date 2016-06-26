@@ -21,7 +21,7 @@ public class TutorialSwipeInteraction extends SwipeInteraction implements ISwipe
 
 		boolean isValid = false;
 
-		if(lastHitActor != null && hitActor.interactStatus == Status.NEUTRAL) {
+		if(lastHitActor != null && hitActor.interactStatus == Status.NEUTRAL && ((TutorialGameSprite)hitActor).getSwipeOrientation() == hitActor.getOrientation()) {
 
 			if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.E && lastHitActor.getOrientation() == Orientation.E) {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)-1) 
