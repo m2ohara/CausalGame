@@ -21,35 +21,36 @@ public class TutorialSwipeInteraction extends SwipeInteraction implements ISwipe
 
 		boolean isValid = false;
 
-		if(lastHitActor != null && hitActor.interactStatus == Status.NEUTRAL && ((TutorialGameSprite)hitActor).getSwipeOrientation() == hitActor.getOrientation()) {
+		if(lastHitActor != null && hitActor.interactStatus == Status.NEUTRAL 
+				&& ((TutorialGameSprite)hitActor).getSwipeOrientation() == hitActor.getOrientation()) { //Is facing the correct swipe direction
 
 			if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.E && lastHitActor.getOrientation() == Orientation.E) {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)-1) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)) {
 					isValid = true;
-					Gdx.app.debug("SwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
+					Gdx.app.log("TutorialSwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
 				}
 			}
-			else if(lastHitActor.getOrientation() == Orientation.N) {
-				if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.N && WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
+			else if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.N && lastHitActor.getOrientation() == Orientation.N) {
+				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)+1)) {
 					isValid = true;
-					Gdx.app.debug("SwipeInteraction","Follower hit above");
+					Gdx.app.log("TutorialSwipeInteraction","Follower hit above");
 				}
 
 			}
-			else if(lastHitActor.getOrientation() == Orientation.S) {
-				if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.S && WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
+			else if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.S && lastHitActor.getOrientation() == Orientation.S) {
+				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)-1)) {
 					isValid = true;
-					Gdx.app.debug("SwipeInteraction","Follower hit below");
+					Gdx.app.log("TutorialSwipeInteraction","Follower hit below");
 				}
 			}
-			else if(lastHitActor.getOrientation() == Orientation.W) {
-				if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.W && WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)+1) 
+			else if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.W && lastHitActor.getOrientation() == Orientation.W) {
+				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)+1) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)) {
 					isValid = true;
-					Gdx.app.debug("SwipeInteraction","Follower hit to the left");
+					Gdx.app.log("TutorialSwipeInteraction","Follower hit to the left");
 				}
 			}
 		}

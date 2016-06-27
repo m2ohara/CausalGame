@@ -21,9 +21,9 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Orientation.N, Orientation.S, Orientation.N);
 	
 	private List<Orientation> swipeOrientations = Arrays.asList(
-			Orientation.E, Orientation.N, Orientation.N, 
+			Orientation.E, Orientation.S, Orientation.N, 
 			Orientation.E, Orientation.E, Orientation.N, 
-			Orientation.N, Orientation.S, Orientation.N);
+			Orientation.N, Orientation.N, Orientation.N);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
