@@ -1,5 +1,6 @@
 package com.causal.game.gestures;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -48,14 +49,14 @@ public class GameGestures  implements GestureListener {
 
 		@Override
 		public boolean pan(float x, float y, float deltaX, float deltaY) {
-			Vector2 coords = stage.screenToStageCoordinates(new Vector2(x, y));
-			Actor actor = stage.hit(coords.x, coords.y, true);
-			
-			if(actor != null && actor.getClass().equals(GameSprite.class) && ((GameSprite)actor).isActing()) {
-				//TODO: Refactor interaction into GameSprite
-				GameProperties.get().getSwipeInteraction().interactHit((GameSprite)actor, isFirstHit);
-				isFirstHit = false;
-			}
+//			Vector2 coords = stage.screenToStageCoordinates(new Vector2(x, y));
+//			Actor actor = stage.hit(coords.x, coords.y, true);
+//			
+//			if(actor != null && actor.getClass().equals(GameSprite.class) && ((GameSprite)actor).isActing()) {
+//				Gdx.app.log("GameGestures","Hit actor "+actor.hashCode());
+//				GameProperties.get().getSwipeInteraction().interactHit((GameSprite)actor, isFirstHit);
+//				isFirstHit = false;
+//			}
 			
 			return false;
 		}

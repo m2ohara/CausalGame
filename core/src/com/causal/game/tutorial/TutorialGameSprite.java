@@ -1,7 +1,9 @@
 package com.causal.game.tutorial;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 
 public class TutorialGameSprite extends GameSprite{
@@ -15,6 +17,7 @@ public class TutorialGameSprite extends GameSprite{
 	}
 	
 	public Orientation getSwipeOrientation() {
+		Gdx.app.log("TutorialGameSprite","Getting swipe orientation"+ swipeOrientation);
 		return this.swipeOrientation;
 	}
 

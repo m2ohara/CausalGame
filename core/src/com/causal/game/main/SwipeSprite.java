@@ -56,7 +56,7 @@ public class SwipeSprite {
 		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
 		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
 		
-		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
+		Gdx.app.log("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
 		
 		GameProperties.get().addActorToStage(sourceSprite);
 	}
@@ -83,21 +83,21 @@ public class SwipeSprite {
 				payload.setDragActor(dragSprite);
 				GameProperties.get().getSwipeInteraction().interactHit(startSprite, true);
 				sourceSprite.setVisible(false);
-				Gdx.app.debug("SwipeSprite", "Starting drag");
+				Gdx.app.log("SwipeSprite", "Starting drag. Is valid "+validSwipe);
 
 				return payload;
 			}
 			
 			public void dragStop (InputEvent event, float x, float y, int pointer, Payload payload, Target target) {
 				if(!validSwipe) {
-					Gdx.app.debug("SwipeSprite", "Stopped invalid drag");
+					Gdx.app.log("SwipeSprite", "Stopped invalid drag");
 					if(lastValidTarget != null) {
 						validSwipe = true;
-						Gdx.app.debug("SwipeSprite", "Dropped source at last valid target");
+						Gdx.app.log("SwipeSprite", "Dropped source at last valid target");
 						lastValidTarget.drop(this, payload, x, y, pointer);
 					}
 					else {
-						Gdx.app.debug("SwipeSprite", "Enabled sprite");
+						Gdx.app.log("SwipeSprite", "Enabled sprite");
 						sourceSprite.setVisible(true);
 					}
 					
@@ -110,7 +110,7 @@ public class SwipeSprite {
 					else {
 						sourceSprite.setVisible(true);
 					}
-					Gdx.app.debug("SwipeSprite",  "Stopped valid drag");
+					Gdx.app.log("SwipeSprite",  "Stopped valid drag");
 				}
 			}
 			
@@ -124,30 +124,33 @@ public class SwipeSprite {
 			boolean isHit = false;
 			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 				
-
 				//On hit
 				if(!isHit) {
 					isHit = true;
 					if(GameProperties.get().getSwipeInteraction().interactHit((GameSprite)target, false)) {
-						Gdx.app.debug("SwipeSprite",  "Valid drag at " + x + ", " + y);
+						Gdx.app.log("SwipeSprite",  "Valid drag at " + x + ", " + y);
 						lastValidActor = target;
 						lastValidTarget = this;
 					}
 					else if(((GameSprite)target).interactStatus == Status.NEUTRAL) {
-						Gdx.app.debug("SwipeSprite",  "Invalid hit at " + x + ", " + y);
+						Gdx.app.log("SwipeSprite",  "Invalid hit at " + x + ", " + y);
 						validSwipe = false;
 					}
 				}
 				
 				return true;
 			}
+			
+			public void reset (Source source, Payload payload) {
+				isHit = false;
+			}
 
 			public void drop (Source source, Payload payload, float x, float y, int pointer) {
 				if(!validSwipe) {
-					Gdx.app.debug("SwipeSprite",  "Invalid drop at " + x + ", " + y);
+					Gdx.app.log("SwipeSprite",  "Invalid drop at " + x + ", " + y);
 					if(lastValidTarget != null) {
 						validSwipe = true;
-						Gdx.app.debug("SwipeSprite",  "Dropped source at last valid target at "+lastValidActor.getX()+" "+lastValidActor.getY());
+						Gdx.app.log("SwipeSprite",  "Dropped source at last valid target at "+lastValidActor.getX()+" "+lastValidActor.getY());
 						lastValidTarget.drop(source, payload, lastValidActor.getX(), lastValidActor.getY(), pointer);
 					}
 					else {
@@ -156,7 +159,7 @@ public class SwipeSprite {
 					
 				}
 				else {
-					Gdx.app.debug("SwipeSprite",  "Valid drop. Dropped at " + x + ", " + y);
+					Gdx.app.log("SwipeSprite",  "Valid drop. Dropped at " + x + ", " + y);
 					
 					//Set dragActor new source coordinates
 					onComplete(lastValidActor);
@@ -171,7 +174,7 @@ public class SwipeSprite {
 	private void onComplete(Actor lastActor) {
 		
 		if(validSwipe) {
-			Gdx.app.debug("SwipeSprite",  "Resetting swipe sprite");
+			Gdx.app.log("SwipeSprite",  "Resetting swipe sprite");
 			validSwipe = true;
 			dragAndDrop.clear();
 			sourceSprite.remove();

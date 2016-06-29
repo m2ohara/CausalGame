@@ -16,14 +16,14 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	private int orientationIdx = 0;
 	
 	private List<Orientation> startingOrientations = Arrays.asList(
-			Orientation.N, Orientation.S, Orientation.N, 
+			Orientation.E, Orientation.S, Orientation.N, 
 			Orientation.E, Orientation.S, Orientation.N, 
 			Orientation.N, Orientation.S, Orientation.N);
 	
 	private List<Orientation> swipeOrientations = Arrays.asList(
-			Orientation.E, Orientation.S, Orientation.N, 
-			Orientation.E, Orientation.E, Orientation.N, 
-			Orientation.N, Orientation.N, Orientation.N);
+			Orientation.S, Orientation.S, Orientation.N, 
+			Orientation.W, Orientation.E, Orientation.N, 
+			Orientation.W, Orientation.N, Orientation.N);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
