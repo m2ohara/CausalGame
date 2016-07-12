@@ -7,13 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
-import com.causal.game.interact.GenericInteraction;
+import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.touch.ISpriteOrientation;
-import com.causal.game.touch.SpriteOrientation;
 
 public class OnAnimateTalkingAct implements IOnAct{
 	
@@ -30,13 +29,13 @@ public class OnAnimateTalkingAct implements IOnAct{
 	private HashMap<String, Array<AtlasRegion>> animationFrames = new HashMap<String, Array<AtlasRegion>>();
 	private Array<AtlasRegion> frames;
 	
-	private GenericInteraction interaction;
+	private AutonomousInteraction interaction;
 	private ISpriteOrientation spriteOrientation;
 	private float interactP;
 	private float rotateP;
 	private Random rand = new Random();
 	
-	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, GenericInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
+	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, AutonomousInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
 	{
 
 		this.rotateP = rotateProbability;

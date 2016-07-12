@@ -102,11 +102,15 @@ public class PlayerState {
 	
 	//TODO: Implement player state entity
 	public int getInfluenceLimit() {
-		return 3;
+		return 2;
 	}
 	
 	public int getTapLimit() {
-		return 2;
+		return 1;
+	}
+	
+	public boolean isFirstGame() {
+		return false;
 	}
 	
 

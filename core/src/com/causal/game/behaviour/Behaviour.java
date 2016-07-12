@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
 import com.causal.game.act.OnAnimateTalkingAct;
-import com.causal.game.interact.GenericInteraction;
+import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.Status;
@@ -21,7 +21,7 @@ public class Behaviour {
 	private ISpriteOrientation spriteOrientation;
 	private IBehaviourProperties properties;
 	
-	public Behaviour(boolean isActive, GenericInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, ISpriteOrientation spriteOrientation) {
+	public Behaviour(boolean isActive, AutonomousInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, ISpriteOrientation spriteOrientation) {
 		
 		this.isActive = isActive;
 		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());

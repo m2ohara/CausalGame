@@ -9,6 +9,13 @@ public class AutonomousInteraction {
 	
 	public IInteraction interactionBehaviour;
 	public GameSprite interactor;
+	
+	public AutonomousInteraction() {}//TODO: Remove on full refactor
+	
+	public AutonomousInteraction(GameSprite interactor, IInteraction interactionBehaviour) {
+		this.interactor = interactor;
+		this.interactionBehaviour = interactionBehaviour;
+	}
 
 	public void interact(Orientation orientation) {
 //		System.out.println("Interactor with status "+interactor.interactStatus);

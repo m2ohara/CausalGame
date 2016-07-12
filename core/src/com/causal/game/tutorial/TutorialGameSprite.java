@@ -17,7 +17,7 @@ public class TutorialGameSprite extends GameSprite{
 	}
 	
 	public Orientation getSwipeOrientation() {
-		Gdx.app.log("TutorialGameSprite","Getting swipe orientation"+ swipeOrientation);
+		Gdx.app.debug("TutorialGameSprite","Getting swipe orientation"+ swipeOrientation);
 		return this.swipeOrientation;
 	}
 

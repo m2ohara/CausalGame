@@ -27,8 +27,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.causal.game.gestures.DefaultGestures;
 import com.causal.game.gestures.GameGestures;
+import com.causal.game.gestures.SwipeInteraction;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.IndividualInteractionType;
+import com.causal.game.setup.GameGenerator;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState;
@@ -51,7 +53,7 @@ public class Game extends ApplicationAdapter {
 	
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
-	TutorialGameGenerator gameGenerator = null;
+	GameGenerator gameGenerator = null;
 	State winState = null;
 	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
@@ -288,9 +290,9 @@ public class Game extends ApplicationAdapter {
 			interactionType = new IndividualInteractionType();
 		}
 		
-		GameProperties.get().setSwipeInteraction(new TutorialSwipeInteraction(interactionType, vType));
+		GameProperties.get().setSwipeInteraction(plState.isFirstGame() ? new TutorialSwipeInteraction(interactionType, vType) : new SwipeInteraction(interactionType, vType));
 		
-		gameGenerator = new TutorialGameGenerator();
+		gameGenerator = plState.isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
 		
 		gameGenerator.populateFullCrowdScreen();
 		

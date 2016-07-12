@@ -19,13 +19,6 @@ public class TutorialGameGenerator extends GameGenerator {
 			new Float(YELLOW), new Float(RED), new Float(BLUE), 
 			new Float(YELLOW), new Float(BLUE), new Float(RED), 
 			new Float(YELLOW), new Float(BLUE), new Float(RED));
-
-//	private int orientationIdx = -1;
-//	private List<Orientation> orientations = Arrays.asList(
-//			Orientation.N, Orientation.S, Orientation.N, 
-//			Orientation.E, Orientation.S, Orientation.E, 
-//			Orientation.N, Orientation.W, Orientation.N);
-	
 	
 	public TutorialGameGenerator() {
 		super();
