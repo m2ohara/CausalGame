@@ -110,7 +110,7 @@ public class PlayerState {
 	}
 	
 	public boolean isFirstGame() {
-		return false;
+		return true;
 	}
 	
 

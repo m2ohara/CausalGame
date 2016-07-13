@@ -65,7 +65,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	@Override
 	public GameSprite getGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive) {
 		Gdx.app.debug("SetTutorialSprite", "Getting tutorial sprite "+x+", "+y);
-		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientations.get(orientationIdx));
+		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientations.get(orientationIdx), autoInteractOnSelectedSprite.get(orientationIdx));
 	}
 
 }
