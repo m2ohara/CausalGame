@@ -12,16 +12,18 @@ public class TutorialDeceiverBehaviour extends DeceiverBehaviour {
 	
 	private Orientation presetOrientation;
 	private List<Vector2> tapableSpriteCoords;
+	private Orientation autoInteractOrientation;
 	
-	public TutorialDeceiverBehaviour(Orientation presetOrientation, List<Vector2> list) {
+	public TutorialDeceiverBehaviour(Orientation presetOrientation, List<Vector2> list, Orientation autoInteractOrientation) {
 		super();
 		this.presetOrientation = presetOrientation;
 		this.tapableSpriteCoords = list;
+		this.autoInteractOrientation = autoInteractOrientation;
 	}
 	
 	@Override
 	protected void setSpriteOrientation(int xGameCoord, int yGameCoord) {
-		spriteOrientation = new TutorialSpriteOrientation(xGameCoord, yGameCoord, presetOrientation, tapableSpriteCoords);
+		spriteOrientation = new TutorialSpriteOrientation(xGameCoord, yGameCoord, presetOrientation, tapableSpriteCoords, autoInteractOrientation);
 	}
 	
 	@Override

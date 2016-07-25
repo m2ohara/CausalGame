@@ -13,12 +13,16 @@ public class TutorialSpriteOrientation extends SpriteOrientation {
 	
 	private Orientation presetOrientation;
 	private List<Vector2> tapableSpriteCoords;
+	private boolean isTapped = false;
+	private Orientation autoInteractOrientation;
 	
-	public TutorialSpriteOrientation(int xGameCoord, int yGameCoord, Orientation presetOrientation, List<Vector2> tapableSpriteCoords) 
+	public TutorialSpriteOrientation(int xGameCoord, int yGameCoord, Orientation presetOrientation, List<Vector2> tapableSpriteCoords, Orientation autoInteractOrientation) 
 	{
 		super(xGameCoord, yGameCoord);
 		this.presetOrientation = presetOrientation;
 		this.tapableSpriteCoords = tapableSpriteCoords;
+		this.autoInteractOrientation = autoInteractOrientation;
+		
 	}
 	
 	@Override
@@ -33,7 +37,20 @@ public class TutorialSpriteOrientation extends SpriteOrientation {
 		if(!isTapable()) {
 			return false;
 		}
-		else return super.cyclicChange();
+		else {
+			isTapped = true;
+			return super.cyclicChange();
+		}
+	}
+	
+	@Override
+	public void onCyclicChange() {
+		if(!isTapped)
+			this.orientation = autoInteractOrientation;
+		else {
+			super.onCyclicChange();
+		}
+		isTapped = false;
 	}
 	
 	private boolean isTapable() {

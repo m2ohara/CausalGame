@@ -12,16 +12,18 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	
 	private Orientation presetOrientation;
 	private List<Vector2> tapableSpriteCoords;
+	private Orientation autoInteractOrientation;
 	
-	public TutorialGossiperBehaviour(Orientation presetOrientation, List<Vector2> list) {
+	public TutorialGossiperBehaviour(Orientation presetOrientation, List<Vector2> list, Orientation autoInteractOrientation) {
 		super();
 		this.presetOrientation = presetOrientation;
 		this.tapableSpriteCoords = list;
+		this.autoInteractOrientation = autoInteractOrientation;
 	}
 	
 	@Override
 	protected void setSpriteOrientation(int xGameCoord, int yGameCoord) {
-		spriteOrientation = new TutorialSpriteOrientation(xGameCoord, yGameCoord, presetOrientation, tapableSpriteCoords);
+		spriteOrientation = new TutorialSpriteOrientation(xGameCoord, yGameCoord, presetOrientation, tapableSpriteCoords, autoInteractOrientation);
 	}
 	
 	@Override

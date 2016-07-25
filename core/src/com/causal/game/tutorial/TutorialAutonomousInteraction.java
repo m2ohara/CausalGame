@@ -1,5 +1,6 @@
 package com.causal.game.tutorial;
 
+import com.causal.game.behaviour.Behaviour;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.interact.IInteraction;
 import com.causal.game.main.GameSprite;

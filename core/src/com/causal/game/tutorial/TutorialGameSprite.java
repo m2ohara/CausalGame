@@ -28,8 +28,8 @@ public class TutorialGameSprite extends GameSprite{
 	
 	public boolean isValidAutoInteractSelectedSprite() {
 		for(Vector2 coords : autoInteractOnSelectedSprite) {
-			if(WorldSystem.get().getMemberFromCoords((int)coords.x, (int)coords.y).interactStatus == Status.SELECTED) {
-				Gdx.app.log("TutorialGameSprite", "GameSprite "+this.getXGameCoord()+", "+this.getYGameCoord()+ "able to interact" );
+			if(WorldSystem.get().getMemberFromCoords((int)coords.x, (int)coords.y).interactorType == InteractorType.FIRST) {
+				Gdx.app.log("TutorialGameSprite", "GameSprite "+this.getXGameCoord()+", "+this.getYGameCoord()+ " able to interact" );
 				return true;
 			}
 		}

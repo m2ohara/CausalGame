@@ -74,18 +74,18 @@ public class SpriteOrientation implements ISpriteOrientation {
 		//Change actor's orientation
 		int choice = rand.nextInt(this.validDirections.size());
 		orientation = this.validDirections.get(choice);
-		Gdx.app.log("SpriteOrientation", "Setting sprite "+xGameCoord+", "+yGameCoord+" to orientation index "+orientation);
+		Gdx.app.debug("SpriteOrientation", "Setting sprite "+xGameCoord+", "+yGameCoord+" to orientation index "+orientation);
 		return orientation;
 	
 	}
 	
-	private void setNextOrientation() {
+	protected void setNextOrientation() {
 		int index = validDirections.indexOf(orientation)+1 == validDirections.size() ? 0 : validDirections.indexOf(orientation)+1;
 		orientation = this.validDirections.get(index);
 		Gdx.app.debug("SpriteOrientation", "Switching orientation to "+orientation+" at idx "+index);
 	}
 	
-	private boolean isValidInteractee() {
+	protected boolean isValidInteractee() {
 		//Check that facing gamesprite is able to interact
 		return interactee.isInteracteeNeutral(xGameCoord, yGameCoord, orientation);
 	}
