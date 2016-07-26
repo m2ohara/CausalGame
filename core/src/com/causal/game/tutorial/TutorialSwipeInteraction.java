@@ -28,14 +28,14 @@ public class TutorialSwipeInteraction extends SwipeInteraction implements ISwipe
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == (WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX)-1) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)) {
 					isValid = true;
-					Gdx.app.log("TutorialSwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
+					Gdx.app.debug("TutorialSwipeInteraction","Follower hit to the right. Last Hit x : "+WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX)+", Hit X "+WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX));
 				}
 			}
 			else if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.N && lastHitActor.getOrientation() == Orientation.N) {
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)+1)) {
 					isValid = true;
-					Gdx.app.log("TutorialSwipeInteraction","Follower hit above");
+					Gdx.app.debug("TutorialSwipeInteraction","Follower hit above");
 				}
 
 			}

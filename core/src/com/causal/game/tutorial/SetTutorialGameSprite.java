@@ -17,7 +17,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	private int orientationIdx = 0;
 	
 	private List<Orientation> startingOrientations = Arrays.asList(
-			Orientation.E, Orientation.S, Orientation.N, 
+			Orientation.S, Orientation.S, Orientation.N, 
 			Orientation.W, Orientation.S, Orientation.N, 
 			Orientation.N, Orientation.S, Orientation.N);
 	
@@ -40,9 +40,9 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	@SuppressWarnings("unchecked")
 	private List<List<Vector2>> autoInteractOnSelectedSprite= Arrays.asList(
-			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(1,0)), Arrays.asList( new Vector2(0,0)),
+			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(0,0)), Arrays.asList( new Vector2(0,0)),
 			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(2,1)),
-			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(0,0)), Arrays.asList( new Vector2(0,0))
+			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(0,0))
 			);
 
 	@Override

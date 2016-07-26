@@ -1,5 +1,6 @@
 package com.causal.game.interact;
 
+import com.badlogic.gdx.Gdx;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
@@ -18,9 +19,9 @@ public class AutonomousInteraction {
 	}
 
 	public void interact(Orientation orientation) {
-//		System.out.println("Interactor with status "+interactor.interactStatus);
+		Gdx.app.debug("AutonomousInteraction","Interactor with status "+interactor.interactStatus);
 		// As long as interactor isn't neutral
-		if (interactor.interactStatus == Status.INFLUENCED) {
+		if (interactor.interactStatus != Status.NEUTRAL) {
 			GameSprite interactee = null;
 
 			// If facing towards the right
@@ -31,10 +32,10 @@ public class AutonomousInteraction {
 				interactee = WorldSystem.get().getMemberFromCoords(
 						interactor.getXGameCoord() + 1,
 						(interactor.getYGameCoord()));
-//				System.out.println("Member type " + interactor.status
-//						+ "  influencing to the right at "
-//						+ (interactor.getXGameCoord() + 1) + ", "
-//						+ interactor.getYGameCoord());
+				Gdx.app.debug("AutonomousInteraction","Member type " + interactor.interactStatus
+						+ "  influencing to the right at "
+						+ (interactor.getXGameCoord() + 1) + ", "
+						+ interactor.getYGameCoord());
 
 			}
 			if (orientation == Orientation.N
@@ -42,10 +43,10 @@ public class AutonomousInteraction {
 				interactee = WorldSystem.get().getMemberFromCoords(
 						interactor.getXGameCoord(),
 						(interactor.getYGameCoord() - 1));
-//				System.out.println("Member type " + interactor.status
-//						+ "  influencing above at "
-//						+ interactor.getXGameCoord() + ", "
-//						+ (interactor.getYGameCoord() - 1));
+				Gdx.app.debug("AutonomousInteraction","Member type " + interactor.interactStatus
+						+ "  influencing above at "
+						+ interactor.getXGameCoord() + ", "
+						+ (interactor.getYGameCoord() - 1));
 
 			}
 			if (orientation == Orientation.S
@@ -54,20 +55,20 @@ public class AutonomousInteraction {
 				interactee = WorldSystem.get().getMemberFromCoords(
 						interactor.getXGameCoord(),
 						(interactor.getYGameCoord() + 1));
-//				System.out.println("Member type " + interactor.status
-//						+ "  influencing below at "
-//						+ interactor.getXGameCoord() + ", "
-//						+ (interactor.getYGameCoord() + 1));
+				Gdx.app.debug("AutonomousInteraction","Member type " + interactor.interactStatus
+						+ "  influencing below at "
+						+ interactor.getXGameCoord() + ", "
+						+ (interactor.getYGameCoord() + 1));
 			}
 			if (orientation == Orientation.W
 					&& (interactor.getXGameCoord() - 1) > -1) {
 				interactee = WorldSystem.get().getMemberFromCoords(
 						interactor.getXGameCoord() - 1,
 						(interactor.getYGameCoord()));
-//				System.out.println("Member type " + interactor.status
-//						+ " influencing to the left at "
-//						+ (interactor.getXGameCoord() + 1) + ", "
-//						+ interactor.getYGameCoord());
+				Gdx.app.debug("AutonomousInteraction","Member type " + interactor.interactStatus
+						+ " influencing to the left at "
+						+ (interactor.getXGameCoord() - 1) + ", "
+						+ interactor.getYGameCoord());
 			}
 
 			// Perform interaction

@@ -1,6 +1,6 @@
 package com.causal.game.tutorial;
 
-import com.causal.game.behaviour.Behaviour;
+import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.interact.IInteraction;
 import com.causal.game.main.GameSprite;
@@ -15,6 +15,7 @@ public class TutorialAutonomousInteraction extends AutonomousInteraction {
 	@Override
 	public void interact(Orientation orientation) {
 		if(((TutorialGameSprite)interactor).isValidAutoInteractSelectedSprite()) {
+			Gdx.app.debug("TutorialAutonomousInteraction", "GameSprite at "+interactor.getXGameCoord()+", "+interactor.getYGameCoord()+" interacting ");
 			super.interact(orientation);
 		}
 		
