@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.GossiperBehaviour;
+import com.causal.game.behaviour.GossiperProperties;
 import com.causal.game.interact.GossiperAutonomousBehaviour;
 import com.causal.game.main.GameSprite;
+import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem.Orientation;
 
 public class TutorialGossiperBehaviour extends GossiperBehaviour {
@@ -13,12 +15,14 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	private Orientation presetOrientation;
 	private List<Vector2> tapableSpriteCoords;
 	private Orientation autoInteractOrientation;
+	private InfluenceType influenceType;
 	
-	public TutorialGossiperBehaviour(Orientation presetOrientation, List<Vector2> list, Orientation autoInteractOrientation) {
+	public TutorialGossiperBehaviour(Orientation presetOrientation, List<Vector2> list, Orientation autoInteractOrientation, InfluenceType influenceType) {
 		super();
 		this.presetOrientation = presetOrientation;
 		this.tapableSpriteCoords = list;
 		this.autoInteractOrientation = autoInteractOrientation;
+		this.influenceType = influenceType;
 	}
 	
 	@Override
@@ -30,5 +34,10 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	protected void setAutoInteraction(GameSprite gameSprite) {
 		autoInteraction = new TutorialAutonomousInteraction(gameSprite, new GossiperAutonomousBehaviour());
 	}	
+	
+	@Override
+	protected void setBehaviourProperties() {
+		properties = new TutorialGossiperProperties(influenceType);
+	}
 
 }

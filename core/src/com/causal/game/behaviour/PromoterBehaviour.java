@@ -12,17 +12,19 @@ public class PromoterBehaviour implements ISpriteBehaviour {
 	
 	protected ISpriteOrientation spriteOrientation;
 	protected AutonomousInteraction autoInteraction;
+	protected IBehaviourProperties properties;
 	
 	public Behaviour create(IInteractionType interactionType, int xGameCoord, int yGameCoord, boolean isActive, GameSprite gameSprite) {
 		
 		setSpriteOrientation(xGameCoord, yGameCoord);
 		setAutoInteraction(gameSprite);
+		setBehaviourProperties();
 	
 		return new Behaviour(
 				isActive, 
 				autoInteraction,
 				new PromoterTouchAction(interactionType, xGameCoord, yGameCoord), 
-				new PromoterProperties(),
+				properties,
 				spriteOrientation);
 	}
 	
@@ -32,5 +34,9 @@ public class PromoterBehaviour implements ISpriteBehaviour {
 	
 	protected void setAutoInteraction(GameSprite gameSprite) {
 		autoInteraction = new AutonomousInteraction(gameSprite, new PromoterAutonomousBehaviour());
+	}
+	
+	protected void setBehaviourProperties() {
+		properties = new PromoterProperties();
 	}
 }

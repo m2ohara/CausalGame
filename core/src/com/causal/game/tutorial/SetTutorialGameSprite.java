@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
+import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.setup.SetGameSprite;
@@ -44,13 +45,19 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(2,1)),
 			Arrays.asList( new Vector2(0, 0)), Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(0,0))
 			);
+	
+	private List<InfluenceType> influenceTypes = Arrays.asList(
+			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
+			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
+			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT
+			);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
 		GameSprite current;
 		if(probability < 0.33) {
 			Gdx.app.log("SetTutorialSprite", "Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientations.get(orientationIdx));
-			current = getGameSprite(new TutorialGossiperBehaviour(startingOrientations.get(orientationIdx), tapableOnSelectedSprite.get(orientationIdx), autoInteractOrientations.get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true);
+			current = getGameSprite(new TutorialGossiperBehaviour(startingOrientations.get(orientationIdx), tapableOnSelectedSprite.get(orientationIdx), autoInteractOrientations.get(orientationIdx), influenceTypes.get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true);
 			incrementVoteType(2);
 		}
 		else if(probability >= 0.33 && probability < 0.66) {

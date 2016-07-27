@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.PromoterBehaviour;
 import com.causal.game.interact.PromoterAutonomousBehaviour;
 import com.causal.game.main.GameSprite;
+import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem.Orientation;
 
 public class TutorialPromoterBehaviour extends PromoterBehaviour {
@@ -30,5 +31,10 @@ public class TutorialPromoterBehaviour extends PromoterBehaviour {
 	protected void setAutoInteraction(GameSprite gameSprite) {
 		autoInteraction = new TutorialAutonomousInteraction(gameSprite, new PromoterAutonomousBehaviour());
 	}	
+	
+	@Override
+	protected void setBehaviourProperties() {
+		properties = new TutorialPromoterProperties();
+	}
 
 }

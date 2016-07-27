@@ -12,17 +12,19 @@ public class GossiperBehaviour implements ISpriteBehaviour {
 	
 	protected ISpriteOrientation spriteOrientation;
 	protected AutonomousInteraction autoInteraction;
+	protected IBehaviourProperties properties;
 	
 	public Behaviour create(IInteractionType interactionType, int xGameCoord, int yGameCoord, boolean isActive, GameSprite gameSprite) {
 		
 		setSpriteOrientation(xGameCoord, yGameCoord);
 		setAutoInteraction(gameSprite);
+		setBehaviourProperties();
 	
 		return new Behaviour(
 				isActive, 
 				autoInteraction,
 				new GossiperTouchAction(interactionType, xGameCoord, yGameCoord), 
-				new GossiperProperties(),
+				properties,
 				spriteOrientation);
 	}
 	
@@ -32,6 +34,10 @@ public class GossiperBehaviour implements ISpriteBehaviour {
 	
 	protected void setAutoInteraction(GameSprite gameSprite) {
 		autoInteraction = new AutonomousInteraction(gameSprite, new GossiperAutonomousBehaviour());
+	}
+	
+	protected void setBehaviourProperties() {
+		properties = new GossiperProperties();
 	}
 
 
