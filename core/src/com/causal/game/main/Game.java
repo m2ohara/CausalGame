@@ -263,7 +263,7 @@ public class Game extends ApplicationAdapter {
 		final Actor btn = getButton("PlayGameBtn");
 		setToStage(btn, 0, -260);
 		
-		setGameVoteRules();
+		setupGame();
 		
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
@@ -273,43 +273,55 @@ public class Game extends ApplicationAdapter {
 		});
 	}
 	
-	//Refactor into GameSetup
-	private void setGameVoteRules() {
-		Random rand = new Random();
+	private void setupGame() {
 		
-		String voteType = "";
-		int vType = rand.nextInt(2);
-		if(vType == 0) {
-			voteType = "WHITE";
-			winState = State.SUPPORT;
-			interactionType = new IndividualInteractionType();
-		}
-		else {
-			voteType = "RED";
-			winState = State.OPPOSE;
-			interactionType = new IndividualInteractionType();
-		}
+		gameGenerator = PlayerState.get().isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
 		
-		GameProperties.get().setSwipeInteraction(plState.isFirstGame() ? new TutorialSwipeInteraction(interactionType, vType) : new SwipeInteraction(interactionType, vType));
+		gameGenerator.setGameVoteRules();
 		
-		gameGenerator = plState.isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
-		
-		gameGenerator.populateFullCrowdScreen();
-		
-		gameGenerator.setLevelWinAmount(winState);
-		
-		
-		final Skin skin = new Skin();
-		BitmapFont font = new BitmapFont();
-		font.getData().scale(1f);
-		skin.add("default", new LabelStyle(font, Color.BLACK));
-		Label label = new Label("GET "+gameGenerator.getLevelWinAmount()+" "+voteType+" VOTES", skin);
-		setToStage(label, 0, 0);
-		Label label2 = new Label("TO WIN THE CROWD", skin);
-		setToStage(label2, 0, -90);
+		setToStage(gameGenerator.getTopLabel(), 0, 0);
+		setToStage(gameGenerator.getBottomLabel(), 0, -90);
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
 	}
+	
+	//Refactor into GameSetup
+//	private void setGameVoteRules() {
+//		Random rand = new Random();
+//		
+//		String voteType = "";
+//		int vType = rand.nextInt(2);
+//		if(vType == 0) {
+//			voteType = "WHITE";
+//			winState = State.SUPPORT;
+//			interactionType = new IndividualInteractionType();
+//		}
+//		else {
+//			voteType = "RED";
+//			winState = State.OPPOSE;
+//			interactionType = new IndividualInteractionType();
+//		}
+//		
+//		GameProperties.get().setSwipeInteraction(plState.isFirstGame() ? new TutorialSwipeInteraction(interactionType, vType) : new SwipeInteraction(interactionType, vType));
+//		
+//		gameGenerator = plState.isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
+//		
+//		gameGenerator.populateFullCrowdScreen();
+//		
+//		gameGenerator.setLevelWinAmount(winState);
+//		
+//		
+//		final Skin skin = new Skin();
+//		BitmapFont font = new BitmapFont();
+//		font.getData().scale(1f);
+//		skin.add("default", new LabelStyle(font, Color.BLACK));
+//		Label label = new Label("GET "+gameGenerator.getLevelWinAmount()+" "+voteType+" VOTES", skin);
+//		setToStage(label, 0, 0);
+//		Label label2 = new Label("TO WIN THE CROWD", skin);
+//		setToStage(label2, 0, -90);
+//		
+//		setGestureDetector(new GestureDetector(new DefaultGestures()));
+//	}
 	
 	private void setCrowdScreen() {
 		

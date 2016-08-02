@@ -7,6 +7,7 @@ import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.setup.GameGenerator;
+import com.causal.game.state.GameScoreState.State;
 
 public class TutorialGameGenerator extends GameGenerator {
 	
@@ -26,10 +27,25 @@ public class TutorialGameGenerator extends GameGenerator {
 		setGameSprite = new SetTutorialGameSprite();
 	}
 
-	public void setCrowdProperties() {
+	protected void setCrowdProperties() {
 		starterX = 1;
 		followerTypeProb = followerTypeProbList.get(idx);
 		idx++;
+	}
+	
+	protected void generateVoteType(int voteType) {
+		if(voteType == 0) {
+			voteTypeString = "WHITE";
+			winState = State.SUPPORT;
+		}
+		else {
+			voteTypeString = "RED";
+			winState = State.OPPOSE;
+		}
+	}
+	
+	public void setLevelWinAmount() {
+		levelWinAmount = 7;
 	}
 
 }

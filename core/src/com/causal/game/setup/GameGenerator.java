@@ -1,48 +1,92 @@
 package com.causal.game.setup;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.causal.game.behaviour.DeceiverBehaviour;
-import com.causal.game.behaviour.GossiperBehaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
-import com.causal.game.behaviour.PromoterBehaviour;
+import com.causal.game.gestures.DefaultGestures;
+import com.causal.game.gestures.SwipeInteraction;
+import com.causal.game.interact.IInteractionType;
+import com.causal.game.interact.IndividualInteractionType;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
-import com.causal.game.main.SwipeSprite;
 import com.causal.game.main.GameSprite.Status;
+import com.causal.game.main.SwipeSprite;
 import com.causal.game.main.WorldSystem;
-import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
+import com.causal.game.tutorial.TutorialGameGenerator;
+import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class GameGenerator {
 	
-	public float removalProb;
+	private float removalProb;
 	private Vector2 starterCoords;
-	public Random rand;
+	private Random rand = new Random();
 	private int supportCount = 0;
 	private int opposeCount = 0;
-	private int levelWinAmount = 0;
 	private int setWinAmount = 0;
+	private IInteractionType interactionType;
+	private Label topLabel;
+	private Label bottomLabel;
+	private int voteTypeInt;
+	protected Random voteTypeGen = new Random();
+	protected ISetGameSprites setGameSprite;
 	protected float followerTypeProb;
 	protected int starterX = -1;
-	
-	protected ISetGameSprites setGameSprite;
+	protected State winState;
+	protected int levelWinAmount = 0;
+	protected String voteTypeString;
 	
 	public GameGenerator() {
-		rand = new Random();
 		setRemovalProb();
 		setGameSprite = new SetGameSprite();
 	}
 	
-	public void populateFullCrowdScreen() {
+	public void setGameVoteRules() {
+		
+		generateVoteType();
+		
+		interactionType = new IndividualInteractionType();
+		
+		GameProperties.get().setSwipeInteraction(PlayerState.get().isFirstGame() ? new TutorialSwipeInteraction(interactionType, voteTypeInt) : new SwipeInteraction(interactionType, voteTypeInt));
+		
+		populateFullCrowdScreen();
+		
+		setLevelWinAmount();
+		
+		final Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		font.getData().scale(1f);
+		skin.add("default", new LabelStyle(font, Color.BLACK));
+		topLabel = new Label("GET "+levelWinAmount+" "+voteTypeString+" VOTES", skin);
+		bottomLabel = new Label("TO WIN THE CROWD", skin);
+	}
+	
+	protected void generateVoteType() {
+		
+		voteTypeInt = voteTypeGen.nextInt(2);
+		if(voteTypeInt == 0) {
+			voteTypeString = "WHITE";
+			winState = State.SUPPORT;
+		}
+		else {
+			voteTypeString = "RED";
+			winState = State.OPPOSE;
+		}
+	}
+	
+	private void populateFullCrowdScreen() {
 		
 		starterCoords = new Vector2(starterX, WorldSystem.get().getSystemHeight()-1);
 		for(int x = 0; x < WorldSystem.get().getSystemWidth(); x++) {
@@ -70,16 +114,16 @@ public class GameGenerator {
 //		setCrowdValidDirections();
 	}
 	
-	public void setCrowdProperties() {
+	protected void setCrowdProperties() {
 		starterX = starterX == -1 ? rand.nextInt(WorldSystem.get().getSystemWidth()-1) : starterX;
 		followerTypeProb = rand.nextFloat();
 	}
 	
-	public GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {
-		return new GameSprite(type, x, y, framesPath, isActive);
-	}
+//	private GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {
+//		return new GameSprite(type, x, y, framesPath, isActive);
+//	}
 	
-	public void populateLevelCrowdScreen() {
+	private void populateLevelCrowdScreen() {
 		
 		SnapshotArray<Actor> spritesArray = GameProperties.get().getActorGroup().getChildren();
 		spritesArray.shuffle();
@@ -101,13 +145,13 @@ public class GameGenerator {
 		
 	}
 	
-//	private void setCrowdValidDirections() {
-//		
-//		for(GameSprite sprite : GameProperties.get().getGameSprites()) {
+	private void setCrowdValidDirections() {
+		
+		for(GameSprite sprite : GameProperties.get().getGameSprites()) {
 //			sprite.setValidOrientations();
-//		}
-//		
-//	}
+		}
+		
+	}
 	
 	ArrayList<GameMember> gameMembers = new ArrayList<GameMember>();
 	private void setGameMembers() {
@@ -128,7 +172,7 @@ public class GameGenerator {
 		}
 	}
 	
-	public boolean isValidMemberRemoval() {
+	private boolean isValidMemberRemoval() {
 		
 		boolean isValid = false;
 		setGameMembers();
@@ -252,7 +296,7 @@ public class GameGenerator {
 		}
 	}
 	
-	public void setLevelWinAmount(State winState) {
+	protected void setLevelWinAmount() {
 		
 		rand = new Random();
 		rand.setSeed(rand.hashCode());
@@ -266,10 +310,10 @@ public class GameGenerator {
 		
 		if(setWinAmount < 100) {
 			if(winState == State.SUPPORT && levelWinAmount > supportCount) {
-				setLevelWinAmount(winState);
+				setLevelWinAmount();
 			}
 			if(winState == State.OPPOSE && levelWinAmount > opposeCount) {
-				setLevelWinAmount(winState);
+				setLevelWinAmount();
 			}
 			else return;
 		}
@@ -277,6 +321,18 @@ public class GameGenerator {
 	
 	public int getLevelWinAmount() {
 		return levelWinAmount;
+	}
+	
+	public IInteractionType getInteractionType() {
+		return interactionType;
+	}
+	
+	public Label getTopLabel() {
+		return topLabel;
+	}
+	
+	public Label getBottomLabel() {
+		return bottomLabel;
 	}
 
 }
