@@ -21,7 +21,8 @@ public class AutonomousInteraction {
 	public void interact(Orientation orientation) {
 		Gdx.app.debug("AutonomousInteraction","Interactor with status "+interactor.interactStatus);
 		// As long as interactor isn't neutral
-		if (interactor.interactStatus != Status.NEUTRAL) {
+		//TODO: Set condition compare to equals Status.NEUTRAL, breaking tutorial code
+		if (interactor.interactStatus == Status.INFLUENCED) {
 			GameSprite interactee = null;
 
 			// If facing towards the right

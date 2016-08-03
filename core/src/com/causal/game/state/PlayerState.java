@@ -50,7 +50,7 @@ public class PlayerState {
 		followers.add(new Follower(followerTypes.get(2), 3));
 		followers.add(new Follower(followerTypes.get(0), 4));
 		followers.add(new Follower(followerTypes.get(0), 5));
-		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
+		this.playerStateEntity = new PlayerStateEntity(0, 0, 10000, 1000, 5);
 	}
 
 	
@@ -110,7 +110,7 @@ public class PlayerState {
 	}
 	
 	public boolean isFirstGame() {
-		return true;
+		return false;
 	}
 	
 

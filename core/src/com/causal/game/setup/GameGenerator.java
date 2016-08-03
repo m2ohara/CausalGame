@@ -334,5 +334,9 @@ public class GameGenerator {
 	public Label getBottomLabel() {
 		return bottomLabel;
 	}
+	
+	public State getWinState() {
+		return winState;
+	}
 
 }

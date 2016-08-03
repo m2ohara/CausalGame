@@ -54,8 +54,8 @@ public class Game extends ApplicationAdapter {
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
 	GameGenerator gameGenerator = null;
-	State winState = null;
-	IInteractionType interactionType = null;
+//	State winState = null;
+//	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
 	Label touchActionCounter = null;
 	Label endScoreCounter = null;
@@ -275,7 +275,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void setupGame() {
 		
-		gameGenerator = PlayerState.get().isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
+		gameGenerator = PlayerState.get().isFirstGame() ? TutorialGameGenerator.get() : new GameGenerator();
 		
 		gameGenerator.setGameVoteRules();
 		
@@ -377,7 +377,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void activateGame(List<MoveableSprite> followers, ArrayList<Image> placeHolders) {
 		
-		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), winState, GameProperties.get().getActorGroup().getChildren().size);
+		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getWinState(), GameProperties.get().getActorGroup().getChildren().size);
 		
 		//Set dropped followers into game
 		for(MoveableSprite follower : followers) {
@@ -397,7 +397,7 @@ public class Game extends ApplicationAdapter {
 		
 		//Activate crowd members
 		for(GameSprite actor : GameProperties.get().getGameSprites()) {
-			actor.create(interactionType);
+			actor.create(gameGenerator.getInteractionType());
 		}
 		
 		//Set remaining votes icon

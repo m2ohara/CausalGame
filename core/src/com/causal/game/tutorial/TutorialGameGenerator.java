@@ -14,6 +14,8 @@ public class TutorialGameGenerator extends GameGenerator {
 	private static final double YELLOW = 0.1;
 	private static final double BLUE = 0.34;
 	private static final double RED = 1;
+	public static int Round = -1;
+	private static TutorialGameGenerator instance;
 	
 	private int idx = 0;
 	private List<Float> followerTypeProbList = Arrays.asList(
@@ -21,9 +23,16 @@ public class TutorialGameGenerator extends GameGenerator {
 			new Float(YELLOW), new Float(BLUE), new Float(RED), 
 			new Float(YELLOW), new Float(BLUE), new Float(RED));
 	
-	public TutorialGameGenerator() {
+	public static TutorialGameGenerator get() {
+		if(instance == null) {
+			instance = new TutorialGameGenerator();
+		}
+		Round+=1;
+		return instance;
+	}
+	
+	private TutorialGameGenerator() {
 		super();
-		
 		setGameSprite = new SetTutorialGameSprite();
 	}
 
