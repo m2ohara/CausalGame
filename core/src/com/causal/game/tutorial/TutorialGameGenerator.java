@@ -54,7 +54,7 @@ public class TutorialGameGenerator extends GameGenerator {
 	}
 	
 	public void setLevelWinAmount() {
-		levelWinAmount = 7;
+		levelWinAmount = 4;
 	}
 
 }

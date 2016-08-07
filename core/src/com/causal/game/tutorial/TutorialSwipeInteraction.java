@@ -43,7 +43,7 @@ public class TutorialSwipeInteraction extends SwipeInteraction implements ISwipe
 				if(WorldSystem.get().getGameXCoords().indexOf(lastHitActor.startingX) == WorldSystem.get().getGameXCoords().indexOf(hitActor.startingX) 
 						&& WorldSystem.get().getGameYCoords().indexOf(lastHitActor.startingY) ==  (WorldSystem.get().getGameYCoords().indexOf(hitActor.startingY)-1)) {
 					isValid = true;
-					Gdx.app.log("TutorialSwipeInteraction","Follower hit below");
+					Gdx.app.debug("TutorialSwipeInteraction","Follower hit below");
 				}
 			}
 			else if(((TutorialGameSprite)lastHitActor).getSwipeOrientation() == Orientation.W && lastHitActor.getOrientation() == Orientation.W) {

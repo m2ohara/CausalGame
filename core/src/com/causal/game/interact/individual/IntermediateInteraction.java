@@ -8,6 +8,7 @@ import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.InteractorType;
+import com.causal.game.main.GameSprite.Status;
 
 public class IntermediateInteraction implements IIndividualInteraction {
 	
@@ -22,8 +23,7 @@ public class IntermediateInteraction implements IIndividualInteraction {
 	public void setStatus() {
 		if(interactor.interactorType == InteractorType.INTERMEDIATE){
 			//Set interactee to interactor's influence type
-
-			Gdx.app.debug("IntermediateInteraction","Setting intermediate interactee influence: "+interactor.influenceType);
+			Gdx.app.log("IntermediateInteraction","Setting intermediate interactee influence: "+interactor.influenceType);
 		}
 	}
 	
