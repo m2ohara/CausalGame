@@ -45,12 +45,13 @@ public class PlayerState {
 		followerTypes.add(new FollowerType("sprites/Meep/Promoter/", Head.INFLUENCER, new PromoterBehaviour()));
 		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER, new DeceiverBehaviour()));
 		
-		followers.add(new Follower(followerTypes.get(0), 1));
-		followers.add(new Follower(followerTypes.get(1), 2));
-		followers.add(new Follower(followerTypes.get(2), 3));
-		followers.add(new Follower(followerTypes.get(0), 4));
-		followers.add(new Follower(followerTypes.get(0), 5));
-		this.playerStateEntity = new PlayerStateEntity(0, 0, 10000, 1000, 5);
+//		followers.add(new Follower(followerTypes.get(0), 1));
+//		followers.add(new Follower(followerTypes.get(1), 2));
+//		followers.add(new Follower(followerTypes.get(2), 3));
+//		followers.add(new Follower(followerTypes.get(0), 4));
+//		followers.add(new Follower(followerTypes.get(0), 5));
+		
+		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
 	}
 
 	
@@ -102,15 +103,20 @@ public class PlayerState {
 	
 	//TODO: Implement player state entity
 	public int getInfluenceLimit() {
-		return 3;
-	}
-	
-	public int getTapLimit() {
 		return 2;
 	}
 	
+	public int getTapLimit() {
+		return 1;
+	}
+	
+	private boolean isFirstGame = true;
+	public void isFirstGame(boolean isFirstGame) {
+		this.isFirstGame = isFirstGame;
+	}
+	
 	public boolean isFirstGame() {
-		return false;
+		return isFirstGame;
 	}
 	
 

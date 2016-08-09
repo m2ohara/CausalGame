@@ -1,6 +1,7 @@
 package com.causal.game.setup;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -24,6 +25,8 @@ import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.SwipeSprite;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.state.GameScoreState.State;
+import com.causal.game.state.Follower;
+import com.causal.game.state.FollowerType;
 import com.causal.game.state.PlayerState;
 import com.causal.game.tutorial.TutorialGameGenerator;
 import com.causal.game.tutorial.TutorialSwipeInteraction;
@@ -41,11 +44,11 @@ public class GameGenerator {
 	private Label bottomLabel;
 	private int voteTypeInt;
 	protected Random voteTypeGen = new Random();
-	protected ISetGameSprites setGameSprite;
+	protected static ISetGameSprites setGameSprite;
 	protected float followerTypeProb;
 	protected int starterX = -1;
 	protected State winState;
-	protected int levelWinAmount = 0;
+	protected static int levelWinAmount = 0;
 	protected String voteTypeString;
 	
 	public GameGenerator() {
@@ -337,6 +340,25 @@ public class GameGenerator {
 	
 	public State getWinState() {
 		return winState;
+	}
+	
+	public List<Follower> generateRewardFollowers(int amount) {	
+		
+		List<Follower> rewardedFollowers = new ArrayList<Follower>();
+		List<FollowerType> types = PlayerState.get().getFollowerTypes();
+		
+		int count = amount > 3 ? 3 : amount;
+		
+		Random rand = new Random();
+		for(int i =0; i < count; i++) {
+			FollowerType type = types.get(rand.nextInt(types.size()));
+			rewardedFollowers.add(new Follower(type, 0));
+		}
+		
+		PlayerState.get().addFollowers(rewardedFollowers);
+		
+		return rewardedFollowers;
+
 	}
 
 }

@@ -15,7 +15,11 @@ import com.causal.game.state.PlayerState;
 
 public class SetTutorialGameSprite extends SetGameSprite {
 	
-	private int orientationIdx = 0;
+	public int orientationIdx = 0;
+	
+	public void resetIndex() {
+		orientationIdx = 0;
+	}
 		
 	private List<Orientation> startingOrientations = Arrays.asList(
 			Orientation.S, Orientation.S, Orientation.N, 
@@ -55,30 +59,31 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			);
 	
 	private List<InfluenceType> influenceTypes = Arrays.asList(
-			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
 			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
+			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
 			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT
 			);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
+		if(orientationIdx == 9) { orientationIdx = 0;}
 		GameSprite current;
 		if(probability < 0.33) {
-			Gdx.app.debug("SetTutorialSprite", "Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(new TutorialGossiperBehaviour(roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSprite.get(orientationIdx), autoInteractOrientations.get(orientationIdx), influenceTypes.get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true);
 			incrementVoteType(2);
 		}
 		else if(probability >= 0.33 && probability < 0.66) {
-			Gdx.app.debug("SetTutorialSprite", "Creating promoter "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating promoter "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(new TutorialPromoterBehaviour(roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSprite.get(orientationIdx), autoInteractOrientations.get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(1).imagePath, true);
 			incrementVoteType(0);
 		}
 		else {
-			Gdx.app.debug("SetTutorialSprite", "Creating deceiver "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating deceiver "+x+", "+y+" to orientation index "+orientationIdx+" value "+roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(new TutorialDeceiverBehaviour(roundStartingOrientations.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSprite.get(orientationIdx), autoInteractOrientations.get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(2).imagePath, true);
 			incrementVoteType(1);
 		}
-		orientationIdx+=1;
+		orientationIdx += 1;
 		return current;
 	}
 

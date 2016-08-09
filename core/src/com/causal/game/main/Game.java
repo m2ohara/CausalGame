@@ -54,7 +54,6 @@ public class Game extends ApplicationAdapter {
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
 	GameGenerator gameGenerator = null;
-//	State winState = null;
 //	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
 	Label touchActionCounter = null;
@@ -275,7 +274,8 @@ public class Game extends ApplicationAdapter {
 	
 	private void setupGame() {
 		
-		gameGenerator = PlayerState.get().isFirstGame() ? TutorialGameGenerator.get() : new GameGenerator();
+		Gdx.app.log("Game", "Is tutorial "+PlayerState.get().isFirstGame());
+		gameGenerator = PlayerState.get().isFirstGame() ? TutorialGameGenerator.get() : new GameGenerator(); 
 		
 		gameGenerator.setGameVoteRules();
 		
@@ -284,44 +284,6 @@ public class Game extends ApplicationAdapter {
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
 	}
-	
-	//Refactor into GameSetup
-//	private void setGameVoteRules() {
-//		Random rand = new Random();
-//		
-//		String voteType = "";
-//		int vType = rand.nextInt(2);
-//		if(vType == 0) {
-//			voteType = "WHITE";
-//			winState = State.SUPPORT;
-//			interactionType = new IndividualInteractionType();
-//		}
-//		else {
-//			voteType = "RED";
-//			winState = State.OPPOSE;
-//			interactionType = new IndividualInteractionType();
-//		}
-//		
-//		GameProperties.get().setSwipeInteraction(plState.isFirstGame() ? new TutorialSwipeInteraction(interactionType, vType) : new SwipeInteraction(interactionType, vType));
-//		
-//		gameGenerator = plState.isFirstGame() ? new TutorialGameGenerator() : new GameGenerator();
-//		
-//		gameGenerator.populateFullCrowdScreen();
-//		
-//		gameGenerator.setLevelWinAmount(winState);
-//		
-//		
-//		final Skin skin = new Skin();
-//		BitmapFont font = new BitmapFont();
-//		font.getData().scale(1f);
-//		skin.add("default", new LabelStyle(font, Color.BLACK));
-//		Label label = new Label("GET "+gameGenerator.getLevelWinAmount()+" "+voteType+" VOTES", skin);
-//		setToStage(label, 0, 0);
-//		Label label2 = new Label("TO WIN THE CROWD", skin);
-//		setToStage(label2, 0, -90);
-//		
-//		setGestureDetector(new GestureDetector(new DefaultGestures()));
-//	}
 	
 	private void setCrowdScreen() {
 		
@@ -535,28 +497,35 @@ public class Game extends ApplicationAdapter {
 		int levelUpPoints = plState.getLevelUpThreshold();
 		int points = plState.getReputationPoints();
 		if(points >= levelUpPoints) {
-			generateRewardFollowers(points / levelUpPoints);
+			setRewardFollowers(points / levelUpPoints);
 			plState.setReputationPoints(points % levelUpPoints);
 		}
 	}
 	
-	private void generateRewardFollowers(int amount) {	
+	private void setRewardFollowers(int amount) {
 		
-		List<Follower> rewardedFollowers = new ArrayList<Follower>();
-		List<FollowerType> types = plState.getFollowerTypes();
-		
-		int count = amount > 3 ? 3 : amount;
-		
-		Random rand = new Random();
-		for(int i =0; i < count; i++) {
-			FollowerType type = types.get(rand.nextInt(types.size()));
-			rewardedFollowers.add(new Follower(type, 0));
-		}
-		
-		plState.addFollowers(rewardedFollowers);
+		List<Follower> rewardedFollowers = gameGenerator.generateRewardFollowers(amount);
 		
 		setRewardFollowers(rewardedFollowers);
 	}
+	
+//	private void generateRewardFollowers(int amount) {	
+//		
+//		List<Follower> rewardedFollowers = new ArrayList<Follower>();
+//		List<FollowerType> types = plState.getFollowerTypes();
+//		
+//		int count = amount > 3 ? 3 : amount;
+//		
+//		Random rand = new Random();
+//		for(int i =0; i < count; i++) {
+//			FollowerType type = types.get(rand.nextInt(types.size()));
+//			rewardedFollowers.add(new Follower(type, 0));
+//		}
+//		
+//		plState.addFollowers(rewardedFollowers);
+//		
+//		setRewardFollowers(rewardedFollowers);
+//	}
 	
 	private void setRewardFollowers(List<Follower> rewardedFollowers) {
 		
@@ -573,6 +542,8 @@ public class Game extends ApplicationAdapter {
 	}
 	
 	private void disposeGame() {
+		
+		if(PlayerState.get().isFirstGame() && TutorialGameGenerator.Round == 0) { PlayerState.get().isFirstGame(false);}
 		scoreState = null;
 		GameProperties.get().dispose();
 		WorldSystem.get().dispose();

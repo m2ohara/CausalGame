@@ -23,14 +23,14 @@ public class FirstInteraction implements IIndividualInteraction {
 		//If first
 		if(interactor.interactorType == InteractorType.FIRST && !isStatusSet) {
 			if(interactor.influenceType == InfluenceType.NONE){
-				Gdx.app.log("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
+				Gdx.app.debug("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
 				interactor.influenceType = (interactor.behaviour.getInfluenceType());
 				setFirstInfluencedSprite();
 				isStatusSet = true;
 			}
 			if(interactor.interactStatus == Status.SELECTED) {
 				interactor.interactStatus = Status.INFLUENCED;
-				Gdx.app.log("FirstInteraction", "Setting first interactor to  "+interactor.interactStatus);
+				Gdx.app.debug("FirstInteraction", "Setting first interactor to  "+interactor.interactStatus);
 			}
 		}
 	}
