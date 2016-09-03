@@ -543,7 +543,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void disposeGame() {
 		
-		if(PlayerState.get().isFirstGame() && TutorialGameGenerator.Round == 0) { PlayerState.get().isFirstGame(false);}
+		if(PlayerState.get().isFirstGame() && TutorialGameGenerator.Round == 1) { PlayerState.get().isFirstGame(false);}
 		scoreState = null;
 		GameProperties.get().dispose();
 		WorldSystem.get().dispose();
