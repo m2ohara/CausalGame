@@ -17,7 +17,7 @@ public class TutorialGameGenerator extends GameGenerator {
 	private static final double YELLOW = 0.1;
 	private static final double BLUE = 0.34;
 	private static final double RED = 1;
-	public static int Round = -1;
+	public static int Round = 0;
 	private static TutorialGameGenerator instance;
 	
 	private static int idx = 0;
@@ -28,9 +28,9 @@ public class TutorialGameGenerator extends GameGenerator {
 	
 	private List<Float> followerTypeProbList2 = Arrays.asList(
 			new Float(YELLOW), new Float(RED), new Float(BLUE),
-			new Float(BLUE), new Float(YELLOW), new Float(RED), 
+			new Float(BLUE), new Float(YELLOW), new Float(YELLOW), 
 			new Float(RED), new Float(BLUE), new Float(RED), 
-			new Float(BLUE), new Float(RED), new Float(YELLOW)
+			new Float(BLUE), new Float(YELLOW), new Float(YELLOW)
 			);
 	
 	@SuppressWarnings("unchecked")

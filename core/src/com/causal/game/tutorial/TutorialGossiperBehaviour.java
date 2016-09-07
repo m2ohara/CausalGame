@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.GossiperBehaviour;
-import com.causal.game.behaviour.GossiperProperties;
+import com.causal.game.interact.DeceiverAutonomousBehaviour;
 import com.causal.game.interact.GossiperAutonomousBehaviour;
+import com.causal.game.interact.IInteraction;
+import com.causal.game.interact.PromoterAutonomousBehaviour;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem.Orientation;
@@ -32,7 +34,8 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	
 	@Override
 	protected void setAutoInteraction(GameSprite gameSprite) {
-		autoInteraction = new TutorialAutonomousInteraction(gameSprite, new GossiperAutonomousBehaviour());
+		IInteraction interaction = influenceType == InfluenceType.SUPPORT ? new PromoterAutonomousBehaviour() : new DeceiverAutonomousBehaviour(); 
+		autoInteraction = new TutorialAutonomousInteraction(gameSprite, interaction);
 	}	
 	
 	@Override

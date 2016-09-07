@@ -27,7 +27,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Orientation.S, Orientation.S, Orientation.N);
 	
 	private List<Orientation> startingOrientations2 = Arrays.asList(
-			Orientation.E, Orientation.N, Orientation.N, 
+			Orientation.W, Orientation.N, Orientation.N, 
 			Orientation.S, Orientation.E, Orientation.N,
 			Orientation.E, Orientation.S, Orientation.N, 
 			Orientation.S, Orientation.N, Orientation.N
@@ -43,7 +43,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	//Orientation.N indicates unused coordinates
 	private List<Orientation> autoInteractOrientations2 = Arrays.asList(	//End result
-			Orientation.S, Orientation.S, Orientation.S,      				// Y, Y, N 
+			Orientation.S, Orientation.N, Orientation.S,      				// Y, Y, N 
 			Orientation.W, Orientation.W, Orientation.W, 					// N, Y, Y
 			Orientation.S, Orientation.S, Orientation.E,					// Y, N, Y
 			Orientation.N, Orientation.N, Orientation.E						// N, Y, N
@@ -59,9 +59,9 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	//Orietation.W indicates unused coordinates
 	private List<Orientation> swipeOrientations2 = Arrays.asList(
-			Orientation.W, Orientation.W, Orientation.W,
+			Orientation.S, Orientation.S, Orientation.W,
 			Orientation.E, Orientation.N, Orientation.N, 
-			Orientation.E, Orientation.W, Orientation.W, 
+			Orientation.E, Orientation.W, Orientation.N, 
 			Orientation.S, Orientation.W, Orientation.W
 			);
 	
@@ -77,10 +77,10 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	@SuppressWarnings("unchecked")
 	private List<List<Vector2>> tapableOnSelectedSprite2= Arrays.asList(
-			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), 
-			Arrays.asList( new Vector2(1,1)), Arrays.asList( new Vector2(1,2)), Arrays.asList( new Vector2(2,3)), 
-			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), 
-			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(3,0)), Arrays.asList( new Vector2(2,3))
+			Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(3,0)), Arrays.asList( new Vector2(3,1)), 
+			Arrays.asList( new Vector2(1,1)), Arrays.asList( new Vector2(1,2)), Arrays.asList( new Vector2(3,2)), 
+			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(3,2)), Arrays.asList( new Vector2(3,2)), 
+			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(3,0)), Arrays.asList( new Vector2(3,2))
 			);
 	
 	@SuppressWarnings("unchecked")
@@ -93,13 +93,12 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Arrays.asList( new Vector2(2,2)), Arrays.asList( new Vector2(0,0), new Vector2(1,0)), Arrays.asList( new Vector2(2,2))
 			);
 	
-	//Coordinates 2.3 indicates unused 
 	@SuppressWarnings("unchecked")
 	private List<List<Vector2>> autoInteractOnSelectedSprite2 = Arrays.asList(
-			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), 
-			Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(0,2)), Arrays.asList( new Vector2(1,2)), 
-			Arrays.asList( new Vector2(3,0), new Vector2(3,1)), Arrays.asList( new Vector2(3,1)), Arrays.asList( new Vector2(2,3)), 
-			Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3)), Arrays.asList( new Vector2(2,3))
+			Arrays.asList( new Vector2(3,2)), Arrays.asList( new Vector2(3,2)), Arrays.asList( new Vector2(3,2)), 
+			Arrays.asList( new Vector2(2,0)), Arrays.asList( new Vector2(1,0), new Vector2(2,0)), Arrays.asList( new Vector2(1,1)), 
+			Arrays.asList( new Vector2(3,0), new Vector2(3,1)), Arrays.asList( new Vector2(3,1)), Arrays.asList( new Vector2(3,2)), 
+			Arrays.asList( new Vector2(3,2)), Arrays.asList( new Vector2(3,2)), Arrays.asList( new Vector2(3,2))
 			);
 	
 	@SuppressWarnings("unchecked")
@@ -112,10 +111,10 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			);
 	
 	private List<InfluenceType> influenceTypes2 = Arrays.asList(
-			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
-			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.OPPOSE,
-			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
-			InfluenceType.SUPPORT, InfluenceType.OPPOSE, InfluenceType.SUPPORT
+			InfluenceType.NONE, InfluenceType.OPPOSE, InfluenceType.OPPOSE, //Rightmost column 4?
+			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.OPPOSE, //2nd column ?
+			InfluenceType.NONE, InfluenceType.NONE, InfluenceType.NONE,
+			InfluenceType.NONE, InfluenceType.NONE, InfluenceType.NONE
 			);
 	
 	@SuppressWarnings("unchecked")
@@ -147,7 +146,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	@Override
 	public GameSprite getGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive) {
 		Gdx.app.debug("SetTutorialSprite", "Getting tutorial sprite "+x+", "+y);
-		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx));
+		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
 	}
 
 }

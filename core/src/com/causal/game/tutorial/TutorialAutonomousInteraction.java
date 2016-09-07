@@ -14,7 +14,7 @@ public class TutorialAutonomousInteraction extends AutonomousInteraction {
 	
 	@Override
 	public void interact(Orientation orientation) {
-		if(((TutorialGameSprite)interactor).isValidAutoInteractSelectedSprite()) {
+		if(((TutorialGameSprite)interactor).isValidAutoInteractSelectedSprite(orientation)) {
 			Gdx.app.debug("TutorialAutonomousInteraction", "GameSprite at "+interactor.getXGameCoord()+", "+interactor.getYGameCoord()+" attempting to interact");
 			super.interact(orientation);
 		}
