@@ -51,7 +51,7 @@ public class PlayerState {
 //		followers.add(new Follower(followerTypes.get(0), 4));
 //		followers.add(new Follower(followerTypes.get(0), 5));
 		
-		this.playerStateEntity = new PlayerStateEntity(0, 1, 1000, 1000, 5);
+		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
 	}
 
 	

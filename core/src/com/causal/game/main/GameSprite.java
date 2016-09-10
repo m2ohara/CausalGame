@@ -34,7 +34,6 @@ public class GameSprite  extends Image {
 	private boolean isActing = false;
 	private String framesPath = null;
 	private static String defaultPack = "Default.pack";
-	private Head type = null;
 	
 	public GameSprite(ISpriteBehaviour spriteBehaviour, float x, float y, String framesPath, boolean isActive) {
 		super(new TextureAtlas(Gdx.files.internal(framesPath+defaultPack)).getRegions().get(0));

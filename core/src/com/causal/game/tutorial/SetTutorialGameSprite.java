@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
