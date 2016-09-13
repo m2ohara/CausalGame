@@ -291,7 +291,7 @@ public class Game extends ApplicationAdapter {
 		screen.setTouchable(Touchable.disabled);
 		setToStage(screen, 0, 0);
 		
-		GameProperties.get().addActorToStage(GameProperties.get().getActorGroup());
+		GameProperties.get().addActorToStage(GameProperties.get().getGameSpriteGroup());
 		
 		setFollowerScreen();
 	
@@ -339,7 +339,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void activateGame(List<MoveableSprite> followers, ArrayList<Image> placeHolders) {
 		
-		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getWinState(), GameProperties.get().getActorGroup().getChildren().size);
+		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getWinState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
 		
 		//Set dropped followers into game
 		for(MoveableSprite follower : followers) {
@@ -370,6 +370,8 @@ public class Game extends ApplicationAdapter {
 		setSwipeCount();
 		
 		SwipeSprite.get().activate();
+		
+		GameProperties.get().activateActors();
 		
 	}
 	

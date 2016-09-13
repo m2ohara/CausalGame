@@ -19,6 +19,7 @@ public class GameProperties {
 
 	private static GameProperties instance;
 
+	private float universalTimeRatio = 0.7f;
 	public boolean isAutoInteractionAllowed = false;
 	public ISwipeInteraction swipeInteraction = null;
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
@@ -26,6 +27,8 @@ public class GameProperties {
 	private Stage stage = null;
 	private int swipeCount;
 	private int swipeLimit;
+	private Group gameSpriteGroup = new Group();
+	private Group actorGroup = new Group();
 
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
@@ -49,26 +52,31 @@ public class GameProperties {
 		return this.swipeInteraction;
 	}
 
-	private float universalTimeRatio = 0.7f;
-
 	public float getUniversalTimeRatio() {
 		return universalTimeRatio;
 	}
 
-	private Group actorGroup = new Group();
-	public Group getActorGroup() {
-		return actorGroup;
+	public Group getGameSpriteGroup() {
+		return gameSpriteGroup;
 	}
 
 	public ArrayList<GameSprite> getGameSprites() {
 		gameSprites.clear();
-		Actor[] actors = ((Actor[])actorGroup.getChildren().toArray());
+		Actor[] actors = ((Actor[])gameSpriteGroup.getChildren().toArray());
 		for(Actor actor : actors) {
 			gameSprites.add((GameSprite) actor);
 		}
 		return gameSprites;	
 	}
 
+	public void addToGameSpriteGroup(Actor actor) {
+		this.gameSpriteGroup.addActor(actor);
+	}
+	
+	public Group getActorGroup() {
+		return actorGroup;
+	}
+	
 	public void addToActorGroup(Actor actor) {
 		this.actorGroup.addActor(actor);
 	}
@@ -84,7 +92,7 @@ public class GameProperties {
 		Actor actorToRemove = stage.hit(actor.getCurrentX(), actor.getCurrentY(), true);
 		try {
 			//Remove current actor at coordinates
-			actorGroup.removeActor(actorToRemove);
+			gameSpriteGroup.removeActor(actorToRemove);
 			actorToRemove.remove();
 
 			GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
@@ -96,7 +104,7 @@ public class GameProperties {
 				actorToAdd.setColor(Color.YELLOW);
 				SwipeSprite.get().setStartSprite(actorToAdd);
 			}
-			actorGroup.addActor(actorToAdd);
+			gameSpriteGroup.addActor(actorToAdd);
 			//Remove placeholder
 			actor.getSourceSprite().remove();
 			actor.getTargetImage().remove();
@@ -110,13 +118,13 @@ public class GameProperties {
 	
 	//Hack for hitting scaled actors. NB always reset to centre when finished hit
 	private void setActorGroupOriginToZero() {
-		for(Actor actor : actorGroup.getChildren()) {
+		for(Actor actor : gameSpriteGroup.getChildren()) {
 			actor.setOrigin(0f, 0f);
 		}
 	}
 	
 	private void setActorGroupOriginToCentre() {
-		for(Actor actor : actorGroup.getChildren()) {
+		for(Actor actor : gameSpriteGroup.getChildren()) {
 			actor.setOrigin(actor.getWidth()/2, actor.getHeight()/2);
 		}
 	}
@@ -165,7 +173,7 @@ public class GameProperties {
 
 	public void dispose() {
 		stage.clear();
-		actorGroup = new Group();
+		gameSpriteGroup = new Group();
 		actorsToReplace = new ArrayList<MoveableSprite>();
 		gameSprites.clear();
 		isAutoInteractionAllowed = false;
@@ -203,6 +211,10 @@ public class GameProperties {
 		
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
+	}
+	
+	public void activateActors() {
+		stage.addActor(actorGroup);
 	}
 
 

@@ -21,7 +21,7 @@ public class DefaultGameRules implements IGameRules {
 
 	@Override
 	public void setup() {
-		this.actors = GameProperties.get().getActorGroup();
+		this.actors = GameProperties.get().getGameSpriteGroup();
 	}
 
 	@Override

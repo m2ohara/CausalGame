@@ -3,45 +3,45 @@ TapSprite.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-001
+Tap
   rotate: false
   xy: 1, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
-002
+  index: 0
+Tap
   rotate: false
   xy: 73, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
-004
+  index: 4
+Tap
   rotate: false
   xy: 145, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
-005
+  index: 5
+Tap
   rotate: false
   xy: 217, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
-003
+  index: 1
+Tap
   rotate: false
   xy: 289, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
-000
+  index: 3
+Tap
   rotate: false
   xy: 361, 1
   size: 70, 64
   orig: 70, 64
   offset: 0, 0
-  index: -1
+  index: 2

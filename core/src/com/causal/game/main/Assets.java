@@ -54,6 +54,8 @@ public class Assets {
 			gameSpriteFilePaths.add("sprites/Meep/Promoter/"+type);
 			gameSpriteFilePaths.add("sprites/Meep/Deceiver/"+type);
 		}
+		
+		gameSpriteFilePaths.add("sprites/Meep/TapSprite/TapSprite.pack");
 	}
 	
 	public float getProgress() {

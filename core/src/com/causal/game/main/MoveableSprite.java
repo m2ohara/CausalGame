@@ -74,7 +74,7 @@ public class MoveableSprite
 		
 		setDragSource();
 		
-		Group group = GameProperties.get().getActorGroup();
+		Group group = GameProperties.get().getGameSpriteGroup();
 		for(Actor actor : group.getChildren()) {
 			addDropTarget(actor);
 		}

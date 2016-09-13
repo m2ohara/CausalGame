@@ -3,13 +3,14 @@ package com.causal.game.tutorial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.causal.game.animation.TutorialTapSprite;
+import com.causal.game.main.GameProperties;
 import com.causal.game.setup.GameGenerator;
-import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
+import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.PlayerState;
 
 public class TutorialGameGenerator extends GameGenerator {
@@ -59,6 +60,9 @@ public class TutorialGameGenerator extends GameGenerator {
 	private TutorialGameGenerator() {
 		super();
 		setGameSprite = new SetTutorialGameSprite();
+		TutorialTapSprite sprite = new TutorialTapSprite();
+		sprite.setPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/2);
+		GameProperties.get().addToActorGroup(sprite);
 	}
 
 	protected void setCrowdProperties() {

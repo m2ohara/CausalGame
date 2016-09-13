@@ -159,9 +159,9 @@ public class WorldSystem {
 	
 	public GameSprite getMemberFromCoords(int gameXPos, int gameYPos) {
 		
-		if(GameProperties.get().getActorGroup() != null) {
+		if(GameProperties.get().getGameSpriteGroup() != null) {
 			if(gameXPos != -1 && gameXPos < systemWidth && gameYPos != -1 && gameYPos < systemHeight){
-				Array<Actor> actors = GameProperties.get().getActorGroup().getChildren();
+				Array<Actor> actors = GameProperties.get().getGameSpriteGroup().getChildren();
 				for(Actor actor : actors) {
 						GameSprite headSprite = (GameSprite)actor;
 						if(gameXCoords.indexOf(headSprite.getStartingX()) == gameXPos && gameYCoords.indexOf(headSprite.getStartingY()) == gameYPos)

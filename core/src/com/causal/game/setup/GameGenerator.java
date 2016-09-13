@@ -103,7 +103,7 @@ public class GameGenerator {
 					current.setColor(Color.YELLOW);
 					SwipeSprite.get().setStartSprite(current);
 				}
-				GameProperties.get().addToActorGroup(current);
+				GameProperties.get().addToGameSpriteGroup(current);
 				
 				if(y == WorldSystem.get().getSystemHeight()-1) { 
 					Gdx.app.debug("GameGenerator", "Setting actor at coords "+current.getX()+", "+current.getY()); }
@@ -128,7 +128,7 @@ public class GameGenerator {
 	
 	private void populateLevelCrowdScreen() {
 		
-		SnapshotArray<Actor> spritesArray = GameProperties.get().getActorGroup().getChildren();
+		SnapshotArray<Actor> spritesArray = GameProperties.get().getGameSpriteGroup().getChildren();
 		spritesArray.shuffle();
 		Actor[] sprites = spritesArray.toArray();
 		int currentAmount = sprites.length;

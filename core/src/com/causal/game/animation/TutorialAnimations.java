@@ -19,8 +19,8 @@ public class TutorialAnimations {
 		TapSprite = new Animation(0.3f, animationFrames.get("TapSprite"), PlayMode.LOOP);
 	}
 
-	private void setFramePacks(String framesPath) {
-		Array<AtlasRegion> tapSpriteFrames = Assets.get().getAssetManager().get(framesPath + "TapSprite.pack", TextureAtlas.class).getRegions();
+	private void setFramePacks() {
+		Array<AtlasRegion> tapSpriteFrames = Assets.get().getAssetManager().get("sprites/Meep/TapSprite/TapSprite.pack", TextureAtlas.class).getRegions();
 		
 		animationFrames.put("TapSprite", tapSpriteFrames);
 	}

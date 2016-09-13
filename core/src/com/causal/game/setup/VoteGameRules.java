@@ -32,7 +32,7 @@ public class VoteGameRules implements IGameRules {
 	@Override
 	public void setup() {
 		this.currentState = State.PLAYING;
-		this.actors = GameProperties.get().getActorGroup();
+		this.actors = GameProperties.get().getGameSpriteGroup();
 	}
 
 	@Override
