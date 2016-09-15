@@ -7,6 +7,8 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.main.GameProperties;
+import com.causal.game.main.GameSprite;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.setup.GameGenerator;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
@@ -60,9 +62,6 @@ public class TutorialGameGenerator extends GameGenerator {
 	private TutorialGameGenerator() {
 		super();
 		setGameSprite = new SetTutorialGameSprite();
-		TutorialTapSprite sprite = new TutorialTapSprite();
-		sprite.setPosition(Gdx.graphics.getWidth()/2,  Gdx.graphics.getHeight()/2);
-		GameProperties.get().addToActorGroup(sprite);
 	}
 
 	protected void setCrowdProperties() {

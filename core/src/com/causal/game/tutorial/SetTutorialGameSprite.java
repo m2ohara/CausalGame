@@ -1,15 +1,12 @@
 package com.causal.game.tutorial;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.behaviour.ISpriteBehaviour;
-import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem;
@@ -123,6 +120,15 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	@SuppressWarnings("unchecked")
 	private List<List<InfluenceType>> autoInfluenceTypesRound = Arrays.asList(influenceTypes1, influenceTypes2);
+	
+	private List<TutorialAnimationProperties> animations1 = Arrays.asList(
+			new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
+			new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
+			new TutorialAnimationProperties(new Vector2(1,1), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(1,2), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0)))
+			);
+	
+	@SuppressWarnings("unchecked")
+	private List<List<TutorialAnimationProperties>> animationProperties = Arrays.asList(animations1);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
@@ -130,7 +136,14 @@ public class SetTutorialGameSprite extends SetGameSprite {
 		GameSprite current;
 		if(probability < 0.33) {
 			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
-			current = getGameSprite(new TutorialGossiperBehaviour(startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInfluenceTypesRound.get(TutorialGameGenerator.Round).get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true);
+			current = getGameSprite(
+					new TutorialGossiperBehaviour(
+							startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), 
+							tapableOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), 
+							autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), 
+							autoInfluenceTypesRound.get(TutorialGameGenerator.Round).get(orientationIdx)), 
+							WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true
+							);
 			incrementVoteType(2);
 		}
 		else if(probability >= 0.33 && probability < 0.66) {
@@ -150,7 +163,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	@Override
 	public GameSprite getGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive) {
 		Gdx.app.debug("SetTutorialSprite", "Getting tutorial sprite "+x+", "+y);
-		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
+		return new TutorialGameSprite(behaviour, x, y, framesPath, isActive, swipeOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), animationProperties.get(TutorialGameGenerator.Round).get(orientationIdx));
 	}
 
 }
