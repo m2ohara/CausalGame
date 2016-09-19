@@ -122,8 +122,8 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	private List<List<InfluenceType>> autoInfluenceTypesRound = Arrays.asList(influenceTypes1, influenceTypes2);
 	
 	private List<TutorialAnimationProperties> animations1 = Arrays.asList(
-			new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
-			new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
+			new TutorialAnimationProperties(new Vector2(1,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
+			new TutorialAnimationProperties(new Vector2(2,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(true, new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0, 0), new ArrayList<Integer>(Arrays.asList(0))),
 			new TutorialAnimationProperties(new Vector2(1,1), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(1,2), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0)))
 			);
 	
@@ -133,6 +133,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
 		if(orientationIdx == 9) { orientationIdx = 0;}
+		
 		GameSprite current;
 		if(probability < 0.33) {
 			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));

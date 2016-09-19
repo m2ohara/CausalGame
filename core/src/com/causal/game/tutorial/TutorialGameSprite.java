@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
@@ -16,6 +19,8 @@ public class TutorialGameSprite extends GameSprite{
 	private Orientation swipeOrientation;
 	private List<Vector2> autoInteractOnSelectedSprite;
 	private TutorialAnimationProperties animations;
+	public ChangeEvent event;
+	
 	
 	public TutorialGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive, Orientation swipeOrientation, List<Vector2> autoInteractOnSelectedSprite, Orientation autoInteractOrientation, TutorialAnimationProperties animations) {
 		super(behaviour, x, y, framesPath, isActive);
@@ -24,6 +29,9 @@ public class TutorialGameSprite extends GameSprite{
 		this.autoInteractOnSelectedSprite = autoInteractOnSelectedSprite;
 		this.autoInteractOrientation = autoInteractOrientation;
 		this.animations = animations;
+		
+		this.event = new ChangeEvent();
+
 	}
 	
 	public Orientation getSwipeOrientation() {
@@ -50,12 +58,12 @@ public class TutorialGameSprite extends GameSprite{
 		super.act(delta);
 	}
 	
-	public void checkAnimations() {
-		if(WorldSystem.get().getMemberFromCoords((int)animations.activateSprite.x, (int)animations.activateSprite.y).interactorType == InteractorType.FIRST) {
-			animations.countdownAnimation();
+	public void checkAnimations() {		
+		if(animations.activateSpriteCoords != null && WorldSystem.get().getMemberFromCoords((int)animations.activateSpriteCoords.x, (int)animations.activateSpriteCoords.y).interactorType == InteractorType.FIRST) {
+			animations.prepareAnimation();
 		}
 		else if(animations.isSet) {
-			animations.activateAnimations(GameProperties.get().isAutoInteractionAllowed, this.getX(), this.getY());
+			animations.activateAnimations(GameProperties.get().isAutoInteractionAllowed, this);
 		}
 	}
 

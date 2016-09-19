@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.act.IOnActing;
 import com.causal.game.act.OnAct;
@@ -28,5 +29,7 @@ public class TutorialTapSprite extends Image {
 		super.act(delta);
 			onActing.performActing(delta);
 	}
+	
+	
 
 }
