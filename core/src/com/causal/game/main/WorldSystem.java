@@ -3,6 +3,7 @@ package com.causal.game.main;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.state.PlayerState;
@@ -163,9 +164,23 @@ public class WorldSystem {
 			if(gameXPos != -1 && gameXPos < systemWidth && gameYPos != -1 && gameYPos < systemHeight){
 				Array<Actor> actors = GameProperties.get().getGameSpriteGroup().getChildren();
 				for(Actor actor : actors) {
-						GameSprite headSprite = (GameSprite)actor;
-						if(gameXCoords.indexOf(headSprite.getStartingX()) == gameXPos && gameYCoords.indexOf(headSprite.getStartingY()) == gameYPos)
-							return headSprite;
+						GameSprite gameSprite = (GameSprite)actor;
+						if(gameXCoords.indexOf(gameSprite.getStartingX()) == gameXPos && gameYCoords.indexOf(gameSprite.getStartingY()) == gameYPos)
+							return gameSprite;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Vector2 getVector2Coords(int gameXPos, int gameYPos) {
+		if(GameProperties.get().getGameSpriteGroup() != null) {
+			if(gameXPos != -1 && gameXPos < systemWidth && gameYPos != -1 && gameYPos < systemHeight){
+				Array<Actor> actors = GameProperties.get().getGameSpriteGroup().getChildren();
+				for(Actor actor : actors) {
+						GameSprite gameSprite = (GameSprite)actor;
+						if(gameXCoords.indexOf(gameSprite.getStartingX()) == gameXPos && gameYCoords.indexOf(gameSprite.getStartingY()) == gameYPos)
+							return new Vector2(gameSprite.getX(), gameSprite.getY());	
 				}
 			}
 		}

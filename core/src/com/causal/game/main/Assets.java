@@ -56,6 +56,7 @@ public class Assets {
 		}
 		
 		gameSpriteFilePaths.add("sprites/Meep/TapSprite/TapSprite.pack");
+		gameSpriteFilePaths.add("sprites/Meep/SwipingSprite/SwipingSprite.pack");
 	}
 	
 	public float getProgress() {

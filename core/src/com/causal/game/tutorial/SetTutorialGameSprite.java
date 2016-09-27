@@ -123,8 +123,8 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	private List<TutorialAnimationProperties> animations1 = Arrays.asList(
 			new TutorialAnimationProperties(new Vector2(1,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
-			new TutorialAnimationProperties(new Vector2(2,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(true, new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0, 0), new ArrayList<Integer>(Arrays.asList(0))),
-			new TutorialAnimationProperties(new Vector2(1,1), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(1,2), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0)))
+			new TutorialAnimationProperties(new Vector2(2,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(true, new ArrayList<Integer>(Arrays.asList(0, 1))), new TutorialAnimationProperties(new Vector2(0, 0), new ArrayList<Integer>(Arrays.asList(0,1))),
+			new TutorialAnimationProperties(new Vector2(1,1), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(1,2), new ArrayList<Integer>(Arrays.asList(0,1))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0)))
 			);
 	
 	@SuppressWarnings("unchecked")

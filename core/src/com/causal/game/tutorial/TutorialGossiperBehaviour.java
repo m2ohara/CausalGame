@@ -18,6 +18,7 @@ public class TutorialGossiperBehaviour extends GossiperBehaviour {
 	private List<Vector2> tapableSpriteCoords;
 	private Orientation autoInteractOrientation;
 	private InfluenceType influenceType;
+	private TutorialAnimationProperties animations;
 	
 	public TutorialGossiperBehaviour(Orientation presetOrientation, List<Vector2> list, Orientation autoInteractOrientation, InfluenceType influenceType) {
 		super();

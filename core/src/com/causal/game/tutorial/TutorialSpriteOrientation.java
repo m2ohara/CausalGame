@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
@@ -15,6 +17,7 @@ public class TutorialSpriteOrientation extends SpriteOrientation {
 	private List<Vector2> tapableSpriteCoords;
 	private boolean isTapped = false;
 	private Orientation autoInteractOrientation;
+	private ChangeEvent changeEvent;
 	
 	public TutorialSpriteOrientation(int xGameCoord, int yGameCoord, Orientation presetOrientation, List<Vector2> tapableSpriteCoords, Orientation autoInteractOrientation) 
 	{
@@ -61,6 +64,10 @@ public class TutorialSpriteOrientation extends SpriteOrientation {
 		}
 		
 		return false;
+	}
+	
+	public void setChangeEventTarget(Actor target) {
+		changeEvent.setTarget(target);
 	}
 
 }

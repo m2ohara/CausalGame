@@ -19,7 +19,8 @@ public class TutorialGameSprite extends GameSprite{
 	private Orientation swipeOrientation;
 	private List<Vector2> autoInteractOnSelectedSprite;
 	private TutorialAnimationProperties animations;
-	public ChangeEvent event;
+	public ChangeEvent changeEvent;
+	public boolean fired = false;
 	
 	
 	public TutorialGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive, Orientation swipeOrientation, List<Vector2> autoInteractOnSelectedSprite, Orientation autoInteractOrientation, TutorialAnimationProperties animations) {
@@ -30,7 +31,7 @@ public class TutorialGameSprite extends GameSprite{
 		this.autoInteractOrientation = autoInteractOrientation;
 		this.animations = animations;
 		
-		this.event = new ChangeEvent();
+		this.changeEvent = new ChangeEvent();
 
 	}
 	
@@ -46,16 +47,13 @@ public class TutorialGameSprite extends GameSprite{
 				return true;
 			}
 		}
-		
-		checkAnimations();
-		
 		return false;
 	}
 	
 	@Override
 	public void act(float delta) {
-		checkAnimations();
 		super.act(delta);
+		checkAnimations();
 	}
 	
 	public void checkAnimations() {		
@@ -64,6 +62,13 @@ public class TutorialGameSprite extends GameSprite{
 		}
 		else if(animations.isSet) {
 			animations.activateAnimations(GameProperties.get().isAutoInteractionAllowed, this);
+			
+//			changeEvent.setListenerActor(animations.tapSprite);
+//			changeEvent.setCapture(true);
+//			if(!fired) {
+//				this.fire(changeEvent);
+//				fired = true;
+//			}
 		}
 	}
 
