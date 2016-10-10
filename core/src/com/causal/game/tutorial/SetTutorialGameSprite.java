@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.causal.game.animation.TutorialSwipeSprite;
+import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
@@ -122,9 +124,27 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	private List<List<InfluenceType>> autoInfluenceTypesRound = Arrays.asList(influenceTypes1, influenceTypes2);
 	
 	private List<TutorialAnimationProperties> animations1 = Arrays.asList(
-			new TutorialAnimationProperties(new Vector2(1,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0))),
-			new TutorialAnimationProperties(new Vector2(2,0), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(true, new ArrayList<Integer>(Arrays.asList(0, 1))), new TutorialAnimationProperties(new Vector2(0, 0), new ArrayList<Integer>(Arrays.asList(0,1))),
-			new TutorialAnimationProperties(new Vector2(1,1), new ArrayList<Integer>(Arrays.asList(0))), new TutorialAnimationProperties(new Vector2(1,2), new ArrayList<Integer>(Arrays.asList(0,1))), new TutorialAnimationProperties(new Vector2(0,0), new ArrayList<Integer>(Arrays.asList(0)))
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(1,0), Orientation.N)))), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N)))), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N)))), 
+			
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(2,0), Orientation.N)))), 
+			new TutorialAnimationProperties(
+					true, 
+					new ArrayList<Object>(Arrays.asList(
+							new TutorialTapSprite(new Vector2(1,1), Orientation.E), 
+							new TutorialSwipeSprite(Arrays.asList(Orientation.N), new Vector2(1, 2), new Vector2(1, 1))
+							)),
+					new Vector2(2, 1)
+					), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N)))), 
+			
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(1,1), Orientation.N)))), 
+			new TutorialAnimationProperties(
+					new ArrayList<Object>(Arrays.asList(
+							new TutorialTapSprite(new Vector2(2,1), Orientation.N), 
+							new TutorialSwipeSprite(Arrays.asList(Orientation.E, Orientation.N), new Vector2(1, 1), new Vector2(2,0))))), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N)))) 
 			);
 	
 	@SuppressWarnings("unchecked")

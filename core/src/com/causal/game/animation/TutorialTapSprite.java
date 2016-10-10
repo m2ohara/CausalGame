@@ -4,18 +4,33 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.act.IOnActing;
 import com.causal.game.act.OnAct;
+import com.causal.game.main.WorldSystem;
+import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.tutorial.TutorialGameSprite;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class TutorialTapSprite extends Image {
 	
 	private IOnActing onActing = new OnAct(0.15f, "sprites/Meep/TapSprite/TapSprite.pack", "Tap");
+	private TutorialGameSprite tapGameSprite;
+	private Orientation tapOrientation;
+	private Vector2 tapGameSpriteCoords = null;
+	public boolean isFired = false;
 	
-	public TutorialTapSprite() {
+	public TutorialTapSprite(Vector2 tapGameSprite, Orientation tapOrientation) {
 		super(new TextureAtlas(Gdx.files.internal("sprites/Meep/TapSprite/TapSprite.pack")).getRegions().get(0));
+		
+		this.tapGameSpriteCoords = tapGameSprite;
+		this.tapOrientation = tapOrientation;
+	}
+	
+	public void setSprite() {
+		this.tapGameSprite = (TutorialGameSprite)WorldSystem.get().getMemberFromCoords((int)tapGameSpriteCoords.x, (int)tapGameSpriteCoords.y);
 	}
 	
 	@Override
@@ -28,6 +43,16 @@ public class TutorialTapSprite extends Image {
 	public void act(float delta) {
 		super.act(delta);
 			onActing.performActing(delta);
+			
+			checkChangeEvent();
+	}
+	
+	public void checkChangeEvent() {
+		if(tapGameSprite.getOrientation() == tapOrientation && !isFired) {
+			this.fire(new ChangeEvent());
+			isFired = true;
+			this.remove();
+		}
 	}
 	
 	

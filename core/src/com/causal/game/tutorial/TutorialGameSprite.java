@@ -4,14 +4,11 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.causal.game.behaviour.ISpriteBehaviour;
-import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.interact.IInteractionType;
 
 public class TutorialGameSprite extends GameSprite{
 	
@@ -19,8 +16,8 @@ public class TutorialGameSprite extends GameSprite{
 	private Orientation swipeOrientation;
 	private List<Vector2> autoInteractOnSelectedSprite;
 	private TutorialAnimationProperties animations;
-	public ChangeEvent changeEvent;
-	public boolean fired = false;
+//	public ChangeEvent changeEvent;
+//	public boolean fired = false;
 	
 	
 	public TutorialGameSprite(ISpriteBehaviour behaviour, float x, float y, String framesPath, boolean isActive, Orientation swipeOrientation, List<Vector2> autoInteractOnSelectedSprite, Orientation autoInteractOrientation, TutorialAnimationProperties animations) {
@@ -31,8 +28,21 @@ public class TutorialGameSprite extends GameSprite{
 		this.autoInteractOrientation = autoInteractOrientation;
 		this.animations = animations;
 		
-		this.changeEvent = new ChangeEvent();
+//		this.changeEvent = new ChangeEvent();
+		
 
+
+	}
+	
+	public void create(IInteractionType interactionType) {
+		
+		animations.createAnimations(this);
+		
+		super.create(interactionType);
+	}
+	
+	public void createAnimations() {
+		animations.createAnimations(this, true);
 	}
 	
 	public Orientation getSwipeOrientation() {
@@ -53,23 +63,23 @@ public class TutorialGameSprite extends GameSprite{
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		checkAnimations();
+//		checkAnimations();
 	}
 	
-	public void checkAnimations() {		
-		if(animations.activateSpriteCoords != null && WorldSystem.get().getMemberFromCoords((int)animations.activateSpriteCoords.x, (int)animations.activateSpriteCoords.y).interactorType == InteractorType.FIRST) {
-			animations.prepareAnimation();
-		}
-		else if(animations.isSet) {
-			animations.activateAnimations(GameProperties.get().isAutoInteractionAllowed, this);
-			
-//			changeEvent.setListenerActor(animations.tapSprite);
-//			changeEvent.setCapture(true);
-//			if(!fired) {
-//				this.fire(changeEvent);
-//				fired = true;
-//			}
-		}
-	}
+//	public void checkAnimations() {		
+//		if(animations.activateSpriteCoords != null && WorldSystem.get().getMemberFromCoords((int)animations.activateSpriteCoords.x, (int)animations.activateSpriteCoords.y).interactorType == InteractorType.FIRST) {
+//			animations.prepareAnimation();
+//		}
+//		else if(animations.isSet) {
+//			animations.activateAnimations(GameProperties.get().isAutoInteractionAllowed, this);
+//			
+////			changeEvent.setListenerActor(animations.tapSprite);
+////			changeEvent.setCapture(true);
+////			if(!fired) {
+////				this.fire(changeEvent);
+////				fired = true;
+////			}
+//		}
+//	}
 
 }
