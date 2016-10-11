@@ -21,10 +21,6 @@ public class TutorialAnimationProperties {
 	public boolean isSet = false;
 	private Vector2 nextAnimationCoords;
 	
-	public TutorialAnimationProperties(Vector2 activateSprite, ArrayList<Integer> arrayList) {
-		this.activateSpriteCoords = activateSprite;
-		this.animationTypes = arrayList;
-	}
 	
 	public TutorialAnimationProperties(boolean activeFromStart, ArrayList<Object> arrayList, Vector2 nextAnimation) {
 		this.animations = arrayList;
@@ -32,14 +28,22 @@ public class TutorialAnimationProperties {
 		this.nextAnimationCoords = nextAnimation;
 	}
 	
-	public TutorialAnimationProperties(ArrayList<Object> arrayList) {
+	public TutorialAnimationProperties(ArrayList<Object> arrayList, Vector2 nextAnimation) {
 		this.animations = arrayList;
-		
+		this.nextAnimationCoords = nextAnimation;
 	}
 	
-	public void createAnimations(final TutorialGameSprite parent, boolean isSet) {
-		this.isSet = true;
-		this.createAnimations(parent);
+	public TutorialAnimationProperties(ArrayList<Object> arrayList) {
+		this.animations = arrayList;
+	}
+	
+	public void showFirstAnimation(final TutorialGameSprite parent, boolean isSet) {
+		Actor firstAnimation = (Actor)animations.toArray()[0];
+		
+		firstAnimation.setPosition(parent.getX(), parent.getY());
+		firstAnimation.setTouchable(Touchable.disabled);
+		GameProperties.get().addToActorGroup(firstAnimation);	
+		
 	}
 	
 	public void createAnimations(final TutorialGameSprite parent) {
@@ -92,7 +96,7 @@ public class TutorialAnimationProperties {
 				isSet = false;
 			}
 			
-			if(idx++ == animations.size()) {
+			if(idx++ == animations.size() && nextAnimationCoords != null) {
 				animation.addCaptureListener(new ChangeListener() {
 
 						@Override
@@ -116,53 +120,6 @@ public class TutorialAnimationProperties {
 			GameProperties.get().getActorGroup().clear();
 		}
 	}
-	
-//	public void activateAnimations(boolean autoInteract, TutorialGameSprite dependentActor) {
-//		if(isSet && !autoInteract && !isActive) {
-//			Gdx.app.log("TutorialAnimationProperties", "GameSprite "+dependentActor.getX()+", "+dependentActor.getY()+ " animations active" );
-//			
-//			if (animationTypes.contains(0)) {
-//				tapSprite.setPosition(dependentActor.getX(), dependentActor.getY());
-//				tapSprite.setTouchable(Touchable.disabled);
-//				GameProperties.get().addToActorGroup(tapSprite);
-//				
-//				tapSprite.addCaptureListener(new ChangeListener() {
-//					
-//
-//					@Override
-//					public void changed(ChangeEvent event, Actor actor) {
-//						actor.setColor(Color.BLUE);
-//					}
-//					
-//				});
-//			}
-//			
-//			
-//			if(animationTypes.contains(1)) {
-//				List<Orientation> orientations = Arrays.asList(Orientation.N);
-//				swipingSprite = new TutorialSwipeSprite(orientations, dependentActor.getXGameCoord(), dependentActor.getYGameCoord());
-//				swipingSprite.setPosition(dependentActor.getX(), dependentActor.getY());
-//				swipingSprite.setTouchable(Touchable.disabled);
-//				GameProperties.get().addToActorGroup(swipingSprite);
-//			}
-//			
-//			isActive = true;
-//		}
-//	}
-	
-	//TODO: Instantiate animation sprites.
-//	public void instantiateAnimations() {
-//		for(Actor animation : animations) {
-//			if(animation.getClass() == TutorialTapSprite.class) {
-//				
-//				animation = new TutorialTapSprite();
-//			}
-//			
-//			if(animation.getClass() == TutorialSwipeSprite.class) {
-//				animation = new TutorialSwipeSprite();
-//			}
-//		}
-//	}
 	
 	
 }

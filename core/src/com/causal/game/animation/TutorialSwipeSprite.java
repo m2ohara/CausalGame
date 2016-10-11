@@ -71,7 +71,7 @@ public class TutorialSwipeSprite extends Image {
 			}
 			else if(destination == Orientation.W) {
 				destinationVectors = WorldSystem.get().getVector2Coords(parentX - 1, parentY);
-				parentX = parentX + 1;
+				parentX = parentX - 1;
 			}
 			
 			if(destinationVectors != null) {

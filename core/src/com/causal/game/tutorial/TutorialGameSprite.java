@@ -42,7 +42,7 @@ public class TutorialGameSprite extends GameSprite{
 	}
 	
 	public void createAnimations() {
-		animations.createAnimations(this, true);
+		animations.showFirstAnimation(this, true);
 	}
 	
 	public Orientation getSwipeOrientation() {
