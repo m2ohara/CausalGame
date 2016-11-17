@@ -51,11 +51,16 @@ public class Game extends ApplicationAdapter {
 	//Make easier to access
 	PlayerState plState = null;
 	
+	final int[] playerGoals = new int[2];
+	State EndState = null;
+	
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
 	GameGenerator gameGenerator = null;
 //	IInteractionType interactionType = null;
 	Label remainingVotesCounter = null;
+	Label player1Goal = null;
+	Label player2Goal = null;
 	Label touchActionCounter = null;
 	Label endScoreCounter = null;
 	Label swipeCounter = null;
@@ -267,10 +272,53 @@ public class Game extends ApplicationAdapter {
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
 				 btn.remove();
-				 setCrowdScreen();
+//				 setCrowdScreen();
+				 selectPlayerGoalScreen(0);
 			 }
 		});
 	}
+	
+	private void selectPlayerGoalScreen(final int playerIdx) {
+
+		
+		final Actor playerBtn1 = getButton("PlayGameBtn");
+		setToStage(playerBtn1, 0, -90);
+		
+		final Actor playerBtn2 = getButton("PlayGameBtn");
+		setToStage(playerBtn2, 0, -190);
+		
+		playerBtn1.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				playerGoals[playerIdx] = 0;
+				
+				if(playerIdx == 1) {
+					playerBtn1.remove();
+					playerBtn2.remove();
+					setCrowdScreen();
+				}
+				else {
+					selectPlayerGoalScreen(1);
+				}
+			}
+		});
+		
+		
+		playerBtn2.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				playerGoals[playerIdx] = 1;
+				
+				if(playerIdx == 1) {
+					playerBtn1.remove();
+					playerBtn2.remove();
+					setCrowdScreen();
+				}
+				else {
+					selectPlayerGoalScreen(1);
+				}
+			}
+		});
+	}
+	
 	
 	private void setupGame() {
 		
@@ -301,6 +349,7 @@ public class Game extends ApplicationAdapter {
 		
 		final ArrayList<MoveableSprite> followers = new ArrayList<MoveableSprite>();
 		final ArrayList<Image> placeHolders = new ArrayList<Image>();
+	
 		
 		final List<Follower> plFollowers = plState.getFollowers();
 		List<FollowerType> types = plState.getFollowerTypes();
@@ -316,15 +365,16 @@ public class Game extends ApplicationAdapter {
 			}
 		}
 		
-		final Actor btn = getButton("PlayGameBtn");
-		setToStage(btn, 0, -290);
+		final Actor playBtn = getButton("PlayGameBtn");
+		setToStage(playBtn, 0, -290);
 		
-		btn.addListener(new ClickListener() {
+		playBtn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
-				 btn.remove();
+				 playBtn.remove();
 				 activateGame(followers, placeHolders);
 			 }
 		});
+		
 	}
 	
 	private Actor createTargetImage(String framesPath, float origX, float origY) {
@@ -437,11 +487,13 @@ public class Game extends ApplicationAdapter {
 		if(scoreState.getCurrentState() == GameScoreState.State.SUPPORT) {
 			Actor image = getImage("WinSprite", "sprites/textPack");
 			setScoreStateSprite(image);
+			EndState = GameScoreState.State.SUPPORT;
 
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.OPPOSE) {
 			Actor image = getImage("LoseSprite", "sprites/textPack");
 			setScoreStateSprite(image);
+			EndState = GameScoreState.State.OPPOSE;
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.DRAW) {
 			Actor image = getImage("DrawSprite", "sprites/textPack");
@@ -466,6 +518,8 @@ public class Game extends ApplicationAdapter {
 	private void setEndGameScreen() {
 		setToStage(getImage("EndScreen", "screens/screensPack"), 0, 0);
 		
+		setPlayerCoopResults();
+		
 		setEndScoreValue();
 		
 		ScoreState.get().setLevel();
@@ -481,6 +535,33 @@ public class Game extends ApplicationAdapter {
 				setSpeechScreen();
 			 }
 		});
+	}
+	
+	private void setPlayerCoopResults() {
+		final Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		font.getData().scale(3.5f);
+		skin.add("default", new LabelStyle(font, Color.YELLOW));
+
+		String player1Result = "P1 WINS";
+		String player2Result = "P2 WINS";
+		
+		if(EndState == GameScoreState.State.SUPPORT) {
+			player1Result = playerGoals[0] == 0 ? "P1 WINS" : "P1 LOSES";
+			player2Result = playerGoals[1] == 0 ? "P2 WINS" : "P2 LOSES";
+		}
+		else if(EndState == GameScoreState.State.OPPOSE) {
+			player1Result = playerGoals[0] == 1 ? "P1 WINS" : "P1 LOSES";
+			player2Result = playerGoals[1] == 1 ? "P2 WINS" : "P2 LOSES";
+		}
+		
+		player1Goal = new Label(player1Result, skin);
+		setToStage(player1Goal, 0, 150);
+		
+		player2Goal = new Label(player2Result, skin);
+		setToStage(player2Goal, 0, 70);
+		
+		EndState = null;
 	}
 	
 	private void setEndScoreValue() {
@@ -510,24 +591,6 @@ public class Game extends ApplicationAdapter {
 		
 		setRewardFollowers(rewardedFollowers);
 	}
-	
-//	private void generateRewardFollowers(int amount) {	
-//		
-//		List<Follower> rewardedFollowers = new ArrayList<Follower>();
-//		List<FollowerType> types = plState.getFollowerTypes();
-//		
-//		int count = amount > 3 ? 3 : amount;
-//		
-//		Random rand = new Random();
-//		for(int i =0; i < count; i++) {
-//			FollowerType type = types.get(rand.nextInt(types.size()));
-//			rewardedFollowers.add(new Follower(type, 0));
-//		}
-//		
-//		plState.addFollowers(rewardedFollowers);
-//		
-//		setRewardFollowers(rewardedFollowers);
-//	}
 	
 	private void setRewardFollowers(List<Follower> rewardedFollowers) {
 		

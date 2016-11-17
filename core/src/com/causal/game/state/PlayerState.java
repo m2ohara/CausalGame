@@ -110,7 +110,7 @@ public class PlayerState {
 		return 1;
 	}
 	
-	private boolean isFirstGame = true;
+	private boolean isFirstGame = false;
 	public void isFirstGame(boolean isFirstGame) {
 		this.isFirstGame = isFirstGame;
 	}

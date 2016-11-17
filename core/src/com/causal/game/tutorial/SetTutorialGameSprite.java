@@ -159,8 +159,22 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)) 
 			);
 	
+	private List<TutorialAnimationProperties> animations2 = Arrays.asList(
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0))
+			);
+	
 	@SuppressWarnings("unchecked")
-	private List<List<TutorialAnimationProperties>> animationProperties = Arrays.asList(animations1);
+	private List<List<TutorialAnimationProperties>> animationProperties = Arrays.asList(animations1, animations2);
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {

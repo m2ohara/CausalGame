@@ -11,6 +11,7 @@ import com.causal.game.act.IOnActing;
 import com.causal.game.act.OnAct;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.tutorial.TutorialDisplayMessage;
 import com.causal.game.tutorial.TutorialGameSprite;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
@@ -21,12 +22,21 @@ public class TutorialTapSprite extends Image {
 	private Orientation tapOrientation;
 	private Vector2 tapGameSpriteCoords = null;
 	public boolean isFired = false;
+	private TutorialDisplayMessage displayMessage;
 	
 	public TutorialTapSprite(Vector2 tapGameSprite, Orientation tapOrientation) {
 		super(new TextureAtlas(Gdx.files.internal("sprites/Meep/TapSprite/TapSprite.pack")).getRegions().get(0));
 		
 		this.tapGameSpriteCoords = tapGameSprite;
 		this.tapOrientation = tapOrientation;
+	}
+	
+	public TutorialTapSprite(Vector2 tapGameSprite, Orientation tapOrientation, TutorialDisplayMessage displayMessage) {
+		super(new TextureAtlas(Gdx.files.internal("sprites/Meep/TapSprite/TapSprite.pack")).getRegions().get(0));
+		
+		this.tapGameSpriteCoords = tapGameSprite;
+		this.tapOrientation = tapOrientation;
+		this.displayMessage = displayMessage;
 	}
 	
 	public void setSprite() {
@@ -52,6 +62,11 @@ public class TutorialTapSprite extends Image {
 			this.fire(new ChangeEvent());
 			isFired = true;
 			this.remove();
+			
+			//Display on tap finished
+			if(displayMessage.getDisplayStage() == 1) {
+				displayMessage.setVisible(true);
+			}
 		}
 	}
 	

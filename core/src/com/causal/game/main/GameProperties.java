@@ -29,6 +29,7 @@ public class GameProperties {
 	private int swipeLimit;
 	private Group gameSpriteGroup = new Group();
 	private Group actorGroup = new Group();
+	private int[] playerGoals = new int[2];
 
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
@@ -215,6 +216,14 @@ public class GameProperties {
 	
 	public void activateActors() {
 		stage.addActor(actorGroup);
+	}
+	
+	public void setPlayerGoals(int[] playerGoals) {
+		this.playerGoals = playerGoals;
+	}
+	
+	public int[] getPlayerGoals() {
+		return this.playerGoals;
 	}
 
 

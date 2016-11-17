@@ -15,16 +15,14 @@ import com.causal.game.main.WorldSystem;
 
 public class TutorialAnimationProperties {
 	
-	public Vector2 activateSpriteCoords;
-	public ArrayList<Integer> animationTypes;
-	public List<Object> animations;
-	public boolean isSet = false;
+	private List<Object> animations;
+	private boolean active = false;
 	private Vector2 nextAnimationCoords;
 	
 	
 	public TutorialAnimationProperties(boolean activeFromStart, ArrayList<Object> arrayList, Vector2 nextAnimation) {
 		this.animations = arrayList;
-		this.isSet = activeFromStart;
+		this.active = activeFromStart;
 		this.nextAnimationCoords = nextAnimation;
 	}
 	
@@ -89,11 +87,11 @@ public class TutorialAnimationProperties {
 				
 			}
 			
-			if(previous == null && isSet) {
+			if(previous == null && active) {
 				animation.setPosition(parent.getX(), parent.getY());
 				animation.setTouchable(Touchable.disabled);
 				GameProperties.get().addToActorGroup(animation);	
-				isSet = false;
+				active = false;
 			}
 			
 			if(idx++ == animations.size() && nextAnimationCoords != null) {
@@ -111,15 +109,5 @@ public class TutorialAnimationProperties {
 			
 		}
 	}
-
-	
-	public void prepareAnimation() {
-		if(!isSet) {
-			Gdx.app.log("TutorialAnimationProperties", "GameSprite animations set" );
-			isSet = true;
-			GameProperties.get().getActorGroup().clear();
-		}
-	}
-	
 	
 }
