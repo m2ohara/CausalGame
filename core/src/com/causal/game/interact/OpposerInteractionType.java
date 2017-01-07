@@ -46,13 +46,9 @@ public class OpposerInteractionType implements IInteractionType {
 	}
 	
 	public void setInfluencedSprite() {
-		
-		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(1));
 
-		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
-		handSign.setPosition(interactee.getStartingX(), interactee.getStartingY());
-		
-		GameProperties.get().addActorToStage(handSign);
+		InfluenceTypeSetter.setBlock(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(1)));
+
 	}
 
 }

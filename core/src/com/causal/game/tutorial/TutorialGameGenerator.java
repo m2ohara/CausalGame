@@ -13,6 +13,7 @@ import com.causal.game.setup.GameGenerator;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState.State;
+import com.causal.game.state.GameScoreState.VoteState;
 import com.causal.game.state.PlayerState;
 
 public class TutorialGameGenerator extends GameGenerator {
@@ -74,11 +75,11 @@ public class TutorialGameGenerator extends GameGenerator {
 	protected void generateVoteType(int voteType) {
 		if(voteType == 0) {
 			voteTypeString = "WHITE";
-			winState = State.SUPPORT;
+			voteState = VoteState.SUPPORT;
 		}
 		else {
 			voteTypeString = "RED";
-			winState = State.OPPOSE;
+			voteState = VoteState.OPPOSED;
 		}
 	}
 	

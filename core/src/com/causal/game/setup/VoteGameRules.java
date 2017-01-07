@@ -8,22 +8,24 @@ import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.GameSprite.Status;
 import com.causal.game.state.GameScoreState.State;
+import com.causal.game.state.GameScoreState.VoteState;
 
 public class VoteGameRules implements IGameRules {
 	
 	private State currentState = null;
 	private Group actors = null;
 	private int winVotes;
-	private State winState;
+	private VoteState voteState;
 	private int totalVotes = 0;
 	private int remainingVotes = 0;
 	private int scoreWinMultiplier = 100;
 	private int scoreLoseMultiplier = 50;
 	private int waitTime = 300;
+	private State winState = State.NOTPLAYING;
 	
-	public VoteGameRules(State winState, int winVotes, int totalVotes) {
+	public VoteGameRules(VoteState winState, int winVotes, int totalVotes) {
 		this.winVotes = winVotes;
-		this.winState = winState;
+		this.voteState = winState;
 		this.totalVotes = totalVotes;
 		this.remainingVotes = winVotes;
 		setup();
@@ -41,7 +43,7 @@ public class VoteGameRules implements IGameRules {
 		if(currentState != State.FINISHED) {
 			calculateVotes();
 		}
-		else if(currentState == State.SUPPORT || currentState == State.OPPOSE || currentState == State.DRAW) {
+		else if(currentState == State.WIN || currentState == State.LOSE || currentState == State.DRAW) {
 			currentState = State.NOTPLAYING;
 		}
 		
@@ -88,24 +90,26 @@ public class VoteGameRules implements IGameRules {
 	private void setGameState(int forVotes, int againstVotes) {
 		
 		if(currentState == State.PLAYING) {
-			if(winState == State.SUPPORT) {
+			if(voteState == VoteState.SUPPORT) {
 	
 				if(forVotes >= winVotes) {
-					currentState =  State.SUPPORT;
+					currentState =  State.WIN;
+					winState = State.WIN;
 				}
 				else if((totalVotes - (forVotes + againstVotes)) < (winVotes - forVotes)) {
-					currentState =  State.OPPOSE;
+					currentState =  State.LOSE;
+					winState = State.LOSE;
 				}
-				endState = currentState;
 			}
-			else if(winState == State.OPPOSE) {
+			else if(voteState == VoteState.OPPOSED) {
 				if(againstVotes >= winVotes) {
-					currentState =  State.SUPPORT;
+					currentState =  State.WIN;
+					winState = State.WIN;
 				}
 				else if((totalVotes - (forVotes + againstVotes)) < (winVotes - againstVotes)) {
-					currentState =  State.OPPOSE;
+					currentState =  State.LOSE;
+					winState = State.LOSE;
 				}
-				endState = currentState;
 			}
 		}
 		else {
@@ -115,10 +119,10 @@ public class VoteGameRules implements IGameRules {
 	}
 	
 	private void updateRemainingVotes(int forVotes, int againstVotes) {
-		if(winState == State.SUPPORT) {
+		if(voteState == VoteState.SUPPORT) {
 			remainingVotes = winVotes - forVotes;
 		}
-		else if(winState == State.OPPOSE) {
+		else if(voteState == VoteState.OPPOSED) {
 			remainingVotes = winVotes - againstVotes;
 		}
 	}
@@ -134,24 +138,23 @@ public class VoteGameRules implements IGameRules {
 	}
 
 	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
+	public State getWinState() {
+		return this.winState;
 		
 	}
 	
-	private State endState = null;
 	private int endScore = 0;
 	private void setEndScore(int forVotes, int againstVotes) {
-		if(winState == State.SUPPORT) {
-			if(endState == State.SUPPORT) {
+		if(voteState == VoteState.SUPPORT) {
+			if(winState == State.WIN) {
 				endScore = scoreWinMultiplier * forVotes;
 			}
 			else {
 				endScore = scoreLoseMultiplier * forVotes;
 			}
 		}
-		else if(winState == State.OPPOSE) {
-			if(endState == State.SUPPORT) {
+		else if(voteState == VoteState.OPPOSED) {
+			if(winState == State.WIN) {
 				endScore = scoreWinMultiplier * againstVotes;
 			}
 			else {
@@ -164,6 +167,5 @@ public class VoteGameRules implements IGameRules {
 	public int getEndScore() {
 		return endScore;
 	}
-	
 
 }

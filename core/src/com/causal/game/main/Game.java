@@ -2,7 +2,6 @@ package com.causal.game.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -27,18 +26,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.causal.game.gestures.DefaultGestures;
 import com.causal.game.gestures.GameGestures;
-import com.causal.game.gestures.SwipeInteraction;
-import com.causal.game.interact.IInteractionType;
-import com.causal.game.interact.IndividualInteractionType;
 import com.causal.game.setup.GameGenerator;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState;
 import com.causal.game.state.GameScoreState.State;
+import com.causal.game.state.GameScoreState.VoteState;
 import com.causal.game.state.PlayerState;
 import com.causal.game.state.ScoreState;
 import com.causal.game.tutorial.TutorialGameGenerator;
-import com.causal.game.tutorial.TutorialSwipeInteraction;
 
 public class Game extends ApplicationAdapter {
 	
@@ -52,7 +48,6 @@ public class Game extends ApplicationAdapter {
 	PlayerState plState = null;
 	
 	final int[] playerGoals = new int[2];
-	State EndState = null;
 	
 	//Refactor to GameSetup
 	private GameScoreState scoreState = null;
@@ -239,10 +234,6 @@ public class Game extends ApplicationAdapter {
 		});
 	}
 	
-	private void setScreen() {
-		
-	}
-	
 	private void setSpeechScreen() {
 		
 		if(Assets.get().isLoaded()) {
@@ -272,49 +263,64 @@ public class Game extends ApplicationAdapter {
 		btn.addListener(new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
 				 btn.remove();
-//				 setCrowdScreen();
 				 selectPlayerGoalScreen(0);
 			 }
 		});
 	}
 	
 	private void selectPlayerGoalScreen(final int playerIdx) {
+		
 
+		final Actor playerLabel = getButton("Player"+(playerIdx+1)+"Btn");
+		setToStage(playerLabel, 0, 140 - (playerIdx*40));
 		
-		final Actor playerBtn1 = getButton("PlayGameBtn");
-		setToStage(playerBtn1, 0, -90);
+		final Actor winVotesLabel = getButton("WinVotesBtn");
+		setToStage(winVotesLabel, 0, -210);
 		
-		final Actor playerBtn2 = getButton("PlayGameBtn");
-		setToStage(playerBtn2, 0, -190);
+		final Actor winTickBtn = getButton("TickBtn");
+		setToStage(winTickBtn, 160, -210);
 		
-		playerBtn1.addListener(new ClickListener() {
+		final Actor loseVotesLabel = getButton("LoseVotesBtn");
+		setToStage(loseVotesLabel, 0, -260);
+		
+		final Actor loseTickBtn = getButton("TickBtn");
+		setToStage(loseTickBtn, 160, -260);
+		
+		winTickBtn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				playerGoals[playerIdx] = 0;
 				
 				if(playerIdx == 1) {
-					playerBtn1.remove();
-					playerBtn2.remove();
+					winVotesLabel.remove();
+					loseVotesLabel.remove();
+					winTickBtn.remove();
 					setCrowdScreen();
 				}
 				else {
 					selectPlayerGoalScreen(1);
 				}
+				
+				playerLabel.remove();
 			}
 		});
 		
 		
-		playerBtn2.addListener(new ClickListener() {
+		loseTickBtn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				playerGoals[playerIdx] = 1;
 				
 				if(playerIdx == 1) {
-					playerBtn1.remove();
-					playerBtn2.remove();
+					winVotesLabel.remove();
+					loseVotesLabel.remove();
+					winTickBtn.remove();
+					loseTickBtn.remove();
 					setCrowdScreen();
 				}
 				else {
 					selectPlayerGoalScreen(1);
 				}
+				
+				playerLabel.remove();
 			}
 		});
 	}
@@ -322,13 +328,14 @@ public class Game extends ApplicationAdapter {
 	
 	private void setupGame() {
 		
-		Gdx.app.log("Game", "Is tutorial "+PlayerState.get().isFirstGame());
+		Gdx.app.debug("Game", "Is tutorial "+PlayerState.get().isFirstGame());
 		gameGenerator = PlayerState.get().isFirstGame() ? TutorialGameGenerator.get() : new GameGenerator(); 
 		
 		gameGenerator.setGameVoteRules();
 		
-		setToStage(gameGenerator.getTopLabel(), 0, 0);
-		setToStage(gameGenerator.getBottomLabel(), 0, -90);
+		setToStage(gameGenerator.getTopLabel(), 0, 10);
+		setToStage(gameGenerator.getMiddleLabel(), 0, -50);
+		setToStage(gameGenerator.getBottomLabel(), 0, -120);
 		
 		setGestureDetector(new GestureDetector(new DefaultGestures()));
 	}
@@ -338,6 +345,9 @@ public class Game extends ApplicationAdapter {
 		Actor screen = getImage("GameScreen", "screens/screensPack");
 		screen.setTouchable(Touchable.disabled);
 		setToStage(screen, 0, 0);
+		
+		final Actor playerLabel = getButton("Player1Btn");
+		setToStage(playerLabel, 0, 100);
 		
 		GameProperties.get().addActorToStage(GameProperties.get().getGameSpriteGroup());
 		
@@ -365,6 +375,8 @@ public class Game extends ApplicationAdapter {
 			}
 		}
 		
+		final Actor playerLabel = getButton("Player2Btn");
+		
 		final Actor playBtn = getButton("PlayGameBtn");
 		setToStage(playBtn, 0, -290);
 		
@@ -372,6 +384,8 @@ public class Game extends ApplicationAdapter {
 			 public void clicked(InputEvent event, float x, float y) {
 				 playBtn.remove();
 				 activateGame(followers, placeHolders);
+				 
+				 setToStage(playerLabel, 0, 100);
 			 }
 		});
 		
@@ -389,7 +403,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void activateGame(List<MoveableSprite> followers, ArrayList<Image> placeHolders) {
 		
-		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getWinState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
+		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getVoteState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
 		
 		//Set dropped followers into game
 		for(MoveableSprite follower : followers) {
@@ -484,20 +498,19 @@ public class Game extends ApplicationAdapter {
 		}
 		
 		
-		if(scoreState.getCurrentState() == GameScoreState.State.SUPPORT) {
-			Actor image = getImage("WinSprite", "sprites/textPack");
-			setScoreStateSprite(image);
-			EndState = GameScoreState.State.SUPPORT;
+		if(scoreState.getCurrentState() == GameScoreState.State.WIN) {
 
+			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Supported!" : "Defeated!";
+			setScoreStateSprite("Bill "+result);	
 		}
-		else if(scoreState.getCurrentState() == GameScoreState.State.OPPOSE) {
-			Actor image = getImage("LoseSprite", "sprites/textPack");
-			setScoreStateSprite(image);
-			EndState = GameScoreState.State.OPPOSE;
+		else if(scoreState.getCurrentState() == GameScoreState.State.LOSE) {
+			
+			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Defeated" : "Supported";
+			setScoreStateSprite("Bill "+result);	
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.DRAW) {
-			Actor image = getImage("DrawSprite", "sprites/textPack");
-			setScoreStateSprite(image);
+
+			setScoreStateSprite("Vote Undetermined");
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.FINISHED) {	
 			setEndGameScreen();
@@ -508,11 +521,20 @@ public class Game extends ApplicationAdapter {
 		}
 	}
 	
-	private void setScoreStateSprite(Actor image) {
+	private void setScoreStateSprite(String result) {
+		swipeCounter.remove();
+		touchActionCounter.remove();
+
+		final Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		font.getData().scale(3f);
+		skin.add("default", new LabelStyle(font, Color.YELLOW));
+		Label image = new Label(result, skin);
+		
 		image.setOriginX(image.getHeight()/2);
 		image.setOriginY(image.getWidth()/2);
 		image.scaleBy(-0.5f);
-		setToStage(image, -40, 155);
+		setToStage(image, 0, -260);
 	}
 	
 	private void setEndGameScreen() {
@@ -540,38 +562,59 @@ public class Game extends ApplicationAdapter {
 	private void setPlayerCoopResults() {
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(3.5f);
+		font.getData().scale(1.5f);
 		skin.add("default", new LabelStyle(font, Color.YELLOW));
 
-		String player1Result = "P1 WINS";
-		String player2Result = "P2 WINS";
 		
-		if(EndState == GameScoreState.State.SUPPORT) {
-			player1Result = playerGoals[0] == 0 ? "P1 WINS" : "P1 LOSES";
-			player2Result = playerGoals[1] == 0 ? "P2 WINS" : "P2 LOSES";
+		String player1Result = playerGoals[0] == 0 ? "P1 SPLIT" : "P1 STOLE";
+		String player2Result = playerGoals[1] == 0 ? "P2 SPLIT" : "P2 STOLE";
+		
+		Gdx.app.log("Game", "Score state "+scoreState.getWinState().toString());
+
+		
+		int score = plState.getReputationPoints() + scoreState.getEndScore();
+		plState.setReputationPoints(score);
+		
+		//Both cooperate
+		if(playerGoals[0] == 0 && playerGoals[1] == 0) {
+			player1Result += ": "+Integer.toString(scoreState.getEndScore()/2);
+			player2Result += ": "+Integer.toString(scoreState.getEndScore()/2);
 		}
-		else if(EndState == GameScoreState.State.OPPOSE) {
-			player1Result = playerGoals[0] == 1 ? "P1 WINS" : "P1 LOSES";
-			player2Result = playerGoals[1] == 1 ? "P2 WINS" : "P2 LOSES";
+		
+		//Both defect
+		else if(playerGoals[0] == 1 && playerGoals[1] == 1) {
+			player1Result += ": 0";
+			player2Result += ": 0";
+		}
+		
+		
+		else {
+			//Player one sucker's payoff
+			if(playerGoals[0] == 0 && playerGoals[1] == 1) {
+				player1Result += ": 0";
+				player2Result += ": "+Integer.toString(scoreState.getEndScore());
+			}
+			//Player two sucker's payoff
+			else if(playerGoals[0] == 1 && playerGoals[1] == 0) {
+				player1Result += ": "+Integer.toString(scoreState.getEndScore());
+				player2Result += ": 0";
+			}
 		}
 		
 		player1Goal = new Label(player1Result, skin);
-		setToStage(player1Goal, 0, 150);
+		setToStage(player1Goal, 0, 120);
 		
 		player2Goal = new Label(player2Result, skin);
 		setToStage(player2Goal, 0, 70);
-		
-		EndState = null;
 	}
 	
 	private void setEndScoreValue() {
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(3.5f);
+		font.getData().scale(2.5f);
 		skin.add("default", new LabelStyle(font, Color.YELLOW));
-		int score = plState.getReputationPoints() + scoreState.getEndScore();
-		plState.setReputationPoints(score);
-		String value = Integer.toString(score);
+
+		String value = Integer.toString(scoreState.getEndScore());
 		remainingVotesCounter = new Label(value, skin);
 		setToStage(remainingVotesCounter, 0, -70);
 	}

@@ -48,12 +48,29 @@ public class SupporterInteractionType implements IInteractionType {
 	
 	public void setInfluencedSprite() {
 		
-		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0));
-
-		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
-		handSign.setPosition(interactee.getStartingX(), interactee.getStartingY());
-		
-		GameProperties.get().addActorToStage(handSign);
+		InfluenceTypeSetter.setBlock(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0)));
 	}
+//	
+//	private void setBlockSprite() {
+//		
+//		Actor influenceBlock = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0));
+//
+//		influenceBlock.setOrigin(influenceBlock.getWidth()/2, influenceBlock.getHeight()/2);
+//		influenceBlock.setPosition(interactee.getStartingX()-2, interactee.getStartingY()+2, 0);
+//		
+//		GameProperties.get().addActorToStage(influenceBlock);
+//		
+//		influenceBlock.setZIndex(GameProperties.get().getStageActor("GameScreen").getZIndex()+1);
+//	}
+//	
+//	private void setHandSignSprite() {
+		
+//		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0));
+//
+//		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
+//		handSign.setPosition(interactee.getStartingX(), interactee.getStartingY(), 0);
+//		
+//		GameProperties.get().addActorToStage(handSign);
+//	}
 
 }

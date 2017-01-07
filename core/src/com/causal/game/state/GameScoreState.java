@@ -5,18 +5,19 @@ import com.causal.game.setup.VoteGameRules;
 
 public class GameScoreState {
 	
-	public enum State {PLAYING, SUPPORT, OPPOSE, DRAW, NOTPLAYING, FINISHED}
+	public enum State {PLAYING, WIN, LOSE, DRAW, NOTPLAYING, FINISHED}
+	public enum VoteState {SUPPORT, OPPOSED}
 	
 	static int totalPoints = 0;
 	private static int touchActionPoints = 4;//TODO: Add to DB
 	private static int userPoints = touchActionPoints;
 	private IGameRules scoreSystem = null;
-	private State winState = null;
+	private VoteState voteState;
 
-	public GameScoreState(int winVotes, State winState, int totalVotes) {
-		scoreSystem = new VoteGameRules(winState, winVotes, totalVotes);
+	public GameScoreState(int winVotes, VoteState voteState, int totalVotes) {
+		scoreSystem = new VoteGameRules(voteState, winVotes, totalVotes);
 		userPoints = touchActionPoints;
-		winState = this.winState;
+		this.voteState = voteState;
 	}
 	
 	public static int getTouchActionPoints() {
@@ -59,7 +60,11 @@ public class GameScoreState {
 	}
 	
 	public State getWinState() {
-		return this.winState;
+		return scoreSystem.getWinState();
+	}
+	
+	public VoteState getVoteState() {
+		return this.voteState;
 	}
 
 }

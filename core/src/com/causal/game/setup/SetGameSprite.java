@@ -16,14 +16,14 @@ public class SetGameSprite implements ISetGameSprites {
 
 	public GameSprite createGameSprite(float probability, int x, int y) {
 		GameSprite current;
-		if(probability < 0.33) {
+		if(probability < 0) {
 			current = getGameSprite(new GossiperBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(0).imagePath, true);
 			incrementVoteType(2);
 		}
-		else if(probability >= 0.33 && probability < 0.66) {
-			current = getGameSprite(new PromoterBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(1).imagePath, true);
-			incrementVoteType(0);
-		}
+//		else if(probability >= 0.33 && probability < 0.66) {
+//			current = getGameSprite(new PromoterBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(1).imagePath, true);
+//			incrementVoteType(0);
+//		}
 		else {
 			current = getGameSprite(new DeceiverBehaviour(), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(2).imagePath, true);
 			incrementVoteType(1);

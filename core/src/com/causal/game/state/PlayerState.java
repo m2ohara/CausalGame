@@ -45,13 +45,13 @@ public class PlayerState {
 		followerTypes.add(new FollowerType("sprites/Meep/Promoter/", Head.INFLUENCER, new PromoterBehaviour()));
 		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER, new DeceiverBehaviour()));
 		
-//		followers.add(new Follower(followerTypes.get(0), 1));
+		followers.add(new Follower(followerTypes.get(0), 1));
 //		followers.add(new Follower(followerTypes.get(1), 2));
 //		followers.add(new Follower(followerTypes.get(2), 3));
 //		followers.add(new Follower(followerTypes.get(0), 4));
 //		followers.add(new Follower(followerTypes.get(0), 5));
 		
-		this.playerStateEntity = new PlayerStateEntity(0, 0, 1000, 1000, 5);
+		this.playerStateEntity = new PlayerStateEntity(0, 1, 1000, 1000, 5);
 	}
 
 	

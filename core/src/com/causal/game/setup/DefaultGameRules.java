@@ -46,11 +46,11 @@ public class DefaultGameRules implements IGameRules {
 	
 	private void setZeroSumGameState(int forPoints, int againstPoints) {
 		if(forPoints > (againstPoints + (totalPoints - (forPoints + againstPoints)))) {
-			currentState =  State.SUPPORT;
+			currentState =  State.WIN;
 		}
 		else if(againstPoints > (forPoints + (totalPoints - (forPoints + againstPoints)))) {
 			//Loss
-			currentState =  State.OPPOSE;
+			currentState =  State.LOSE;
 		}
 		else if((forPoints + againstPoints == totalPoints) && forPoints == againstPoints) {
 			//Draw
@@ -68,12 +68,6 @@ public class DefaultGameRules implements IGameRules {
 	}
 
 	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int getRemainingPoints() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -83,6 +77,12 @@ public class DefaultGameRules implements IGameRules {
 	public int getEndScore() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public State getWinState() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

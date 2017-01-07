@@ -27,6 +27,7 @@ import com.causal.game.main.WorldSystem;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
+import com.causal.game.state.GameScoreState.VoteState;
 import com.causal.game.state.PlayerState;
 import com.causal.game.tutorial.TutorialGameGenerator;
 import com.causal.game.tutorial.TutorialSwipeInteraction;
@@ -41,15 +42,17 @@ public class GameGenerator {
 	private int setWinAmount = 0;
 	private IInteractionType interactionType;
 	private Label topLabel;
+	private Label middleLabel;
 	private Label bottomLabel;
 	private int voteTypeInt;
 	protected Random voteTypeGen = new Random();
 	protected static ISetGameSprites setGameSprite;
 	protected float followerTypeProb;
 	protected int starterX = -1;
-	protected State winState;
+	protected VoteState voteState;
 	protected static int levelWinAmount = 0;
 	protected String voteTypeString;
+	protected String voteResultString;
 	
 	public GameGenerator() {
 		setRemovalProb();
@@ -70,10 +73,11 @@ public class GameGenerator {
 		
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(1f);
+		font.getData().scale(0.9f);
 		skin.add("default", new LabelStyle(font, Color.BLACK));
-		topLabel = new Label("GET "+levelWinAmount+" "+voteTypeString+" VOTES", skin);
-		bottomLabel = new Label("TO WIN THE CROWD", skin);
+		topLabel = new Label("THE LOCAL LEADER", skin);
+		middleLabel = new Label("NEEDS "+levelWinAmount+" "+voteTypeString+" VOTES", skin);
+		bottomLabel = new Label("TO "+voteResultString+" THE BILL", skin);
 	}
 	
 	protected void generateVoteType() {
@@ -81,11 +85,13 @@ public class GameGenerator {
 		voteTypeInt = voteTypeGen.nextInt(2);
 		if(voteTypeInt == 0) {
 			voteTypeString = "WHITE";
-			winState = State.SUPPORT;
+			voteResultString = "PASS";
+			voteState = VoteState.SUPPORT;
 		}
 		else {
 			voteTypeString = "RED";
-			winState = State.OPPOSE;
+			voteResultString = "DEFEAT";
+			voteState = VoteState.OPPOSED;
 		}
 	}
 	
@@ -113,8 +119,6 @@ public class GameGenerator {
 		supportCount = setGameSprite.getSupportCount();
 		opposeCount = setGameSprite.getOpposeCount();
 		
-//		populateLevelCrowdScreen();
-//		setCrowdValidDirections();
 	}
 	
 	protected void setCrowdProperties() {
@@ -122,200 +126,27 @@ public class GameGenerator {
 		followerTypeProb = rand.nextFloat();
 	}
 	
-//	private GameSprite getGameSprite(ISpriteBehaviour type, float x, float y, String framesPath, boolean isActive) {
-//		return new GameSprite(type, x, y, framesPath, isActive);
-//	}
-	
-	private void populateLevelCrowdScreen() {
-		
-		SnapshotArray<Actor> spritesArray = GameProperties.get().getGameSpriteGroup().getChildren();
-		spritesArray.shuffle();
-		Actor[] sprites = spritesArray.toArray();
-		int currentAmount = sprites.length;
-		for(int i = 0; i < sprites.length; i++) {
-			if (rand.nextFloat() < removalProb && currentAmount > levelWinAmount) {
-				if (sprites[i].getName() != "startingGameSprite") {
-					sprites[i].setVisible(false);
-					if (isValidMemberRemoval()) {
-						sprites[i].remove();
-						currentAmount--;
-					} else {
-						sprites[i].setVisible(true);
-					}
-				}
-			}
-		}
-		
-	}
-	
-	private void setCrowdValidDirections() {
-		
-		for(GameSprite sprite : GameProperties.get().getGameSprites()) {
-//			sprite.setValidOrientations();
-		}
-		
-	}
-	
-	ArrayList<GameMember> gameMembers = new ArrayList<GameMember>();
-	private void setGameMembers() {
-		for(int y = 0; y < WorldSystem.get().getSystemHeight(); y++) {
-			for(int x = 0; x < WorldSystem.get().getSystemWidth(); x++) {
-				if(WorldSystem.get().getMemberFromCoords(x, y) != null && WorldSystem.get().getMemberFromCoords(x, y).isVisible() == true) {
-					GameMember member = new GameMember(new Vector2(x , y));
-					if(starterCoords.x == x && starterCoords.y == y) {
-						member.isFirst = true;
-					}
-					gameMembers.add(member);
-				}
-			}
-		}
-		
-		for(GameMember member : gameMembers) {
-			member.neighbours = getNeighbouringMembers(member);
-		}
-	}
-	
-	private boolean isValidMemberRemoval() {
-		
-		boolean isValid = false;
-		setGameMembers();
-//		Set first sprite to current sprite, set as found & get neighbours
-		GameMember startMember = getMemberByCoords(starterCoords);
-		startMember.isFound = true;
-
-		
-		
-		GameMember current = startMember;
-		Gdx.app.debug("GameGenerator", "Start "+current.coords.x+" "+current.coords.y);
-		int foundMembers = 1;
-		boolean startingPlacement = true;
-		int neighbourIdx = 0;
-
-		while(current.isFirst == false || startingPlacement == true) {
-			startingPlacement = false;
-			if(current.isFound == false) {
-//				Get neighbours, set current as found
-				current.isFound = true;
-				Gdx.app.debug("GameGenerator", "Found "+current.coords.x+" "+current.coords.y);
-				foundMembers++;
-				neighbourIdx = 0;
-			}
-//			Else if current is found && neighbours are searched
-			else if(current.isFound && neighbourIdx == current.neighbours.size()) {
-//				Get parent & set parent to current
-				if(current.coords.x == startMember.coords.x && current.coords.y == startMember.coords.y) {
-					break;
-				}
-				current = current.parentMember;
-				Gdx.app.debug("GameGenerator", "Backtracking to "+current.coords.x+" "+current.coords.y);
-				neighbourIdx = 0;
-			}
-			else {
-//				Set next neighbour as current
-				if(current.neighbours.get(neighbourIdx).isFound == false) {
-					GameMember parent = current;
-					current = current.neighbours.get(neighbourIdx);
-					Gdx.app.debug("GameGenerator", "Checking "+current.coords.x+" "+current.coords.y);
-					current.parentMember = parent;
-				}
-				neighbourIdx++;
-			}
-		}
-		if(foundMembers == gameMembers.size()) {
-			isValid = true;
-		}
-		else {
-			isValid = false;
-		}
-		
-		gameMembers.clear();
-		
-		Gdx.app.debug("GameGenerator", "Is valid "+isValid);
-		return isValid;
-	}
-	
-	private ArrayList<GameMember> getNeighbouringMembers(GameMember member) {
-		ArrayList<GameMember> neighbourMembers = new ArrayList<GameMember>();
-		if(WorldSystem.get().getMemberFromCoords((int)member.coords.x, (int)member.coords.y + 1)!= null) {
-			GameMember foundMember = getMemberByCoords(new Vector2(member.coords.x, member.coords.y + 1));
-			if(foundMember != null)  {
-				neighbourMembers.add(foundMember);
-			}
-		}
-		if(WorldSystem.get().getMemberFromCoords((int)member.coords.x + 1, (int)member.coords.y)!= null ) {
-			GameMember foundMember = getMemberByCoords(new Vector2(member.coords.x+1, member.coords.y));
-			if(foundMember != null)  {
-				neighbourMembers.add(foundMember);
-			}
-		}
-		if(WorldSystem.get().getMemberFromCoords((int)member.coords.x, (int)member.coords.y - 1)!= null ) {
-			GameMember foundMember = getMemberByCoords(new Vector2(member.coords.x, member.coords.y - 1));
-			if(foundMember != null)  {
-				neighbourMembers.add(foundMember);
-			}
-		}
-		if(WorldSystem.get().getMemberFromCoords((int)member.coords.x - 1, (int)member.coords.y)!= null ) {
-			GameMember foundMember = getMemberByCoords(new Vector2(member.coords.x - 1, member.coords.y));
-			if(foundMember != null)  {
-				neighbourMembers.add(foundMember);
-			}
-		}
-		
-		return neighbourMembers;
-	}
-	
-
-	private GameMember getMemberByCoords(Vector2 coords) {
-		for(GameMember member : gameMembers) {
-			if(member.coords.x == coords.x && member.coords.y == coords.y) {
-				return member;
-			}
-		}
-		return null;
-	}
-	
-	class GameMember { 
-		public boolean isFound = false;
-		public boolean isFirst = false;
-		public Vector2 coords =  null;
-		public GameMember parentMember = null;
-		public ArrayList<GameMember> neighbours = null;
-		
-		public GameMember(Vector2 coords) {
-			this.coords = coords;
-		}
-	}
-	
 	private void setRemovalProb() {
 		removalProb = ((float)((PlayerState.get().getLevel() / 2)*2)/10); 
 	}
 	
-	private void incrementVoteType(int type) {
-		if(type == 0 || type == 2) {
-			supportCount += 1;
-		}
-		if(type == 1 || type == 2) {
-			opposeCount += 1;
-		}
-	}
-	
+	//Bug loop reaches over 100 before meeting condition TEST
 	protected void setLevelWinAmount() {
 		
 		rand = new Random();
-		rand.setSeed(rand.hashCode());
 		setWinAmount++;
-		int amount = WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight();
-		levelWinAmount = rand.nextInt(amount+PlayerState.get().getLevel())+amount/2;
+		int amount = (WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight())-1;
+		levelWinAmount = levelWinAmount == 0 ? rand.nextInt(amount+PlayerState.get().getLevel()) + (amount/2) : levelWinAmount-1;
 		
-		Gdx.app.debug("GameGenerator", "Win state "+winState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
-		Gdx.app.debug("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
-		Gdx.app.debug("GameGenerator", "Level win amount"+levelWinAmount);
+		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
+		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
 		
 		if(setWinAmount < 100) {
-			if(winState == State.SUPPORT && levelWinAmount > supportCount) {
+			if(voteState == VoteState.SUPPORT && levelWinAmount > supportCount) {
 				setLevelWinAmount();
 			}
-			if(winState == State.OPPOSE && levelWinAmount > opposeCount) {
+			if(voteState == VoteState.OPPOSED && levelWinAmount > opposeCount) {
 				setLevelWinAmount();
 			}
 			else return;
@@ -334,12 +165,16 @@ public class GameGenerator {
 		return topLabel;
 	}
 	
+	public Label getMiddleLabel() {
+		return middleLabel;
+	}
+	
 	public Label getBottomLabel() {
 		return bottomLabel;
 	}
 	
-	public State getWinState() {
-		return winState;
+	public VoteState getVoteState() {
+		return voteState;
 	}
 	
 	public List<Follower> generateRewardFollowers(int amount) {	

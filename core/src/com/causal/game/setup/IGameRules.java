@@ -16,6 +16,6 @@ public interface IGameRules {
 	
 	int getEndScore();
 	
-	void reset();
+	State getWinState();
 
 }

@@ -86,6 +86,8 @@ public class IndividualInteractionType implements IInteractionType {
 		handSign.setPosition(interactor.getStartingX(), interactor.getStartingY());
 		
 		GameProperties.get().addActorToStage(handSign);
+		
+		handSign.setZIndex(GameProperties.get().getGameSpriteGroup().getZIndex()-1);
 	}
 	
 	private void setIntermediateInfluencedSprite(){

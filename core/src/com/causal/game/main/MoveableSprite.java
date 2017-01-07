@@ -170,7 +170,7 @@ public class MoveableSprite
 		if(isPlaceholderActive) {
 			placeholderImage.toBack();
 			Gdx.app.debug("MoveableSprite","Setting placeholder to z index ");
-			placeholderImage.setZIndex(GameProperties.get().getGameScreenActor("GameScreen").getZIndex()+1);
+			placeholderImage.setZIndex(GameProperties.get().getStageActor("GameScreen").getZIndex()+1);
 			placeholderImage.setTouchable(Touchable.disabled);
 		}
 	}

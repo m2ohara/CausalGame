@@ -185,7 +185,7 @@ public class GameProperties {
 		this.stage = stage;
 	}
 	
-	public Actor getGameScreenActor(String name) {
+	public Actor getStageActor(String name) {
 		for(Actor actor : stage.getActors()) {
 			if(actor.getName() == name) {
 				return actor;
