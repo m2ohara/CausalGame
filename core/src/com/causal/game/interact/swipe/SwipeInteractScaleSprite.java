@@ -1,4 +1,4 @@
-package com.causal.game.main;
+package com.causal.game.interact.swipe;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -10,10 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.interact.IInteractionType;
+import com.causal.game.main.GameProperties;
+import com.causal.game.main.GameSprite;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.main.GameSprite.InteractorType;
 import com.causal.game.state.PlayerState;
 
-public class SwipeInteractSprite extends Image{
+public class SwipeInteractScaleSprite extends Image{
 	
 	private static String framesPath = "sprites/Meep/Effects/Effects.pack";
 	public boolean isInteracting = false;
@@ -27,7 +30,7 @@ public class SwipeInteractSprite extends Image{
 	private GameSprite interactee;
 	private IInteractionType interactionType;
 
-	public SwipeInteractSprite(float interactionStateLength, int interactionStages, GameSprite interactor, GameSprite interactee, IInteractionType interactionType) {
+	public SwipeInteractScaleSprite(float interactionStateLength, int interactionStages, GameSprite interactor, GameSprite interactee, IInteractionType interactionType) {
 		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(1));
 		
 		//Set interaction length based on level - faster for higher difficulty
@@ -87,7 +90,6 @@ public class SwipeInteractSprite extends Image{
 		if(interactor.isActive == true && this.scaleAction != null && this.getActions().size == 0 && currentScaleFactor >= finalScale) {
 			scaleAction.finish();
 			this.remove();
-
 			completeInteraction();
 		}
 		
