@@ -3,31 +3,101 @@ Right.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-RedEast2
+East
+  rotate: false
+  xy: 1, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 4
+East
+  rotate: false
+  xy: 1, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 14
+East
+  rotate: false
+  xy: 75, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 1
+East
   rotate: false
   xy: 1, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedEast3
+  index: 2
+East
+  rotate: false
+  xy: 75, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 13
+East
+  rotate: false
+  xy: 149, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 3
+East
   rotate: false
   xy: 75, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedEast1
+  index: 5
+East
+  rotate: false
+  xy: 149, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 10
+East
+  rotate: false
+  xy: 223, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 11
+East
   rotate: false
   xy: 149, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedEast4
+  index: 12
+East
+  rotate: false
+  xy: 223, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 9
+East
+  rotate: false
+  xy: 297, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 6
+East
   rotate: false
   xy: 223, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
+  index: 8
+East
+  rotate: false
+  xy: 297, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 7

@@ -3,44 +3,9 @@ Default.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-RedDefault1
+Default1
   rotate: false
   xy: 1, 1
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-RedDefault2
-  rotate: false
-  xy: 75, 1
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-RedDefault4
-  rotate: false
-  xy: 149, 1
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-RedDefault3
-  rotate: false
-  xy: 223, 1
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-RedDefault5
-  rotate: false
-  xy: 297, 1
-  size: 72, 72
-  orig: 72, 72
-  offset: 0, 0
-  index: -1
-RedDefault6
-  rotate: false
-  xy: 371, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0

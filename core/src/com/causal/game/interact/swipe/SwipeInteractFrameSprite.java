@@ -34,8 +34,7 @@ public class SwipeInteractFrameSprite extends Image {
 	private AtlasRegion currentFrame = null;
 	
 	private HashMap<String, Array<AtlasRegion>> animationFrames = new HashMap<String, Array<AtlasRegion>>();
-	private Array<AtlasRegion> frames;
-	
+	private Array<AtlasRegion> frames;	
 	
 	private SwipeInteract swipeInteract;
 	

@@ -3,31 +3,101 @@ Below.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-RedSouth3
+South
+  rotate: false
+  xy: 1, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 9
+South
+  rotate: false
+  xy: 1, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 11
+South
+  rotate: false
+  xy: 75, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 8
+South
   rotate: false
   xy: 1, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedSouth2
+  index: 10
+South
+  rotate: false
+  xy: 75, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 4
+South
+  rotate: false
+  xy: 149, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 6
+South
   rotate: false
   xy: 75, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedSouth1
+  index: 12
+South
+  rotate: false
+  xy: 149, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 14
+South
+  rotate: false
+  xy: 223, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 3
+South
   rotate: false
   xy: 149, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
-RedSouth4
+  index: 2
+South
+  rotate: false
+  xy: 223, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 5
+South
+  rotate: false
+  xy: 297, 149
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 13
+South
   rotate: false
   xy: 223, 1
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
-  index: -1
+  index: 1
+South
+  rotate: false
+  xy: 297, 75
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: 7
