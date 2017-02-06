@@ -10,7 +10,7 @@ GameScreen
   orig: 420, 600
   offset: 0, 0
   index: -1
-DebateScreen
+EndScreen
   rotate: false
   xy: 423, 1
   size: 420, 600
@@ -22,28 +22,16 @@ screensPack2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-EndScreen
-  rotate: false
-  xy: 1, 1
-  size: 420, 600
-  orig: 420, 600
-  offset: 0, 0
-  index: -1
 TitleScreen
   rotate: false
-  xy: 423, 1
+  xy: 1, 1
   size: 420, 600
   orig: 420, 600
   offset: 0, 0
   index: -1
-
-screensPack3.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
 SpeechScreen
   rotate: false
-  xy: 1, 1
+  xy: 423, 1
   size: 420, 600
   orig: 420, 600
   offset: 0, 0

@@ -5,106 +5,64 @@ filter: Nearest,Nearest
 repeat: none
 LoseVotesBtn
   rotate: false
-  xy: 1, 214
-  size: 240, 40
-  orig: 240, 40
+  xy: 1, 81
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 WinVotesBtn
   rotate: false
-  xy: 1, 172
-  size: 240, 40
-  orig: 240, 40
+  xy: 1, 41
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 PlayBtn
   rotate: false
-  xy: 243, 214
-  size: 240, 40
-  orig: 240, 40
+  xy: 168, 81
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 PlayGameBtn
   rotate: false
-  xy: 1, 130
-  size: 240, 40
-  orig: 240, 40
+  xy: 168, 81
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 Player2Btn
   rotate: false
-  xy: 243, 172
-  size: 240, 40
-  orig: 240, 40
+  xy: 1, 1
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 CreateSpeechBtn
   rotate: false
-  xy: 485, 214
-  size: 240, 40
-  orig: 240, 40
+  xy: 168, 41
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 LoadingBtn
   rotate: false
-  xy: 1, 88
-  size: 240, 40
-  orig: 240, 40
-  offset: 0, 0
-  index: -1
-BlankBtn
-  rotate: false
-  xy: 243, 130
-  size: 240, 40
-  orig: 240, 40
+  xy: 335, 81
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 Player1Btn
   rotate: false
-  xy: 485, 172
-  size: 240, 40
-  orig: 240, 40
-  offset: 0, 0
-  index: -1
-ShapeCrowdBtn
-  rotate: false
-  xy: 727, 214
-  size: 240, 40
-  orig: 240, 40
-  offset: 0, 0
-  index: -1
-DebateBtn
-  rotate: false
-  xy: 1, 46
-  size: 240, 40
-  orig: 240, 40
-  offset: 0, 0
-  index: -1
-PlayExpressionBtn
-  rotate: false
-  xy: 243, 50
-  size: 77, 78
-  orig: 77, 78
-  offset: 0, 0
-  index: -1
-ImproveBtn
-  rotate: false
-  xy: 322, 58
-  size: 71, 70
-  orig: 71, 70
-  offset: 0, 0
-  index: -1
-IdeasBtn
-  rotate: false
-  xy: 395, 61
-  size: 68, 67
-  orig: 68, 67
+  xy: 168, 1
+  size: 165, 38
+  orig: 165, 38
   offset: 0, 0
   index: -1
 TickBtn
   rotate: false
-  xy: 1, 1
-  size: 43, 43
-  orig: 43, 43
+  xy: 335, 42
+  size: 38, 37
+  orig: 38, 37
   offset: 0, 0
   index: -1

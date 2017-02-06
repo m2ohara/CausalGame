@@ -32,7 +32,7 @@ public class SupporterInteractionType implements IInteractionType {
 	public void setStatus() {
 		interactor.interactStatus = Status.INFLUENCED;
 		interactor.influenceType = InfluenceType.SUPPORT;
-		Gdx.app.debug("SupporterInteraction", "Setting intermediate supporter");
+		Gdx.app.log("SupporterInteraction", "Setting supporter status to influenced");
 	}
 	
 	//On autonomous interaction complete
@@ -47,8 +47,7 @@ public class SupporterInteractionType implements IInteractionType {
 	}
 	
 	public void setInfluencedSprite() {
-		
-		InfluenceTypeSetter.setBlock(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0)));
+		InfluenceTypeSetter.setHandSign(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0)));
 	}
 //	
 //	private void setBlockSprite() {

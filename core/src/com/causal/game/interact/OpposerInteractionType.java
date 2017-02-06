@@ -31,7 +31,7 @@ public class OpposerInteractionType implements IInteractionType {
 	public void setStatus() {
 		interactor.interactStatus = Status.INFLUENCED;
 		interactor.influenceType = InfluenceType.OPPOSE;
-		Gdx.app.debug("OpposerInteraction", "Setting intermediate opposer");
+		Gdx.app.log("OpposerInteraction", "Setting opposer status to influenced");
 	}
 	
 	//On autonomous interaction complete
@@ -42,12 +42,12 @@ public class OpposerInteractionType implements IInteractionType {
 		interactor.isInteracting = false;
 		interactee.isActive = true;
 		setInfluencedSprite();
-		Gdx.app.debug("OpposerInteraction", "Autonomous opposer interaction complete");
+		Gdx.app.log("OpposerInteraction", "Autonomous opposer interaction complete");
 	}
 	
 	public void setInfluencedSprite() {
 
-		InfluenceTypeSetter.setBlock(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(1)));
+		InfluenceTypeSetter.setHandSign(interactee, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(1)));
 
 	}
 

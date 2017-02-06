@@ -73,11 +73,11 @@ public class GameGenerator {
 		
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(0.9f);
+		font.getData().scale(0.7f);
 		skin.add("default", new LabelStyle(font, Color.BLACK));
-		topLabel = new Label("THE LOCAL LEADER", skin);
-		middleLabel = new Label("NEEDS "+levelWinAmount+" "+voteTypeString+" VOTES", skin);
-		bottomLabel = new Label("TO "+voteResultString+" THE BILL", skin);
+		topLabel = new Label("A LOCAL LEADER NEEDS", skin);
+		middleLabel = new Label(""+levelWinAmount+" "+voteTypeString+" VOTES TO", skin);
+		bottomLabel = new Label("BUILD IMPROVEMENTS", skin);
 	}
 	
 	protected void generateVoteType() {
@@ -133,24 +133,17 @@ public class GameGenerator {
 	//Bug loop reaches over 100 before meeting condition TEST
 	protected void setLevelWinAmount() {
 		
-		rand = new Random();
-		setWinAmount++;
-		int amount = (WorldSystem.get().getSystemWidth() * WorldSystem.get().getSystemHeight())-1;
-		levelWinAmount = levelWinAmount == 0 ? rand.nextInt(amount+PlayerState.get().getLevel()) + (amount/2) : levelWinAmount-1;
+		int voteCount = voteState.toString() == "SUPPORT" ? supportCount : opposeCount;
+		int offset = PlayerState.get().getLevel() + ((voteCount/4)*3);
 		
-		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+amount+ "+"+PlayerState.get().getLevel());
+		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
 		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
-		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
 		
-		if(setWinAmount < 100) {
-			if(voteState == VoteState.SUPPORT && levelWinAmount > supportCount) {
-				setLevelWinAmount();
-			}
-			if(voteState == VoteState.OPPOSED && levelWinAmount > opposeCount) {
-				setLevelWinAmount();
-			}
-			else return;
-		}
+		levelWinAmount = rand.nextInt(offset >= voteCount ? voteCount : voteCount - offset) + offset > voteCount ? 0 : offset;
+		
+		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
+
+	
 	}
 	
 	public int getLevelWinAmount() {

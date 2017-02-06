@@ -60,7 +60,7 @@ public class VoteGameRules implements IGameRules {
 				forVotes+=1;
 			}
 			else if((actor.interactStatus == Status.INFLUENCED || actor.interactStatus == Status.SELECTED) && actor.influenceType == InfluenceType.OPPOSE) {
-				againstVotes+=1;
+				againstVotes+=1;	
 			}
 		}
 		

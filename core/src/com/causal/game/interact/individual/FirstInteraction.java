@@ -24,14 +24,14 @@ public class FirstInteraction implements IIndividualInteraction {
 		//If first
 		if(interactor.interactorType == InteractorType.FIRST && !isStatusSet) {
 			if(interactor.influenceType == InfluenceType.NONE){
-				Gdx.app.debug("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
+				Gdx.app.log("FirstInteraction", "Setting first interactee with influenceType "+interactor.influenceType+" to influence: "+interactor.behaviour.getInfluenceType());
 				interactor.influenceType = (interactor.behaviour.getInfluenceType());
 				setFirstInfluencedSprite();
 				isStatusSet = true;
 			}
 			if(interactor.interactStatus == Status.SELECTED) {
 				interactor.interactStatus = Status.INFLUENCED;
-				Gdx.app.debug("FirstInteraction", "Setting first interactor to  "+interactor.interactStatus);
+				Gdx.app.log("FirstInteraction", "Setting first interactor to  "+interactor.interactStatus);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class FirstInteraction implements IIndividualInteraction {
 	}
 	
 //	public void setHandSign() {
-//		Gdx.app.debug("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
+//		Gdx.app.log("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
 //		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
 //
 //		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
@@ -55,7 +55,7 @@ public class FirstInteraction implements IIndividualInteraction {
 //	}
 //	
 //	public void setBlock() {
-//		Gdx.app.debug("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
+//		Gdx.app.log("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
 //		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
 //
 //		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
