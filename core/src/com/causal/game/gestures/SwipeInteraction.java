@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.individual.IndividualInteraction;
+import com.causal.game.interact.swipe.SwipeInteractFrameSprite;
 import com.causal.game.interact.swipe.SwipeInteractScaleSprite;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
@@ -25,7 +26,7 @@ public class SwipeInteraction implements ISwipeInteraction {
 	private int connectorSprite;
 	private float interactionStateLength = 3f;
 	private int interactionStages = 3;
-	SwipeInteractScaleSprite firstInteraction = null;
+	private SwipeInteractFrameSprite firstInteraction = null;
 	private Array<Actor> connectors = new Array<Actor>();
 
 	public SwipeInteraction(IInteractionType interactionType, int connectorSprite) {
@@ -87,13 +88,15 @@ public class SwipeInteraction implements ISwipeInteraction {
 				Gdx.app.debug("SwipeInteraction","Assigning first interaction");
 				interactor.interactorType = InteractorType.FIRST;
 				interactor.interactStatus = Status.INFLUENCED;
-				firstInteraction = new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
+				firstInteraction = new SwipeInteractFrameSprite(interactor, interactee);
+//				firstInteraction = new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 			else {
 				Gdx.app.debug("SwipeInteraction","Assigning next interaction");
 				interactor.interactStatus = Status.INFLUENCED;
 				interactor.interactorType = InteractorType.INTERMEDIATE;
-				new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
+				new SwipeInteractFrameSprite(interactor, interactee);
+//				new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 
 		}

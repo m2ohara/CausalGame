@@ -3,6 +3,7 @@ package com.causal.game.interact.swipe;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.interact.IInteractionType;
+import com.causal.game.interact.individual.IndividualInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.InteractorType;
@@ -12,15 +13,15 @@ public class SwipeInteract {
 	
 	public GameSprite interactor;
 	public GameSprite interactee;
-	public IInteractionType interactionType;
 	public boolean isInteracting;
-	public float interactionStateLength;
+	public IInteractionType interactionType = new IndividualInteraction();
 	
-	public void setInteractionSpeed(Image image) {
+	public SwipeInteract(GameSprite interactor, GameSprite interactee) {
+		this.interactee = interactee;
+		this.interactor = interactor;
 		
-		//Set interaction length based on level - faster for higher difficulty
-		this.interactionStateLength = (float)(interactionStateLength - (PlayerState.get().getLevel()/2));
-		if(this.interactionStateLength < 1) { this.interactionStateLength = 1; }
+		this.interactionType.setInteracts(interactor, interactee);
+
 	}
 	
 	public void startInteraction() {
@@ -37,7 +38,7 @@ public class SwipeInteract {
 		this.isInteracting = true;
 	}
 	
-	public void startFirstInteraction() {
+	private void startFirstInteraction() {
 		interactionType.setStatus();
 		interactor.setColor(Color.WHITE);
 	}

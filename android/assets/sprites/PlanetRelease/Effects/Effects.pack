@@ -1,0 +1,106 @@
+
+Effects.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ChatBubble
+  rotate: false
+  xy: 1, 1
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+IdeaBubble
+  rotate: false
+  xy: 59, 6
+  size: 56, 51
+  orig: 56, 51
+  offset: 0, 0
+  index: -1
+SpeechBubble
+  rotate: false
+  xy: 117, 6
+  size: 56, 51
+  orig: 56, 51
+  offset: 0, 0
+  index: -1
+
+Effects2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+IdeaBurst/IdeaBurst3
+  rotate: false
+  xy: 1, 1
+  size: 48, 47
+  orig: 48, 47
+  offset: 0, 0
+  index: -1
+IdeaBurst/IdeaBurst0
+  rotate: false
+  xy: 51, 1
+  size: 48, 47
+  orig: 48, 47
+  offset: 0, 0
+  index: -1
+IdeaBurst/IdeaBurst1
+  rotate: false
+  xy: 101, 1
+  size: 48, 47
+  orig: 48, 47
+  offset: 0, 0
+  index: -1
+IdeaBurst/IdeaBurst2
+  rotate: false
+  xy: 151, 1
+  size: 48, 47
+  orig: 48, 47
+  offset: 0, 0
+  index: -1
+
+Effects3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+TapSprite/001
+  rotate: false
+  xy: 1, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+TapSprite/002
+  rotate: false
+  xy: 73, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+TapSprite/004
+  rotate: false
+  xy: 145, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+TapSprite/005
+  rotate: false
+  xy: 217, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+TapSprite/003
+  rotate: false
+  xy: 289, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+TapSprite/000
+  rotate: false
+  xy: 361, 1
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1

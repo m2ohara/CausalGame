@@ -50,9 +50,9 @@ public class Assets {
 		List<String> spriteTypes = Arrays.asList("Default.pack", "Left.pack", "Right.pack", "Below.pack", "Above.pack");
 		
 		for(String type : spriteTypes) {	
-			gameSpriteFilePaths.add("sprites/Meep/Gossiper/"+type); 
-			gameSpriteFilePaths.add("sprites/Meep/Promoter/"+type);
-			gameSpriteFilePaths.add("sprites/Meep/Deceiver/"+type);
+			gameSpriteFilePaths.add("sprites/PlanetRelease/Gossiper/"+type); 
+			gameSpriteFilePaths.add("sprites/PlanetRelease/Promoter/"+type);
+			gameSpriteFilePaths.add("sprites/PlanetRelease/Deceiver/"+type);
 		}
 		
 		gameSpriteFilePaths.add("sprites/Meep/TapSprite/TapSprite.pack");

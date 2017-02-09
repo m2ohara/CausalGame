@@ -1,0 +1,19 @@
+
+HandSigns.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+WhiteSign
+  rotate: false
+  xy: 1, 1
+  size: 89, 89
+  orig: 89, 89
+  offset: 0, 0
+  index: -1
+RedSign
+  rotate: false
+  xy: 92, 1
+  size: 89, 89
+  orig: 89, 89
+  offset: 0, 0
+  index: -1

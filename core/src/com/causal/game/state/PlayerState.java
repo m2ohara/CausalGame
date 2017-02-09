@@ -41,9 +41,9 @@ public class PlayerState {
 	public void loadDummy() {
 		
 		//Dummy data
-		followerTypes.add(new FollowerType("sprites/Meep/Gossiper/", Head.GOSSIPER, new GossiperBehaviour()));
-		followerTypes.add(new FollowerType("sprites/Meep/Promoter/", Head.INFLUENCER, new PromoterBehaviour()));
-		followerTypes.add(new FollowerType("sprites/Meep/Deceiver/", Head.DECEIVER, new DeceiverBehaviour()));
+		followerTypes.add(new FollowerType("sprites/PlanetRelease/Gossiper/", Head.GOSSIPER, new GossiperBehaviour()));
+		followerTypes.add(new FollowerType("sprites/PlanetRelease/Promoter/", Head.INFLUENCER, new PromoterBehaviour()));
+		followerTypes.add(new FollowerType("sprites/PlanetRelease/Deceiver/", Head.DECEIVER, new DeceiverBehaviour()));
 		
 		followers.add(new Follower(followerTypes.get(0), 1));
 //		followers.add(new Follower(followerTypes.get(1), 2));
