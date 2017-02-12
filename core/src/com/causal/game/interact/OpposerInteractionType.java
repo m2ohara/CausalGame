@@ -31,7 +31,7 @@ public class OpposerInteractionType implements IInteractionType {
 	public void setStatus() {
 		interactor.interactStatus = Status.INFLUENCED;
 		interactor.influenceType = InfluenceType.OPPOSE;
-		Gdx.app.log("OpposerInteraction", "Setting opposer status to influenced");
+		Gdx.app.debug("OpposerInteraction", "Setting opposer status to influenced");
 	}
 	
 	//On autonomous interaction complete
@@ -42,7 +42,7 @@ public class OpposerInteractionType implements IInteractionType {
 		interactor.isInteracting = false;
 		interactee.isActive = true;
 		setInfluencedSprite();
-		Gdx.app.log("OpposerInteraction", "Autonomous opposer interaction complete");
+		Gdx.app.debug("OpposerInteraction", "Autonomous opposer interaction complete");
 	}
 	
 	public void setInfluencedSprite() {

@@ -1,24 +1,28 @@
-package com.causal.game.interact.swipe;
+package com.causal.game.main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
+import com.causal.game.interact.IInteractionType;
+import com.causal.game.interact.individual.IndividualInteraction;
 import com.causal.game.state.PlayerState;
 
-public class SwipeInteractFrameSprite extends Image {
-
+public class AutoInteractFrameSprite  extends Image {
+	
 	private static String framesPath = "sprites/PlanetRelease/Deceiver/SpaceShipRedMove.pack";
-	private float interactionStateLength = 400f;
+	public boolean isInteracting = false;
+	protected float interactionStateLength = 400f;
+	protected ScaleToAction scaleAction;
+	private IInteractionType interactionType;
 	
 	protected MoveToAction moveAction;
 	private float moveDuration = 5f;
@@ -26,21 +30,22 @@ public class SwipeInteractFrameSprite extends Image {
 	private float frameLength = 0.2f * GameProperties.get().getUniversalTimeRatio();
 	private float frameTime = frameLength;
 	private int frameCount = 0;
-	private AtlasRegion currentFrame = null;
-	
+	private AtlasRegion currentFrame = null;	
 	private Array<AtlasRegion> frames;	
 	
-	private SwipeInteract swipeInteract;
+	private GameSprite interactor;
 	
-	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee) {
-		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
+	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType) {
+		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(1));
 		
+		this.interactionType = interactionType;
 		frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
 		currentFrame = frames.get(0);
 		
-		set(interactor, interactee);
+		this.interactor = interactor;
 		
-		swipeInteract = new SwipeInteract(interactor, interactee);
+		set(interactor, interactee);		
+		this.setDrawable(new TextureRegionDrawable(new TextureRegion(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(2))));
 	}
 	
 	private void set(GameSprite interactor, GameSprite interactee) {
@@ -57,11 +62,11 @@ public class SwipeInteractFrameSprite extends Image {
 			
 		moveAction = Actions.moveTo(interactee.getX(), interactee.getY(), moveDuration);
 		
-		Gdx.app.debug("SwipeInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY()+ " for "+moveDuration+" duration");
+		Gdx.app.debug("AutoInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY()+ " for "+moveDuration+" duration");
 		
 		this.rotateBy(degrees);
 		this.setOrigin(currentFrame.getRegionWidth()/2, currentFrame.getRegionHeight()/2);
-		this.setPosition(interactor.getX(), interactor.getY());
+		this.setPosition(interactor.getX()+35, interactor.getY()+35);
 		this.setTouchable(Touchable.disabled);
 		this.setVisible(false);
 		GameProperties.get().addActorToStage(this);
@@ -73,34 +78,40 @@ public class SwipeInteractFrameSprite extends Image {
 		if(this.interactionStateLength < 1) { this.interactionStateLength = 1; }
 	}
 	
-	public void startInteraction() {
-		swipeInteract.startInteraction();
-		
-		Gdx.app.debug("SwipeInteractFramesSprite", "Started interaction");
+	public void setAction() {
+		this.isInteracting = true;
 	}
 	
 	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		this.setDrawable(new TextureRegionDrawable(new TextureRegion(currentFrame)));
+	}
+
+	@Override
 	public void act(float delta) {
 		super.act(delta);
-		
-		if(swipeInteract.interactor.isActive == true) {
+	
+		if(interactor.isActive == true) {
 			//Start interaction
-			if(!swipeInteract.isInteracting) {
+			if(!isInteracting) {
 				this.setVisible(true);
-				swipeInteract.setAction();
+				setAction();
 			}
 			
-			if(swipeInteract.isInteracting ) {
+			if(isInteracting ) {
 				
-				if(this.getActions().size == 0) {
+				if(!this.hasActions()) {
+					Gdx.app.log("AutoInteractFramesSprite", "Added action to "+this.hashCode()+"");
 					this.addAction(moveAction);
 				}
 			
 				//Interaction finished
 				if(interactionStateLength < 0) {
-					this.remove();
 					moveAction.finish();
-					swipeInteract.completeInteraction();
+					this.remove();
+					isComplete = true;
+					interactionType.complete();
 				}
 			
 				updateSprite(delta);
@@ -110,13 +121,6 @@ public class SwipeInteractFrameSprite extends Image {
 			}
 		
 		}
-		
-	}
-	
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-			this.setDrawable(new TextureRegionDrawable(new TextureRegion(currentFrame)));
 	}
 	
 	private void updateSprite(float delta) {
@@ -133,5 +137,10 @@ public class SwipeInteractFrameSprite extends Image {
 		}
 		
 		frameTime += delta;
+	}
+	
+	protected boolean isComplete = false;
+	public boolean isComplete() {
+		return isComplete;
 	}
 }

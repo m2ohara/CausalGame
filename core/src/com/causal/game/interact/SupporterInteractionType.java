@@ -32,7 +32,7 @@ public class SupporterInteractionType implements IInteractionType {
 	public void setStatus() {
 		interactor.interactStatus = Status.INFLUENCED;
 		interactor.influenceType = InfluenceType.SUPPORT;
-		Gdx.app.log("SupporterInteraction", "Setting supporter status to influenced");
+		Gdx.app.debug("SupporterInteraction", "Setting supporter status to influenced");
 	}
 	
 	//On autonomous interaction complete

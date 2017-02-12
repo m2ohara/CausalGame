@@ -136,12 +136,12 @@ public class GameGenerator {
 		int voteCount = voteState.toString() == "SUPPORT" ? supportCount : opposeCount;
 		int offset = PlayerState.get().getLevel() + ((voteCount/4)*3);
 		
-		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
-		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.debug("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
+		Gdx.app.debug("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
 		
 		levelWinAmount = rand.nextInt(offset >= voteCount ? voteCount : voteCount - offset) + offset > voteCount ? 0 : offset;
 		
-		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
+		Gdx.app.debug("GameGenerator", "Level win amount "+levelWinAmount);
 
 	
 	}

@@ -3,7 +3,7 @@ package com.causal.game.behaviour;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
-import com.causal.game.act.OnAnimateTalkingAct;
+import com.causal.game.act.OnAnimateSpaceShip;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.GameSprite.InfluenceType;
@@ -24,7 +24,7 @@ public class Behaviour {
 	public Behaviour(boolean isActive, AutonomousInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, ISpriteOrientation spriteOrientation) {
 		
 		this.isActive = isActive;
-		this.actType = new OnAnimateTalkingAct(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
+		this.actType = new OnAnimateSpaceShip(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
 		this.onTouch = touchAction;
 		
 		Gdx.app.debug("Behaviour", "Created animation for "+interaction.interactor.getXGameCoord()+", "+interaction.interactor.getYGameCoord());		

@@ -2,7 +2,7 @@ package com.causal.game.interact;
 
 import java.util.Random;
 
-import com.causal.game.main.AutoInteractSprite;
+import com.causal.game.main.AutoInteractFrameSprite;
 import com.causal.game.main.GameSprite;
 import com.causal.game.main.GameSprite.Status;
 
@@ -13,7 +13,7 @@ public class GossiperAutonomousBehaviour implements IInteraction {
 	private Random rand = new Random();
 	private float interactionStateLength = 3f;
 	private int interactionStages = 3;
-	private AutoInteractSprite interactSprite;
+	private AutoInteractFrameSprite interactSprite;
 	private IInteractionType interactionType;
 	
 	@Override
@@ -26,7 +26,8 @@ public class GossiperAutonomousBehaviour implements IInteraction {
 			interactor.isInteracting = true;
 			interactee.interactStatus = Status.INFLUENCED;
 			interactee.isActive = false;
-			interactSprite = new AutoInteractSprite(interactionStateLength, interactionStages, interactor, interactionType);
+//			interactSprite = new AutoInteractSprite(interactionStateLength, interactionStages, interactor, interactionType);
+			interactSprite = new AutoInteractFrameSprite(interactor, interactee, interactionType);
 			interactSprite.setAction();
 
 		}
