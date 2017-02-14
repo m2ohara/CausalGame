@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.Status;
 
 public class OpposerInteractionType implements IInteractionType {
 	private GameSprite interactor;

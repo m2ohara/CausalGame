@@ -1,6 +1,6 @@
 package com.causal.game.setup;
 
-import com.causal.game.main.GameSprite;
+import com.causal.game.sprite.GameSprite;
 
 public interface ISetGameSprites {
 	

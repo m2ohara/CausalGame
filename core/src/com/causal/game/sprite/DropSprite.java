@@ -1,4 +1,4 @@
-package com.causal.game.main;
+package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,11 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.main.Game.Head;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.main.GameProperties;
+import com.causal.game.main.WorldSystem;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.state.Follower;
 import com.causal.game.state.PlayerState;
 
-public class MoveableSprite 
+public class DropSprite 
 {
 	
 	private Head type = null;
@@ -36,7 +38,7 @@ public class MoveableSprite
 	private boolean isPlaceholderActive = false;
 	private Image placeholderImage;
 	
-	public MoveableSprite(Follower follower, float x, float y, Image sourceTargetImage) {
+	public DropSprite(Follower follower, float x, float y, Image sourceTargetImage) {
 		this.type = follower.type.head;
 		this.behaviour = follower.getFollowerType().getBehaviour();
 		this.origX = x;

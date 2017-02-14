@@ -1,7 +1,7 @@
 package com.causal.game.act;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.GameSprite.Status;
 
 
 public interface IOnAct {

@@ -5,8 +5,8 @@ import com.causal.game.behaviour.DeceiverBehaviour;
 import com.causal.game.behaviour.GossiperBehaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.behaviour.PromoterBehaviour;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem;
+import com.causal.game.sprite.GameSprite;
 import com.causal.game.state.PlayerState;
 
 public class SetGameSprite implements ISetGameSprites {

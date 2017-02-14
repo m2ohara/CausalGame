@@ -7,14 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.individual.IndividualInteraction;
-import com.causal.game.interact.swipe.SwipeInteractFrameSprite;
-import com.causal.game.interact.swipe.SwipeInteractScaleSprite;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InteractorType;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.SwipeInteractFrameSprite;
+import com.causal.game.sprite.SwipeInteractScaleSprite;
+import com.causal.game.sprite.GameSprite.InteractorType;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.state.GameScoreState;
 
 public class SwipeInteraction implements ISwipeInteraction {

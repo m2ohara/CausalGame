@@ -1,4 +1,4 @@
-package com.causal.game.main;
+package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.behaviour.Behaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.interact.IInteractionType;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.main.Game.Head;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.state.GameScoreState;
@@ -124,6 +125,10 @@ public class GameSprite  extends Image {
 	
 	public boolean changeOrientationOnInvalid() {
 		return behaviour.changeOrientationOnInvalid();
+	}
+	
+	public float getInteractLength() {
+		return behaviour.getInteractLength();
 	}
 
 	public enum Status { NEUTRAL, SELECTED, INFLUENCED }

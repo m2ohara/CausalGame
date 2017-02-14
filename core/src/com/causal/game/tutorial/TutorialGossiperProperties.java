@@ -1,7 +1,7 @@
 package com.causal.game.tutorial;
 
 import com.causal.game.behaviour.GossiperProperties;
-import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 
 public class TutorialGossiperProperties extends GossiperProperties {
 	

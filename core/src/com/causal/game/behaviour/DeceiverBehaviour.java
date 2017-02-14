@@ -3,7 +3,7 @@ package com.causal.game.behaviour;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.interact.DeceiverAutonomousBehaviour;
 import com.causal.game.interact.IInteractionType;
-import com.causal.game.main.GameSprite;
+import com.causal.game.sprite.GameSprite;
 import com.causal.game.touch.DeceiverTouchAction;
 import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.SpriteOrientation;

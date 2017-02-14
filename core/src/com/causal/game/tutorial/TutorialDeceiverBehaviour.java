@@ -5,8 +5,8 @@ import java.util.List;
 import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.DeceiverBehaviour;
 import com.causal.game.interact.DeceiverAutonomousBehaviour;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
 
 public class TutorialDeceiverBehaviour extends DeceiverBehaviour {
 	

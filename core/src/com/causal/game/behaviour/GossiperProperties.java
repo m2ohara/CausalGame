@@ -2,7 +2,7 @@ package com.causal.game.behaviour;
 
 import java.util.Random;
 
-import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 import com.causal.game.state.PlayerState;
 
 
@@ -12,6 +12,7 @@ public class GossiperProperties implements IBehaviourProperties {
 	private float interactProbability = 0.8f;
 	private int influenceAmount = 2;
 	private Random rand = new Random();
+	private float interactLength = 250f;
 	
 	public float getRotateProbability() {
 		return rotateProbability;
@@ -27,6 +28,10 @@ public class GossiperProperties implements IBehaviourProperties {
 	}
 	public String getFramesPath() {
 		return PlayerState.get().getFollowerTypes().get(0).getImagePath();
+	}
+	
+	public float getInteractLength() {
+		return interactLength;
 	}
 
 }

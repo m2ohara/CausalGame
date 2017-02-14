@@ -3,12 +3,12 @@ package com.causal.game.behaviour;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.causal.game.act.IOnAct;
-import com.causal.game.act.OnAnimateSpaceShip;
+import com.causal.game.act.OnAnimateDiscrete;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite.InfluenceType;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.touch.ISpriteOrientation;
 import com.causal.game.touch.TouchAction;
 
@@ -24,7 +24,7 @@ public class Behaviour {
 	public Behaviour(boolean isActive, AutonomousInteraction interaction, TouchAction touchAction, IBehaviourProperties properties, ISpriteOrientation spriteOrientation) {
 		
 		this.isActive = isActive;
-		this.actType = new OnAnimateSpaceShip(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
+		this.actType = new OnAnimateDiscrete(properties.getRotateProbability(), properties.getInteractProbability(), interaction, spriteOrientation, properties.getFramesPath());
 		this.onTouch = touchAction;
 		
 		Gdx.app.debug("Behaviour", "Created animation for "+interaction.interactor.getXGameCoord()+", "+interaction.interactor.getYGameCoord());		
@@ -73,6 +73,10 @@ public class Behaviour {
 	
 	public InfluenceType getInfluenceType() {
 		return properties.getInfluenceType();
+	}
+	
+	public float getInteractLength() {
+		return properties.getInteractLength();
 	}
 	
 	public AtlasRegion getCurrentFrame() {

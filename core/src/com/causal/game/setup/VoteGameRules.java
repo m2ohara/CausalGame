@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.state.GameScoreState.State;
 import com.causal.game.state.GameScoreState.VoteState;
 

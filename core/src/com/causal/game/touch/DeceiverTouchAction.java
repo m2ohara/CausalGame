@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.OpposerInteractionType;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.state.GameScoreState;
 
 public class DeceiverTouchAction extends TouchAction {

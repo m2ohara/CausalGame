@@ -6,10 +6,10 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.Interactee;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.Status;
 
 public class SpriteOrientation implements ISpriteOrientation {
 	

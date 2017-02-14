@@ -1,6 +1,6 @@
 package com.causal.game.gestures;
 
-import com.causal.game.main.GameSprite;
+import com.causal.game.sprite.GameSprite;
 
 public interface ISwipeInteraction {
 	

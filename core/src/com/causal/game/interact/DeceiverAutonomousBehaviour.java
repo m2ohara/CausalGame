@@ -2,15 +2,15 @@ package com.causal.game.interact;
 
 import java.util.Random;
 
-import com.causal.game.main.AutoInteractFrameSprite;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.AutoInteractFrameSprite;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.Status;
 
 public class DeceiverAutonomousBehaviour implements IInteraction {
 	
 	private float interactSuccess = 0.2f;
 	private Random rand = new Random();
-	private float interactionStateLength = 4f;
+	private float interactionStateLength = 400f;
 	private int interactionStages = 3;
 	private AutoInteractFrameSprite interactSprite;
 	private IInteractionType interactionType;

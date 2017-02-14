@@ -1,4 +1,4 @@
-package com.causal.game.main;
+package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,9 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.interact.IInteractionType;
+import com.causal.game.main.GameProperties;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.state.PlayerState;
 
-public class AutoInteractSprite extends Image {
+public class AutoInteractScaleSprite extends Image {
 	
 	private static String framesPath = "sprites/Meep/Effects/Effects.pack";
 	public boolean isInteracting = false;
@@ -23,7 +25,7 @@ public class AutoInteractSprite extends Image {
 	protected ScaleToAction scaleAction;
 	private IInteractionType interactionType;
 	
-	public AutoInteractSprite(float interactionStateLength, int interactionStages, GameSprite interactor, IInteractionType interactionType) {
+	public AutoInteractScaleSprite(float interactionStateLength, int interactionStages, GameSprite interactor, IInteractionType interactionType) {
 		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(1));
 		
 		this.interactionType = interactionType;

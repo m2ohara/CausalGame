@@ -1,4 +1,4 @@
-package com.causal.game.interact.swipe;
+package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -11,9 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem;
-import com.causal.game.main.GameSprite.InteractorType;
+import com.causal.game.sprite.GameSprite.InteractorType;
 import com.causal.game.state.PlayerState;
 
 public class SwipeInteractScaleSprite extends Image{

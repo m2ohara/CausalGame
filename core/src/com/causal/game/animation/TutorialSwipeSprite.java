@@ -17,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.causal.game.act.IOnActing;
 import com.causal.game.act.OnAct;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
-import com.causal.game.main.SwipeSprite;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.SwipeSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 import com.causal.game.tutorial.TutorialDisplayMessage;
 
 public class TutorialSwipeSprite extends Image {

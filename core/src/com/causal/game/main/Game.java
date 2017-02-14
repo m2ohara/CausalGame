@@ -27,6 +27,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.causal.game.gestures.DefaultGestures;
 import com.causal.game.gestures.GameGestures;
 import com.causal.game.setup.GameGenerator;
+import com.causal.game.sprite.DropSprite;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.SwipeSprite;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
 import com.causal.game.state.GameScoreState;
@@ -357,7 +360,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void setFollowerScreen() {	
 		
-		final ArrayList<MoveableSprite> followers = new ArrayList<MoveableSprite>();
+		final ArrayList<DropSprite> followers = new ArrayList<DropSprite>();
 		final ArrayList<Image> placeHolders = new ArrayList<Image>();
 	
 		
@@ -369,7 +372,7 @@ public class Game extends ApplicationAdapter {
 			placeHolders.add(placeHolder);
 			for(Follower follower : plFollowers) {
 				if(follower.type.head == types.get(i).head) {
-					MoveableSprite followerInstance = new MoveableSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
+					DropSprite followerInstance = new DropSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
 					followers.add(followerInstance);
 				}
 			}
@@ -401,12 +404,12 @@ public class Game extends ApplicationAdapter {
 		return targetImage;
 	}
 	
-	private void activateGame(List<MoveableSprite> followers, ArrayList<Image> placeHolders) {
+	private void activateGame(List<DropSprite> followers, ArrayList<Image> placeHolders) {
 		
 		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getVoteState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
 		
 		//Set dropped followers into game
-		for(MoveableSprite follower : followers) {
+		for(DropSprite follower : followers) {
 			if(follower.isActive()) {
 				GameProperties.get().replaceActorInGroup(follower);
 			}

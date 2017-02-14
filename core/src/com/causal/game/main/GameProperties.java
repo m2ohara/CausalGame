@@ -12,7 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.gestures.ISwipeInteraction;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.DropSprite;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.SwipeSprite;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.state.PlayerState;
 
 public class GameProperties {
@@ -82,9 +85,9 @@ public class GameProperties {
 		this.actorGroup.addActor(actor);
 	}
 
-	public List<MoveableSprite> actorsToReplace = new ArrayList<MoveableSprite>();
+	public List<DropSprite> actorsToReplace = new ArrayList<DropSprite>();
 
-	public void replaceActorInGroup(MoveableSprite actor) {
+	public void replaceActorInGroup(DropSprite actor) {
 		
 		//Ensure HeadSprite actor gets hit
 		setActorGroupOriginToZero();
@@ -175,7 +178,7 @@ public class GameProperties {
 	public void dispose() {
 		stage.clear();
 		gameSpriteGroup = new Group();
-		actorsToReplace = new ArrayList<MoveableSprite>();
+		actorsToReplace = new ArrayList<DropSprite>();
 		gameSprites.clear();
 		isAutoInteractionAllowed = false;
 	}

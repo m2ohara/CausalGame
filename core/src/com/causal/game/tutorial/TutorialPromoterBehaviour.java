@@ -5,9 +5,9 @@ import java.util.List;
 import com.badlogic.gdx.math.Vector2;
 import com.causal.game.behaviour.PromoterBehaviour;
 import com.causal.game.interact.PromoterAutonomousBehaviour;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 
 public class TutorialPromoterBehaviour extends PromoterBehaviour {
 	

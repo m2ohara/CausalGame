@@ -1,4 +1,4 @@
-package com.causal.game.interact.swipe;
+package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,17 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.causal.game.interact.individual.SwipeInteract;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
 import com.causal.game.state.PlayerState;
 
 public class SwipeInteractFrameSprite extends Image {
 
 	private static String framesPath = "sprites/PlanetRelease/Deceiver/SpaceShipRedMove.pack";
-	private float interactionStateLength = 400f;
+	private float interactionStateLength;
 	
-	protected MoveToAction moveAction;
-	private float moveDuration = 5f;
+//	protected MoveToAction moveAction;
+//	private float moveDuration = 5f;
+	private float xDistance = 0f;
+	private float yDistance = 0f;
 	
 	private float frameLength = 0.2f * GameProperties.get().getUniversalTimeRatio();
 	private float frameTime = frameLength;
@@ -37,6 +39,8 @@ public class SwipeInteractFrameSprite extends Image {
 		
 		frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
 		currentFrame = frames.get(0);
+		this.interactionStateLength = interactor.getInteractLength();
+		
 		
 		set(interactor, interactee);
 		
@@ -47,23 +51,10 @@ public class SwipeInteractFrameSprite extends Image {
 
 		setInteractSpeed();
 		
-		int degrees = 0;
-
-		switch (interactor.getOrientation().ordinal()) {
-			case 2 :  { degrees = 270; break; }
-			case 4 : { degrees = 180; break; }
-			case 6 : { degrees = 90; }
-		}
-			
-		moveAction = Actions.moveTo(interactee.getX(), interactee.getY(), moveDuration);
+		setMovement(interactor, interactee);
 		
-		Gdx.app.debug("SwipeInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY()+ " for "+moveDuration+" duration");
-		
-		this.rotateBy(degrees);
-		this.setOrigin(currentFrame.getRegionWidth()/2, currentFrame.getRegionHeight()/2);
-		this.setPosition(interactor.getX(), interactor.getY());
-		this.setTouchable(Touchable.disabled);
 		this.setVisible(false);
+		
 		GameProperties.get().addActorToStage(this);
 	}
 	
@@ -71,6 +62,33 @@ public class SwipeInteractFrameSprite extends Image {
 		//Set interaction length based on level - faster for higher difficulty
 		this.interactionStateLength = (float)(interactionStateLength - (PlayerState.get().getLevel()/2));
 		if(this.interactionStateLength < 1) { this.interactionStateLength = 1; }
+	}
+	
+	private void setMovement(GameSprite interactor, GameSprite interactee) {
+		
+		int degrees = 0;
+		float x = 0;
+		float y = -(interactor.getY() - interactee.getY());		
+
+		switch (interactor.getOrientation().ordinal()) {
+			case 2 :  { degrees = 270; x = interactee.getX() - interactor.getX(); y = 0; break;  }
+			case 4 : { degrees = 180; y = (interactee.getY() - interactor.getY()); break; }
+			case 6 : { degrees = 90; x = -(interactor.getX() - interactee.getX()); y = 0; }
+		}
+			
+		Gdx.app.debug("AutoInteractFramesSprite", "Set movement from "+interactor.getX()+", "+interactor.getY()+"");
+
+		
+		this.rotateBy(degrees);
+		this.setOrigin(currentFrame.getRegionWidth()/2, currentFrame.getRegionHeight()/2);
+		this.setPosition(interactor.getX(), interactor.getY());
+		this.setTouchable(Touchable.disabled);
+		
+		xDistance = x / interactionStateLength;
+		yDistance = y / interactionStateLength;
+		
+		Gdx.app.debug("AutoInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY());
+
 	}
 	
 	public void startInteraction() {
@@ -92,18 +110,15 @@ public class SwipeInteractFrameSprite extends Image {
 			
 			if(swipeInteract.isInteracting ) {
 				
-				if(this.getActions().size == 0) {
-					this.addAction(moveAction);
-				}
-			
 				//Interaction finished
 				if(interactionStateLength < 0) {
 					this.remove();
-					moveAction.finish();
 					swipeInteract.completeInteraction();
 				}
 			
 				updateSprite(delta);
+				
+				moveBy(xDistance, yDistance);
 				
 				interactionStateLength--;
 			

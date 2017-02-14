@@ -2,9 +2,9 @@ package com.causal.game.interact.individual;
 
 import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.IInteractionType;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
-import com.causal.game.main.GameSprite.InteractorType;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.InteractorType;
 
 public class IndividualInteraction implements IInteractionType {
 	private GameSprite interactor;

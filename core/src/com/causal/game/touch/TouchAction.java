@@ -2,10 +2,10 @@ package com.causal.game.touch;
 
 import java.util.ArrayList;
 
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.Status;
 
 public abstract class TouchAction implements ITouchAction {
 	

@@ -10,11 +10,11 @@ import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.touch.ISpriteOrientation;
 
-public class OnAnimateTalkingAct implements IOnAct{
+public class OnAnimateContinuous implements IOnAct{
 	
 	private float animateStateLength = 2.0f * GameProperties.get().getUniversalTimeRatio();
 	private float animateStateTime = animateStateLength;
@@ -35,7 +35,7 @@ public class OnAnimateTalkingAct implements IOnAct{
 	private float rotateP;
 	private Random rand = new Random();
 	
-	public OnAnimateTalkingAct(float rotateProbability, float interactProbability, AutonomousInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
+	public OnAnimateContinuous(float rotateProbability, float interactProbability, AutonomousInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
 	{
 
 		this.rotateP = rotateProbability;

@@ -9,11 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.causal.game.animation.TutorialSwipeSprite;
 import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.behaviour.ISpriteBehaviour;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.InfluenceType;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
 import com.causal.game.setup.SetGameSprite;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 import com.causal.game.state.PlayerState;
 
 public class SetTutorialGameSprite extends SetGameSprite {

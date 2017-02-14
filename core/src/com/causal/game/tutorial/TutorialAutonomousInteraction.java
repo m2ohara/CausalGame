@@ -3,8 +3,8 @@ package com.causal.game.tutorial;
 import com.badlogic.gdx.Gdx;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.interact.IInteraction;
-import com.causal.game.main.GameSprite;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
 
 public class TutorialAutonomousInteraction extends AutonomousInteraction {
 	

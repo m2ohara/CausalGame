@@ -7,8 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite;
-//import com.causal.game.tutorial.TutorialSwipeInteraction;
+import com.causal.game.sprite.GameSprite;
 
 public class GameGestures  implements GestureListener {
 		

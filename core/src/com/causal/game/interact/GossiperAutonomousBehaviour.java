@@ -2,16 +2,16 @@ package com.causal.game.interact;
 
 import java.util.Random;
 
-import com.causal.game.main.AutoInteractFrameSprite;
-import com.causal.game.main.GameSprite;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.sprite.AutoInteractFrameSprite;
+import com.causal.game.sprite.GameSprite;
+import com.causal.game.sprite.GameSprite.Status;
 
 public class GossiperAutonomousBehaviour implements IInteraction {
 	
 	private float interactSuccess = 0.2f;
 	private float promoteOpposeProb = 0.5f;
 	private Random rand = new Random();
-	private float interactionStateLength = 3f;
+	private float interactionStateLength = 300f;
 	private int interactionStages = 3;
 	private AutoInteractFrameSprite interactSprite;
 	private IInteractionType interactionType;

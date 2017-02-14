@@ -1,6 +1,6 @@
 package com.causal.game.behaviour;
 
-import com.causal.game.main.GameSprite.InfluenceType;
+import com.causal.game.sprite.GameSprite.InfluenceType;
 
 
 public interface IBehaviourProperties {
@@ -14,5 +14,7 @@ public interface IBehaviourProperties {
 	public InfluenceType getInfluenceType();
 	
 	public String getFramesPath();
+	
+	public float getInteractLength();
 
 }

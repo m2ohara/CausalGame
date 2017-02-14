@@ -1,11 +1,10 @@
-package com.causal.game.main;
+package com.causal.game.sprite;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,10 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
-import com.causal.game.gestures.ISwipeInteraction;
-import com.causal.game.gestures.SwipeInteraction;
-import com.causal.game.interact.IInteractionType;
-import com.causal.game.main.GameSprite.Status;
+import com.causal.game.main.GameProperties;
+import com.causal.game.main.WorldSystem;
+import com.causal.game.sprite.GameSprite.Status;
 
 public class SwipeSprite {
 	

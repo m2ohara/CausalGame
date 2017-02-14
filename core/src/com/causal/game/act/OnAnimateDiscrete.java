@@ -10,11 +10,11 @@ import com.badlogic.gdx.utils.Array;
 import com.causal.game.interact.AutonomousInteraction;
 import com.causal.game.main.Assets;
 import com.causal.game.main.GameProperties;
-import com.causal.game.main.GameSprite.Status;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.touch.ISpriteOrientation;
 
-public class OnAnimateSpaceShip implements IOnAct{
+public class OnAnimateDiscrete implements IOnAct{
 		
 		private float animateStateLength = 2.0f * GameProperties.get().getUniversalTimeRatio();
 		private float animateStateTime = animateStateLength;
@@ -35,7 +35,7 @@ public class OnAnimateSpaceShip implements IOnAct{
 		private float rotateP;
 		private Random rand = new Random();
 		
-		public OnAnimateSpaceShip(float rotateProbability, float interactProbability, AutonomousInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
+		public OnAnimateDiscrete(float rotateProbability, float interactProbability, AutonomousInteraction interaction, ISpriteOrientation spriteOrientation, String framesPath) 
 		{
 
 			this.rotateP = rotateProbability;
@@ -124,7 +124,7 @@ public class OnAnimateSpaceShip implements IOnAct{
 			if(!frames.equals(animationFrames.get("Default")) && GameProperties.get().isAutoInteractionAllowed == true) {
 				frames = animationFrames.get("Default");
 				currentFrame = frames.first();
-				Gdx.app.debug("OnAnimateSpaceShip", "Setting default frame");
+				Gdx.app.log("OnAnimateSpaceShip", "Setting default frame");
 			}
 		}
 		
