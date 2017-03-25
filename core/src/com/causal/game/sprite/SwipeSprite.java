@@ -52,7 +52,8 @@ public class SwipeSprite {
 	private void setSourceSprite(float x, float y) {
 		sourceSprite = new Image(sourceTexture);
 		sourceSprite.setOrigin(sourceSprite.getWidth()/2, sourceSprite.getWidth()/2);
-		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
+//		sourceSprite.setPosition(x+sourceSprite.getWidth()/2, y+sourceSprite.getWidth()/2);
+		sourceSprite.setPosition(x+sourceSprite.getWidth()/8, y);
 		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
 		
 		Gdx.app.debug("SwipeSprite",  "Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());

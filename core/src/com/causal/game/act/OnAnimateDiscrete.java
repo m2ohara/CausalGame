@@ -28,6 +28,7 @@ public class OnAnimateDiscrete implements IOnAct{
 		
 		private HashMap<String, Array<AtlasRegion>> animationFrames = new HashMap<String, Array<AtlasRegion>>();
 		private Array<AtlasRegion> frames;
+		private String FrameAction = "Interacting"; 
 		
 		private AutonomousInteraction interaction;
 		private ISpriteOrientation spriteOrientation;
@@ -124,38 +125,67 @@ public class OnAnimateDiscrete implements IOnAct{
 			if(!frames.equals(animationFrames.get("Default")) && GameProperties.get().isAutoInteractionAllowed == true) {
 				frames = animationFrames.get("Default");
 				currentFrame = frames.first();
-				Gdx.app.log("OnAnimateSpaceShip", "Setting default frame");
+				Gdx.app.debug("OnAnimateSpaceShip", "Setting default frame");
 			}
 		}
 		
 		private void setFramePacks(String framesPath) {
 			Array<AtlasRegion> talkRight = Assets.get().getAssetManager().get(framesPath + "Right.pack", TextureAtlas.class).getRegions();
 			
-			animationFrames.put("TalkRight", talkRight);
+			animationFrames.put("InteractingEast", talkRight);
 			
 			Array<AtlasRegion> talkLeft = Assets.get().getAssetManager().get(framesPath + "Left.pack", TextureAtlas.class).getRegions();
 			
-			animationFrames.put("TalkLeft", talkLeft);
+			animationFrames.put("InteractingWest", talkLeft);
 			
 			Array<AtlasRegion> talkAbove = Assets.get().getAssetManager().get(framesPath + "Above.pack", TextureAtlas.class).getRegions();
 			
-			animationFrames.put("TalkAbove", talkAbove);
+			animationFrames.put("InteractingNorth", talkAbove);
 			
 			Array<AtlasRegion> talkBelow = Assets.get().getAssetManager().get(framesPath + "Below.pack", TextureAtlas.class).getRegions();
 			
-			animationFrames.put("TalkBelow", talkBelow);
+			animationFrames.put("InteractingSouth", talkBelow);
 			
 			Array<AtlasRegion> defaultSprite = new TextureAtlas(Gdx.files.internal(framesPath+"Default.pack")).getRegions();
 			
 			animationFrames.put("Default", defaultSprite);
+			
+			Array<AtlasRegion> neutralEast = Assets.get().getAssetManager().get(framesPath + "NeutralEast.pack", TextureAtlas.class).getRegions();
+			
+			animationFrames.put("NeutralEast", neutralEast);
+			
+			Array<AtlasRegion> neutralWest = Assets.get().getAssetManager().get(framesPath + "NeutralWest.pack", TextureAtlas.class).getRegions();
+			
+			animationFrames.put("NeutralWest", neutralWest);
+			
+			Array<AtlasRegion> neutralNorth = Assets.get().getAssetManager().get(framesPath + "NeutralNorth.pack", TextureAtlas.class).getRegions();
+			
+			animationFrames.put("NeutralNorth", neutralNorth );
+			
+			Array<AtlasRegion> neutralSouth = Assets.get().getAssetManager().get(framesPath + "NeutralSouth.pack", TextureAtlas.class).getRegions();
+			
+			animationFrames.put("NeutralSouth", neutralSouth);
+		
 		}
 		
 		private void setFrame(Status interactStatus) {
+			
+			if(interactStatus == Status.NEUTRAL) {
+				FrameAction = "Neutral";
+			}
+			else {
+				FrameAction = "Interacting";
+				Gdx.app.debug("OnAnimateDiscrete", "Setting frame. InteractStatus "+interactStatus+", FrameAction "+FrameAction);
+			}
+			
 			//Based on rotation probability
 			if(interactStatus == Status.INFLUENCED && rand.nextFloat() < this.rotateP) {
+				
 				this.spriteOrientation.onCyclicChange();
-				changeSpriteOrientation();
 			}
+			
+			changeSpriteOrientation();
+		
 			
 		}
 		
@@ -163,16 +193,16 @@ public class OnAnimateDiscrete implements IOnAct{
 		public void changeSpriteOrientation() {
 			
 			if(spriteOrientation.getOrientation() == Orientation.N) {
-				frames = animationFrames.get("TalkAbove");
+				frames = animationFrames.get(FrameAction+"North");
 			}
 			else if(spriteOrientation.getOrientation() == Orientation.E) {
-				frames = animationFrames.get("TalkRight");
+				frames = animationFrames.get(FrameAction+"East");
 			}
 			else if(spriteOrientation.getOrientation() == Orientation.W) {
-				frames = animationFrames.get("TalkLeft");
+				frames = animationFrames.get(FrameAction+"West");
 			}
 			else if(spriteOrientation.getOrientation() == Orientation.S) {
-				frames = animationFrames.get("TalkBelow");
+				frames = animationFrames.get(FrameAction+"South");
 			}
 		}
 

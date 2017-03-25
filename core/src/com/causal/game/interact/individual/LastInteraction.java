@@ -31,7 +31,7 @@ public class LastInteraction implements IIndividualInteraction {
 			interactor.changeOrientationOnInvalid();
 			setSelectedInteractee();
 			GameProperties.get().resetTapCount();
-			Gdx.app.debug("LastInteraction", "Setting last interactee influence: "+interactor.influenceType);
+			Gdx.app.log("LastInteraction", "Setting last interactee influence: "+interactor.influenceType);
 		}
 	}
 	
@@ -46,10 +46,10 @@ public class LastInteraction implements IIndividualInteraction {
 	
 	private void setSelectedInteractee() {
 		if(GameScoreState.validTouchAction()) {
-			interactor.setColor(Color.ORANGE);
+//			interactor.setColor(Color.ORANGE);
 		}
 		else {
-			interactor.setColor(Color.YELLOW);
+//			interactor.setColor(Color.YELLOW);
 		}
 		
 		//Can last interactee interact on next swipe

@@ -5,9 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -33,9 +32,9 @@ public class AutoInteractFrameSprite  extends Image {
 	private AtlasRegion currentFrame = null;	
 	private Array<AtlasRegion> frames;	
 	
-	private boolean actionAdded = false;
-	
 	private GameSprite interactor;
+	private SwipeInteractFinishSprite finishSprite;
+	private Vector2 interacteeCoords;
 	
 	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType) {
 		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(1));
@@ -46,6 +45,8 @@ public class AutoInteractFrameSprite  extends Image {
 		this.interactionStateLength = interactor.getInteractLength();
 		
 		this.interactor = interactor;
+		
+		interacteeCoords = new Vector2(interactee.getX(),interactee.getY());
 		
 		set(interactor, interactee);		
 		this.setDrawable(new TextureRegionDrawable(new TextureRegion(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(2))));
@@ -116,24 +117,25 @@ public class AutoInteractFrameSprite  extends Image {
 			
 			if(isInteracting ) {
 				
-				if(!actionAdded) {
-					Gdx.app.debug("AutoInteractFramesSprite", "Added action to "+this.hashCode()+"");
-					actionAdded = true;
+				
+				if(interactionStateLength == 0 && finishSprite == null) {
+					this.setVisible(false);
+					finishSprite = new SwipeInteractFinishSprite(interacteeCoords);
 				}
-			
+				else {
+					this.moveBy(xDistance, yDistance);
+					updateSprite(delta);				
+					interactionStateLength--;
+				}
+				
 				//Interaction finished
-				if(interactionStateLength < 0) {
+				if(interactionStateLength < 1 && finishSprite != null && finishSprite.isFinished()) {
 					Gdx.app.debug("AutoInteractFramesSprite", "Interaction complete "+this.hashCode()+"");
+					finishSprite.remove();
 					this.remove();
 					isComplete = true;
 					interactionType.complete();
 				}
-				
-				this.moveBy(xDistance, yDistance);
-			
-				updateSprite(delta);
-				
-				interactionStateLength--;
 			
 			}
 		

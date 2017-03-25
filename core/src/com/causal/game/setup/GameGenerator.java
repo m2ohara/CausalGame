@@ -106,7 +106,6 @@ public class GameGenerator {
 				if(y == WorldSystem.get().getSystemHeight()-1 && x == starterX) {
 					current.interactStatus = Status.SELECTED;
 					current.setName("startingGameSprite");
-					current.setColor(Color.YELLOW);
 					SwipeSprite.get().setStartSprite(current);
 				}
 				GameProperties.get().addToGameSpriteGroup(current);

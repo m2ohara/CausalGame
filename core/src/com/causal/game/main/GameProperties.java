@@ -105,7 +105,7 @@ public class GameProperties {
 //			actorToAdd.setValidOrientations();
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
-				actorToAdd.setColor(Color.YELLOW);
+//				actorToAdd.setColor(Color.YELLOW);
 				SwipeSprite.get().setStartSprite(actorToAdd);
 			}
 			gameSpriteGroup.addActor(actorToAdd);

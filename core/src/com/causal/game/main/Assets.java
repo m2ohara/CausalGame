@@ -47,7 +47,10 @@ public class Assets {
 		
 		gameSpriteFilePaths = new ArrayList<String>();
 		
-		List<String> spriteTypes = Arrays.asList("Default.pack", "Left.pack", "Right.pack", "Below.pack", "Above.pack");
+		List<String> spriteTypes = Arrays.asList(
+				"Default.pack", "Left.pack", "Right.pack", "Below.pack", "Above.pack", 
+				"NeutralNorth.pack", "NeutralEast.pack", "NeutralSouth.pack", "NeutralWest.pack"
+				);
 		
 		for(String type : spriteTypes) {	
 			gameSpriteFilePaths.add("sprites/PlanetRelease/Gossiper/"+type); 

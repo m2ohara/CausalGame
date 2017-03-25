@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -20,8 +21,6 @@ public class SwipeInteractFrameSprite extends Image {
 	private static String framesPath = "sprites/PlanetRelease/Deceiver/SpaceShipRedMove.pack";
 	private float interactionStateLength;
 	
-//	protected MoveToAction moveAction;
-//	private float moveDuration = 5f;
 	private float xDistance = 0f;
 	private float yDistance = 0f;
 	
@@ -29,10 +28,12 @@ public class SwipeInteractFrameSprite extends Image {
 	private float frameTime = frameLength;
 	private int frameCount = 0;
 	private AtlasRegion currentFrame = null;
+	private Vector2 interacteeCoords;
 	
 	private Array<AtlasRegion> frames;	
 	
 	private SwipeInteract swipeInteract;
+	private SwipeInteractFinishSprite finishSprite;
 	
 	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee) {
 		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
@@ -41,6 +42,7 @@ public class SwipeInteractFrameSprite extends Image {
 		currentFrame = frames.get(0);
 		this.interactionStateLength = interactor.getInteractLength();
 		
+		interacteeCoords = new Vector2(interactee.getX(),interactee.getY());
 		
 		set(interactor, interactee);
 		
@@ -76,7 +78,7 @@ public class SwipeInteractFrameSprite extends Image {
 			case 6 : { degrees = 90; x = -(interactor.getX() - interactee.getX()); y = 0; }
 		}
 			
-		Gdx.app.debug("AutoInteractFramesSprite", "Set movement from "+interactor.getX()+", "+interactor.getY()+"");
+		Gdx.app.debug("SwipeInteractFramesSprite", "Set movement from "+interactor.getX()+", "+interactor.getY()+"");
 
 		
 		this.rotateBy(degrees);
@@ -87,7 +89,7 @@ public class SwipeInteractFrameSprite extends Image {
 		xDistance = x / interactionStateLength;
 		yDistance = y / interactionStateLength;
 		
-		Gdx.app.debug("AutoInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY());
+		Gdx.app.debug("SwipeInteractFramesSprite", "Set orientation to degrees "+degrees+ " movement to "+interactee.getX()+", "+interactee.getY());
 
 	}
 	
@@ -110,17 +112,22 @@ public class SwipeInteractFrameSprite extends Image {
 			
 			if(swipeInteract.isInteracting ) {
 				
-				//Interaction finished
-				if(interactionStateLength < 0) {
-					this.remove();
-					swipeInteract.completeInteraction();
+				if(interactionStateLength == 0 && finishSprite == null) {
+					this.setVisible(false);
+					finishSprite = new SwipeInteractFinishSprite(interacteeCoords);
 				}
-			
-				updateSprite(delta);
+				else {
+					updateSprite(delta);
+					moveBy(xDistance, yDistance);
+					interactionStateLength--;
+				}
 				
-				moveBy(xDistance, yDistance);
-				
-				interactionStateLength--;
+				//Interaction finished
+				if(interactionStateLength < 1 && finishSprite != null && finishSprite.isFinished()) {
+					swipeInteract.completeInteraction();
+					finishSprite.remove();
+					this.remove();
+				}
 			
 			}
 		
