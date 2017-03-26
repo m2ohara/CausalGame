@@ -503,13 +503,13 @@ public class Game extends ApplicationAdapter {
 		
 		if(scoreState.getCurrentState() == GameScoreState.State.WIN) {
 
-			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Supported!" : "Defeated!";
-			setScoreStateSprite("Bill "+result);	
+			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Success!" : "Success!";
+			setScoreStateSprite("Mission "+result);	
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.LOSE) {
 			
-			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Defeated" : "Supported";
-			setScoreStateSprite("Bill "+result);	
+			String result = scoreState.getVoteState() == VoteState.SUPPORT ? "Fail" : "Fail";
+			setScoreStateSprite("Mission "+result);	
 		}
 		else if(scoreState.getCurrentState() == GameScoreState.State.DRAW) {
 

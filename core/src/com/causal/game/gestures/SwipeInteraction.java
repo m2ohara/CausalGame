@@ -88,14 +88,14 @@ public class SwipeInteraction implements ISwipeInteraction {
 				Gdx.app.debug("SwipeInteraction","Assigning first interaction");
 				interactor.interactorType = InteractorType.FIRST;
 				interactor.interactStatus = Status.INFLUENCED;
-				firstInteraction = new SwipeInteractFrameSprite(interactor, interactee);
+				firstInteraction = new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
 //				firstInteraction = new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 			else {
 				Gdx.app.debug("SwipeInteraction","Assigning next interaction");
 				interactor.interactStatus = Status.INFLUENCED;
 				interactor.interactorType = InteractorType.INTERMEDIATE;
-				new SwipeInteractFrameSprite(interactor, interactee);
+				new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
 //				new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
 			}
 

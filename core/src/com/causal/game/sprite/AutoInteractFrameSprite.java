@@ -36,11 +36,11 @@ public class AutoInteractFrameSprite  extends Image {
 	private SwipeInteractFinishSprite finishSprite;
 	private Vector2 interacteeCoords;
 	
-	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType) {
-		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(1));
+	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType, TextureAtlas texture) {
+		super(texture.getRegions().get(1));
 		
 		this.interactionType = interactionType;
-		frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
+		frames = texture.getRegions();
 		currentFrame = frames.get(0);
 		this.interactionStateLength = interactor.getInteractLength();
 		
@@ -49,7 +49,7 @@ public class AutoInteractFrameSprite  extends Image {
 		interacteeCoords = new Vector2(interactee.getX(),interactee.getY());
 		
 		set(interactor, interactee);		
-		this.setDrawable(new TextureRegionDrawable(new TextureRegion(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(2))));
+		this.setDrawable(new TextureRegionDrawable(new TextureRegion(currentFrame)));
 	}
 	
 	private void set(GameSprite interactor, GameSprite interactee) {

@@ -2,6 +2,8 @@ package com.causal.game.interact;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.causal.game.sprite.AutoInteractFrameSprite;
 import com.causal.game.sprite.GameSprite;
 import com.causal.game.sprite.GameSprite.Status;
@@ -26,7 +28,7 @@ public class PromoterAutonomousBehaviour implements IInteraction {
 			interactee.interactStatus = Status.INFLUENCED;
 			interactee.isActive = false;
 //			interactSprite = new AutoInteractSprite(interactionStateLength, interactionStages, interactor, interactionType);
-			interactSprite = new AutoInteractFrameSprite(interactor, interactee, interactionType);
+			interactSprite = new AutoInteractFrameSprite(interactor, interactee, interactionType, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
 			interactSprite.setAction();
 
 		}

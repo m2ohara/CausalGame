@@ -35,10 +35,10 @@ public class SwipeInteractFrameSprite extends Image {
 	private SwipeInteract swipeInteract;
 	private SwipeInteractFinishSprite finishSprite;
 	
-	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee) {
-		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
+	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee, TextureAtlas texture) {
+		super(texture.getRegions().get(0));//new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0)
 		
-		frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
+		frames = texture.getRegions();
 		currentFrame = frames.get(0);
 		this.interactionStateLength = interactor.getInteractLength();
 		

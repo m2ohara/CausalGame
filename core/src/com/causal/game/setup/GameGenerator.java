@@ -75,16 +75,16 @@ public class GameGenerator {
 		BitmapFont font = new BitmapFont();
 		font.getData().scale(0.7f);
 		skin.add("default", new LabelStyle(font, Color.BLACK));
-		topLabel = new Label("A LOCAL LEADER NEEDS", skin);
-		middleLabel = new Label(""+levelWinAmount+" "+voteTypeString+" VOTES TO", skin);
-		bottomLabel = new Label("BUILD IMPROVEMENTS", skin);
+		topLabel = new Label("STAR COMMAND NEEDS", skin);
+		middleLabel = new Label(""+levelWinAmount+" "+voteTypeString+" SATELLITES TO", skin);
+		bottomLabel = new Label("INFLUENCE THE GALAXY", skin);
 	}
 	
 	protected void generateVoteType() {
 		
 		voteTypeInt = voteTypeGen.nextInt(2);
 		if(voteTypeInt == 0) {
-			voteTypeString = "WHITE";
+			voteTypeString = "BLUE";
 			voteResultString = "PASS";
 			voteState = VoteState.SUPPORT;
 		}
@@ -135,12 +135,12 @@ public class GameGenerator {
 		int voteCount = voteState.toString() == "SUPPORT" ? supportCount : opposeCount;
 		int offset = PlayerState.get().getLevel() + ((voteCount/4)*3);
 		
-		Gdx.app.debug("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
-		Gdx.app.debug("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
+		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
 		
-		levelWinAmount = rand.nextInt(offset >= voteCount ? voteCount : voteCount - offset) + offset > voteCount ? 0 : offset;
+		levelWinAmount = rand.nextInt(offset >= voteCount ? voteCount : voteCount - offset) + (offset > voteCount ? 0 : offset);
 		
-		Gdx.app.debug("GameGenerator", "Level win amount "+levelWinAmount);
+		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
 
 	
 	}
