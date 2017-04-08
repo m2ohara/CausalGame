@@ -1,0 +1,61 @@
+
+InteractFinishSprite.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+RedInteractFinish
+  rotate: false
+  xy: 1, 289
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 3
+RedInteractFinish
+  rotate: false
+  xy: 1, 145
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 8
+RedInteractFinish
+  rotate: false
+  xy: 145, 289
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 4
+RedInteractFinish
+  rotate: false
+  xy: 1, 1
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 2
+RedInteractFinish
+  rotate: false
+  xy: 145, 145
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 5
+RedInteractFinish
+  rotate: false
+  xy: 289, 289
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 7
+RedInteractFinish
+  rotate: false
+  xy: 145, 1
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 1
+RedInteractFinish
+  rotate: false
+  xy: 289, 145
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: 6

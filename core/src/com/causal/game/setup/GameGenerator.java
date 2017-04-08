@@ -53,6 +53,7 @@ public class GameGenerator {
 	protected static int levelWinAmount = 0;
 	protected String voteTypeString;
 	protected String voteResultString;
+	protected String bottomLabelString;
 	
 	public GameGenerator() {
 		setRemovalProb();
@@ -73,11 +74,11 @@ public class GameGenerator {
 		
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(0.7f);
+		font.getData().scale(0.6f);
 		skin.add("default", new LabelStyle(font, Color.BLACK));
 		topLabel = new Label("STAR COMMAND NEEDS", skin);
-		middleLabel = new Label(""+levelWinAmount+" "+voteTypeString+" SATELLITES TO", skin);
-		bottomLabel = new Label("INFLUENCE THE GALAXY", skin);
+		middleLabel = new Label(""+levelWinAmount+" "+voteResultString, skin);
+		bottomLabel = new Label(""+bottomLabelString, skin);
 	}
 	
 	protected void generateVoteType() {
@@ -85,12 +86,14 @@ public class GameGenerator {
 		voteTypeInt = voteTypeGen.nextInt(2);
 		if(voteTypeInt == 0) {
 			voteTypeString = "BLUE";
-			voteResultString = "PASS";
+			voteResultString = "BOOST COMMUNICATORS";
+			bottomLabelString = " TO ENABLE THE MOTION";
 			voteState = VoteState.SUPPORT;
 		}
 		else {
 			voteTypeString = "RED";
-			voteResultString = "DEFEAT";
+			voteResultString = "PLANETARY JAMMERS TO";
+			bottomLabelString = "PREVENT THE MOTION";
 			voteState = VoteState.OPPOSED;
 		}
 	}

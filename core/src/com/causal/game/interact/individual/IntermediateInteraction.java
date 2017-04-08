@@ -30,7 +30,7 @@ public class IntermediateInteraction implements IIndividualInteraction {
 	
 	public void setInfluencedSprite(){
 		interactor.influenceType = influenceType;
-		InfluenceTypeSetter.setHandSign(interactor, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(influenceType.ordinal())));
+		InfluenceTypeSetter.setBlock(interactor, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(influenceType.ordinal())));
 	}
 	
 

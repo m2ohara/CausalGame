@@ -182,7 +182,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 		
 		GameSprite current;
 		if(probability < 0.33) {
-			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.debug("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating gossiper "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(
 					new TutorialGossiperBehaviour(
 							startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), 
@@ -194,12 +194,12 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			incrementVoteType(2);
 		}
 		else if(probability >= 0.33 && probability < 0.66) {
-			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating promoter "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.debug("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating promoter "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(new TutorialPromoterBehaviour(startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(1).imagePath, true);
 			incrementVoteType(0);
 		}
 		else {
-			Gdx.app.log("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating deceiver "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
+			Gdx.app.debug("SetTutorialSprite", "Round "+TutorialGameGenerator.Round+" Creating deceiver "+x+", "+y+" to orientation index "+orientationIdx+" value "+startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx));
 			current = getGameSprite(new TutorialDeceiverBehaviour(startingOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx), tapableOnSelectedSpriteRound.get(TutorialGameGenerator.Round).get(orientationIdx), autoInteractOrientationsRound.get(TutorialGameGenerator.Round).get(orientationIdx)), WorldSystem.get().getGameXCoords().get(x), WorldSystem.get().getGameYCoords().get(y), PlayerState.get().getFollowerTypes().get(2).imagePath, true);
 			incrementVoteType(1);
 		}

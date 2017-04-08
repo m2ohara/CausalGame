@@ -13,11 +13,14 @@ public class GameScoreState {
 	private static int userPoints = touchActionPoints;
 	private IGameRules scoreSystem = null;
 	private VoteState voteState;
+	public boolean isActive = false;
+	private int winVotes = 0;
 
 	public GameScoreState(int winVotes, VoteState voteState, int totalVotes) {
 		scoreSystem = new VoteGameRules(voteState, winVotes, totalVotes);
 		userPoints = touchActionPoints;
 		this.voteState = voteState;
+		this.winVotes = winVotes;
 	}
 	
 	public static int getTouchActionPoints() {
@@ -65,6 +68,10 @@ public class GameScoreState {
 	
 	public VoteState getVoteState() {
 		return this.voteState;
+	}
+	
+	public int getWinVotes() {
+		return this.winVotes;
 	}
 
 }

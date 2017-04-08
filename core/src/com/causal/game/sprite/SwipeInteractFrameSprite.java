@@ -18,7 +18,7 @@ import com.causal.game.state.PlayerState;
 
 public class SwipeInteractFrameSprite extends Image {
 
-	private static String framesPath = "sprites/PlanetRelease/Deceiver/SpaceShipRedMove.pack";
+	private String framesPath;
 	private float interactionStateLength;
 	
 	private float xDistance = 0f;
@@ -35,9 +35,10 @@ public class SwipeInteractFrameSprite extends Image {
 	private SwipeInteract swipeInteract;
 	private SwipeInteractFinishSprite finishSprite;
 	
-	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee, TextureAtlas texture) {
-		super(texture.getRegions().get(0));//new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0)
+	public SwipeInteractFrameSprite(GameSprite interactor, GameSprite interactee, TextureAtlas texture, String framesPath) {
+		super(texture.getRegions().get(0));
 		
+		this.framesPath = framesPath;
 		frames = texture.getRegions();
 		currentFrame = frames.get(0);
 		this.interactionStateLength = interactor.getInteractLength();
@@ -114,7 +115,7 @@ public class SwipeInteractFrameSprite extends Image {
 				
 				if(interactionStateLength == 0 && finishSprite == null) {
 					this.setVisible(false);
-					finishSprite = new SwipeInteractFinishSprite(interacteeCoords);
+					finishSprite = new SwipeInteractFinishSprite(interacteeCoords, new TextureAtlas(Gdx.files.internal(framesPath+"InteractFinishSprite.pack")));
 				}
 				else {
 					updateSprite(delta);

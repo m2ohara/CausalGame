@@ -39,7 +39,7 @@ public class LastInteraction implements IIndividualInteraction {
 		
 		interactor.influenceType = influenceType;
 
-		InfluenceTypeSetter.setHandSign(interactor, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(influenceType.ordinal())));
+		InfluenceTypeSetter.setBlock(interactor, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(influenceType.ordinal())));
 		
 		SwipeSprite.get().activate();
 	}

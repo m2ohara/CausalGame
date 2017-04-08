@@ -130,7 +130,7 @@ public class Game extends ApplicationAdapter {
 
 		GameProperties.get().renderStage();
 		
-		if(scoreState != null && scoreState.getCurrentState() != State.FINISHED) {
+		if(scoreState != null && scoreState.isActive && scoreState.getCurrentState() != State.FINISHED) {
 			updateScoreState();
 		}
 	}
@@ -354,6 +354,12 @@ public class Game extends ApplicationAdapter {
 		
 		GameProperties.get().addActorToStage(GameProperties.get().getGameSpriteGroup());
 		
+		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getVoteState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
+		//Set remaining votes icon
+		setVoteCount();
+		
+		setVoteImage();
+		
 		setFollowerScreen();
 	
 	}
@@ -406,7 +412,7 @@ public class Game extends ApplicationAdapter {
 	
 	private void activateGame(List<DropSprite> followers, ArrayList<Image> placeHolders) {
 		
-		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getVoteState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
+		scoreState.isActive = true;
 		
 		//Set dropped followers into game
 		for(DropSprite follower : followers) {
@@ -428,9 +434,6 @@ public class Game extends ApplicationAdapter {
 		for(GameSprite actor : GameProperties.get().getGameSprites()) {
 			actor.create(gameGenerator.getInteractionType());
 		}
-		
-		//Set remaining votes icon
-		setVoteCount();
 		setReputationCount();
 		
 		setTapCount();
@@ -454,11 +457,23 @@ public class Game extends ApplicationAdapter {
 	private void setVoteCount() {
 		final Skin skin = new Skin();
 		BitmapFont font = new BitmapFont();
-		font.getData().scale(3.5f);
+		font.getData().scale(3.0f);
 		skin.add("default", new LabelStyle(font, Color.YELLOW));
 		String value = scoreState.getRemaingVotes() < 10 ? "0"+Integer.toString(scoreState.getRemaingVotes()) : Integer.toString(scoreState.getRemaingVotes());
 		remainingVotesCounter = new Label(value, skin);
 		setToStage(remainingVotesCounter, 40, 200);
+	}
+	
+	private void setVoteImage() {
+		Actor goalType;
+		if(scoreState.getVoteState() == VoteState.SUPPORT) {
+			goalType = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(0));
+		}
+		else {
+			goalType = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(1));
+		}
+		goalType.setScale(2f);
+		setToStage(goalType, -120, 120);
 	}
 	
 	private void setTapCount() {
@@ -486,8 +501,9 @@ public class Game extends ApplicationAdapter {
 		
 		//Update remaining votes icon
 		if(scoreState.getRemaingVotes() >= 0) {
-			String value = scoreState.getRemaingVotes() < 10 ? "0"+Integer.toString(scoreState.getRemaingVotes()) : Integer.toString(scoreState.getRemaingVotes());
-			remainingVotesCounter.setText(value);
+			String value = Integer.toString(scoreState.getWinVotes() - scoreState.getRemaingVotes());
+			String total = Integer.toString(scoreState.getWinVotes());
+			remainingVotesCounter.setText(value + "/"+total);
 		}
 		
 		if(GameProperties.get().getTapCount() >= 0) {

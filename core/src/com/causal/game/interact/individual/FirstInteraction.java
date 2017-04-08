@@ -43,26 +43,5 @@ public class FirstInteraction implements IIndividualInteraction {
 	public void setFirstInfluencedSprite() {
 		InfluenceTypeSetter.setBlock(interactor, new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal())));
 	}
-	
-//	public void setHandSign() {
-//		Gdx.app.log("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
-//		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
-//
-//		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
-//		handSign.setPosition(interactor.getStartingX(), interactor.getStartingY());
-//		
-//		GameProperties.get().addActorToStage(handSign);
-//	}
-//	
-//	public void setBlock() {
-//		Gdx.app.log("FirstInteraction", "Setting first interactor handsign for status: "+interactor.interactStatus);
-//		Actor handSign = new Image(new TextureAtlas(Gdx.files.internal("sprites/Meep/Gestures/HandSigns.pack")).getRegions().get(interactor.influenceType.ordinal()));
-//
-//		handSign.setOrigin(handSign.getWidth()/2, handSign.getHeight()/2);
-//		handSign.setPosition(interactor.getStartingX()-2, interactor.getStartingY()-2);
-//		
-//		GameProperties.get().addActorToStage(handSign);
-//		handSign.setZIndex(GameProperties.get().getStageActor("GameScreen").getZIndex()+1);
-//	}
 
 }

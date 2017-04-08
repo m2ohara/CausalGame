@@ -64,9 +64,9 @@ public class TutorialTapSprite extends Image {
 			this.remove();
 			
 			//Display on tap finished
-			if(displayMessage.getDisplayStage() == 1) {
-				displayMessage.setVisible(true);
-			}
+//			if(displayMessage.getDisplayStage() == 1) {
+//				displayMessage.setVisible(true);
+//			}
 		}
 	}
 	

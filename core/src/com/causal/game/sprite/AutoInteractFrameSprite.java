@@ -17,7 +17,7 @@ import com.causal.game.state.PlayerState;
 
 public class AutoInteractFrameSprite  extends Image {
 	
-	private static String framesPath = "sprites/PlanetRelease/Deceiver/SpaceShipRedMove.pack";
+	private String framesPath;
 	public boolean isInteracting = false;
 	protected float interactionStateLength;
 	protected ScaleToAction scaleAction;
@@ -36,10 +36,11 @@ public class AutoInteractFrameSprite  extends Image {
 	private SwipeInteractFinishSprite finishSprite;
 	private Vector2 interacteeCoords;
 	
-	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType, TextureAtlas texture) {
-		super(texture.getRegions().get(1));
+	public AutoInteractFrameSprite(GameSprite interactor, GameSprite interactee, IInteractionType interactionType, TextureAtlas texture, String framesPath) {
+		super(texture.getRegions().get(0));
 		
 		this.interactionType = interactionType;
+		this.framesPath = framesPath;
 		frames = texture.getRegions();
 		currentFrame = frames.get(0);
 		this.interactionStateLength = interactor.getInteractLength();
@@ -120,7 +121,7 @@ public class AutoInteractFrameSprite  extends Image {
 				
 				if(interactionStateLength == 0 && finishSprite == null) {
 					this.setVisible(false);
-					finishSprite = new SwipeInteractFinishSprite(interacteeCoords);
+					finishSprite = new SwipeInteractFinishSprite(interacteeCoords, new TextureAtlas(Gdx.files.internal(framesPath+"InteractFinishSprite.pack")));
 				}
 				else {
 					this.moveBy(xDistance, yDistance);

@@ -12,8 +12,6 @@ public class PromoterAutonomousBehaviour implements IInteraction {
 	
 	private float interactSuccess = 0.2f;
 	private Random rand = new Random();
-	private float interactionStateLength = 400f;
-	private int interactionStages = 3;
 	private AutoInteractFrameSprite interactSprite;
 	private IInteractionType interactionType;
 	
@@ -21,14 +19,13 @@ public class PromoterAutonomousBehaviour implements IInteraction {
 	public void interact(GameSprite interactor, GameSprite interactee) {
 		
 		//Influence if interactee is neutral and interactor isn't already interacting
-		if(!interactor.isInteracting && interactee.interactStatus == Status.NEUTRAL && rand.nextFloat() > interactSuccess) {
+		if(!interactor.isInteracting && interactee.interactStatus == Status.NEUTRAL) {
 			setInteractionResult(interactor, interactee);
 			
 			interactor.isInteracting = true;
 			interactee.interactStatus = Status.INFLUENCED;
 			interactee.isActive = false;
-//			interactSprite = new AutoInteractSprite(interactionStateLength, interactionStages, interactor, interactionType);
-			interactSprite = new AutoInteractFrameSprite(interactor, interactee, interactionType, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
+			interactSprite = new AutoInteractFrameSprite(interactor, interactee, interactionType, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")), interactor.getFramesPath());
 			interactSprite.setAction();
 
 		}

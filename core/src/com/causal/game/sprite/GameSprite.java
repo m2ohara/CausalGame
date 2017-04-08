@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.causal.game.behaviour.Behaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.interact.IInteractionType;
@@ -22,6 +23,9 @@ public class GameSprite  extends Image {
 	
 	public Behaviour behaviour;
 	public ISpriteBehaviour spriteBehaviour;
+	private ClickListener click;
+	private int pressedCounter = 0;
+	private boolean pressComplete = false;
 	
 	public float startingX;
 	public float startingY;
@@ -66,7 +70,7 @@ public class GameSprite  extends Image {
 	//Implement onTouch action
 	private void setTouchAction() {
 		
-		this.addListener(new ClickListener() {
+		click = new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) 
 		    {
@@ -76,7 +80,9 @@ public class GameSprite  extends Image {
 				}
 		    }
 			
-		});
+		};
+		
+		this.addListener(click);
 	}
 
 	@Override
@@ -92,6 +98,29 @@ public class GameSprite  extends Image {
 		super.act(delta);
 		if(isActive && isActing){
 			behaviour.onAct(delta, interactStatus, isInteracting == false ? interactorType == InteractorType.NONE ? false : true : true);
+		}
+		
+		if(click != null ) {
+			if(click.isPressed() && !pressComplete) {
+				Gdx.app.log("GameSprite", "Pressing");
+				pressedCounter++;
+			}
+			
+			if(pressedCounter > 30 && !pressComplete) {
+				Gdx.app.log("GameSprite", "Long press complete");
+				pressComplete = true;
+				
+				//Load sprite state screen
+				
+			}
+			if(!click.isPressed() && pressedCounter > 0) {
+				Gdx.app.log("GameSprite", "Pressed reset");
+				pressedCounter = 0;
+				pressComplete = false;
+			}
+			
+			
+			
 		}
 	}
 	

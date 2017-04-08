@@ -24,10 +24,10 @@ public class SwipeInteractFinishSprite extends Image {
 	private Array<AtlasRegion> frames;	
 	private boolean isFinished = false;
 	
-	public SwipeInteractFinishSprite(Vector2 interacteeCoords) {
-		super(new TextureAtlas(Gdx.files.internal(framesPath)).getRegions().get(0));
+	public SwipeInteractFinishSprite(Vector2 interacteeCoords, TextureAtlas texture) {
+		super(texture.getRegions().get(0));
 		
-		frames = new TextureAtlas(Gdx.files.internal(framesPath)).getRegions();
+		frames = texture.getRegions();
 		currentFrame = frames.get(0);
 		
 		set(interacteeCoords);

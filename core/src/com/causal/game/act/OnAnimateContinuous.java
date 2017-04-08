@@ -103,8 +103,7 @@ public class OnAnimateContinuous implements IOnAct{
 	}
 	
 	private void attemptAutonomousInteraction() {
-		Random rand = new Random();
-		if(rand.nextFloat() < this.interactP) {
+		if(Math.random() < this.interactP) {
 			interaction.interact(spriteOrientation.getOrientation());
 			
 		}

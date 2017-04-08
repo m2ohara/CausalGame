@@ -34,7 +34,6 @@ public class AndroidActionResolver implements IActionResolver {
 				DBHelper = new DataBaseHelper(appContext);
 				DBHelper.createDataBase();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     }

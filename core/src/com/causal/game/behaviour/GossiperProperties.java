@@ -12,7 +12,7 @@ public class GossiperProperties implements IBehaviourProperties {
 	private float interactProbability = 0.8f;
 	private int influenceAmount = 2;
 	private Random rand = new Random();
-	private float interactLength = 250f;
+	private float interactLength = 200f;
 	
 	public float getRotateProbability() {
 		return rotateProbability;

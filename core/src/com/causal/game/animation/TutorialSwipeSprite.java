@@ -132,9 +132,9 @@ public class TutorialSwipeSprite extends Image {
 			isRemoved = true;
 			
 			//Display on swipe finished
-			if(displayMessage.getDisplayStage() == 2) {
-				displayMessage.setVisible(true);
-			}
+//			if(displayMessage.getDisplayStage() == 2) {
+//				displayMessage.setVisible(true);
+//			}
 		}
 	}
 	

@@ -22,15 +22,11 @@ public class SwipeInteraction implements ISwipeInteraction {
 	private GameSprite interactor;
 	protected GameSprite lastHitActor = null;
 	boolean invalidInteraction = false;
-	private IInteractionType interactionType = null;
 	private int connectorSprite;
-	private float interactionStateLength = 3f;
-	private int interactionStages = 3;
 	private SwipeInteractFrameSprite firstInteraction = null;
 	private Array<Actor> connectors = new Array<Actor>();
 
 	public SwipeInteraction(IInteractionType interactionType, int connectorSprite) {
-		this.interactionType = interactionType;
 		this.connectorSprite = connectorSprite == 0 ? 1  : 0;
 	}
 
@@ -88,15 +84,13 @@ public class SwipeInteraction implements ISwipeInteraction {
 				Gdx.app.debug("SwipeInteraction","Assigning first interaction");
 				interactor.interactorType = InteractorType.FIRST;
 				interactor.interactStatus = Status.INFLUENCED;
-				firstInteraction = new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
-//				firstInteraction = new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
+				firstInteraction = new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")), interactor.getFramesPath());
 			}
 			else {
 				Gdx.app.debug("SwipeInteraction","Assigning next interaction");
 				interactor.interactStatus = Status.INFLUENCED;
 				interactor.interactorType = InteractorType.INTERMEDIATE;
-				new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")));
-//				new SwipeInteractScaleSprite(interactionStateLength, interactionStages, interactor, interactee, new IndividualInteraction());
+				new SwipeInteractFrameSprite(interactor, interactee, new TextureAtlas(Gdx.files.internal(interactor.getFramesPath()+"SpriteMove.pack")), interactor.getFramesPath());
 			}
 
 		}
