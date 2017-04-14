@@ -1,25 +1,15 @@
 package com.causal.game.gestures;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.causal.game.interact.IInteractionType;
 import com.causal.game.main.GameProperties;
-import com.causal.game.sprite.GameSprite;
 
-public class GameGestures  implements GestureListener {
+public class GameGestures  implements GestureListener, InputProcessor {
 		
-		boolean isFirstHit = true;
-		private Stage stage = null;
+		private boolean isFirstHit = true;
 		
-		public GameGestures(Stage stage) {
-			this.stage = stage;
-		}
-		
-		public GameGestures(Stage stage, IInteractionType interactionType, int influenceType) {
-			this.stage = stage;
+		public GameGestures() {
 		}
 
 		@Override
@@ -48,14 +38,6 @@ public class GameGestures  implements GestureListener {
 
 		@Override
 		public boolean pan(float x, float y, float deltaX, float deltaY) {
-//			Vector2 coords = stage.screenToStageCoordinates(new Vector2(x, y));
-//			Actor actor = stage.hit(coords.x, coords.y, true);
-//			
-//			if(actor != null && actor.getClass().equals(GameSprite.class) && ((GameSprite)actor).isActing()) {
-//				Gdx.app.log("GameGestures","Hit actor "+actor.hashCode());
-//				GameProperties.get().getSwipeInteraction().interactHit((GameSprite)actor, isFirstHit);
-//				isFirstHit = false;
-//			}
 			
 			return false;
 		}
@@ -76,6 +58,55 @@ public class GameGestures  implements GestureListener {
 		@Override
 		public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
 				Vector2 pointer1, Vector2 pointer2) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean keyDown(int keycode) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean keyUp(int keycode) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean keyTyped(char character) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchDown(int screenX, int screenY, int pointer,
+				int button) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean mouseMoved(int screenX, int screenY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean scrolled(int amount) {
 			// TODO Auto-generated method stub
 			return false;
 		}

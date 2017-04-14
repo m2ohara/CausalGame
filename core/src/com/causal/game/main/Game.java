@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,8 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.causal.game.gestures.DefaultGestures;
-import com.causal.game.gestures.GameGestures;
 import com.causal.game.setup.GameGenerator;
 import com.causal.game.sprite.DropSprite;
 import com.causal.game.sprite.GameSprite;
@@ -44,8 +41,8 @@ public class Game extends ApplicationAdapter {
 	Texture background;
 	OrthographicCamera camera;
 	private boolean isAndroid = false;
-	public InputMultiplexer im = null;
-	public Stage stage;
+	private InputMultiplexer multiplexer = null;
+	public Stage gameStage;
 	
 	//Make easier to access
 	PlayerState plState = null;
@@ -83,22 +80,20 @@ public class Game extends ApplicationAdapter {
 		plState = PlayerState.get();
 		plState.loadDummy();
 		
-		stage = setView();
+		gameStage = setView();
 		
-		GameProperties.get().setStage(stage);
+		GameProperties.get().setStage(gameStage);
 		
-		createNewGame();
+		GameProperties.get().setMainStage(setView());
+		
+		setGestureDetector();
 		
 		setTitleScreen();
 	}
 	
-	private void createNewGame() {		
-		setGestureDetector(new GestureDetector(new GameGestures(stage)));
-	}
-	
-	private void setGestureDetector(GestureDetector gd) {
-		im = new InputMultiplexer(gd, stage);
-		Gdx.input.setInputProcessor(im);
+	private void setGestureDetector() {
+		multiplexer = new InputMultiplexer(gameStage, GameProperties.get().getMainStage());
+		Gdx.input.setInputProcessor(multiplexer);
 	}
 	
 	private Stage setView() {
@@ -340,7 +335,8 @@ public class Game extends ApplicationAdapter {
 		setToStage(gameGenerator.getMiddleLabel(), 0, -50);
 		setToStage(gameGenerator.getBottomLabel(), 0, -120);
 		
-		setGestureDetector(new GestureDetector(new DefaultGestures()));
+//		setGestureDetector(new GestureDetector(new DefaultGestures()));
+		setGestureDetector();
 	}
 	
 	private void setCrowdScreen() {
@@ -674,7 +670,7 @@ public class Game extends ApplicationAdapter {
 		scoreState = null;
 		GameProperties.get().dispose();
 		WorldSystem.get().dispose();
-		createNewGame();
+		setGestureDetector();
 	}
 
 

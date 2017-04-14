@@ -27,12 +27,16 @@ public class GameProperties {
 	public ISwipeInteraction swipeInteraction = null;
 	private ArrayList<GameSprite> gameSprites = new ArrayList<GameSprite>();
 	private int tapLimit;
-	private Stage stage = null;
+	private Stage gameStage = null;
 	private int swipeCount;
 	private int swipeLimit;
 	private Group gameSpriteGroup = new Group();
 	private Group actorGroup = new Group();
 	private int[] playerGoals = new int[2];
+	public Stage mainStage;
+	public int GameState = GAME_RUNNING;
+	public static int GAME_RUNNING = 1;
+	public static int GAME_PAUSED = 0;
 
 	private GameProperties() {
 		tapLimit = PlayerState.get().getTapLimit();
@@ -93,7 +97,7 @@ public class GameProperties {
 		setActorGroupOriginToZero();
 		actor.getSourceSprite().setTouchable(Touchable.disabled);
 		Gdx.app.debug("GameProperties", "Replacing actor at "+actor.getCurrentX()+", "+actor.getCurrentY());
-		Actor actorToRemove = stage.hit(actor.getCurrentX(), actor.getCurrentY(), true);
+		Actor actorToRemove = gameStage.hit(actor.getCurrentX(), actor.getCurrentY(), true);
 		try {
 			//Remove current actor at coordinates
 			gameSpriteGroup.removeActor(actorToRemove);
@@ -102,10 +106,8 @@ public class GameProperties {
 			GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
 			Gdx.app.debug(this.toString().substring(this.toString().lastIndexOf(".")), 
 					"Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
-//			actorToAdd.setValidOrientations();
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
-//				actorToAdd.setColor(Color.YELLOW);
 				SwipeSprite.get().setStartSprite(actorToAdd);
 			}
 			gameSpriteGroup.addActor(actorToAdd);
@@ -176,20 +178,19 @@ public class GameProperties {
 	}
 
 	public void dispose() {
-		stage.clear();
+		gameStage.clear();
 		gameSpriteGroup = new Group();
 		actorsToReplace = new ArrayList<DropSprite>();
 		gameSprites.clear();
 		isAutoInteractionAllowed = false;
 	}
 	
-	//Encapsulated stage logic
 	public void setStage(Stage stage) {
-		this.stage = stage;
+		this.gameStage = stage;
 	}
 	
 	public Actor getStageActor(String name) {
-		for(Actor actor : stage.getActors()) {
+		for(Actor actor : gameStage.getActors()) {
 			if(actor.getName() == name) {
 				return actor;
 			}
@@ -198,27 +199,32 @@ public class GameProperties {
 	}
 
 	public void addActorToStage(Actor actor) {
-		this.stage.addActor(actor);
+		this.gameStage.addActor(actor);
 	}
 	
 	public void removeAllActorsFromStage(Array<Actor> actors) {
-		stage.getActors().removeAll(actors, false);
+		gameStage.getActors().removeAll(actors, false);
 	}
 	
 	public void resizeStage(int height, int width) {
-		stage.getViewport().update(width, height, true);
+		gameStage.getViewport().update(width, height, true);
 	}
 	
 	public void renderStage() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		stage.draw();
-		stage.act(Gdx.graphics.getDeltaTime());
+		if(GameState == GAME_RUNNING) {
+			gameStage.draw();
+			gameStage.act(Gdx.graphics.getDeltaTime());
+		}
+		
+		mainStage.draw();
+		mainStage.act(Gdx.graphics.getDeltaTime());
 	}
 	
 	public void activateActors() {
-		stage.addActor(actorGroup);
+		gameStage.addActor(actorGroup);
 	}
 	
 	public void setPlayerGoals(int[] playerGoals) {
@@ -228,7 +234,17 @@ public class GameProperties {
 	public int[] getPlayerGoals() {
 		return this.playerGoals;
 	}
+	
+	public Stage getMainStage() {
+		return this.mainStage;
+	}
+	
+	public void setMainStage(Stage stage) {
+		this.mainStage = stage;
+	}
 
-
+	public void addActorToMainStage(Actor actor) {
+		this.mainStage.addActor(actor);
+	}
 
 }

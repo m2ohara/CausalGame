@@ -36,3 +36,15 @@ SpeechScreen
   orig: 420, 600
   offset: 0, 0
   index: -1
+
+screensPack3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+RedStatsScreen
+  rotate: false
+  xy: 1, 1
+  size: 429, 512
+  orig: 429, 512
+  offset: 0, 0
+  index: -1

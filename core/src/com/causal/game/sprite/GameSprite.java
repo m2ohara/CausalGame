@@ -4,14 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.causal.game.behaviour.Behaviour;
 import com.causal.game.behaviour.ISpriteBehaviour;
 import com.causal.game.interact.IInteractionType;
+import com.causal.game.main.GameProperties;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.Game.Head;
 import com.causal.game.main.WorldSystem.Orientation;
@@ -102,19 +106,20 @@ public class GameSprite  extends Image {
 		
 		if(click != null ) {
 			if(click.isPressed() && !pressComplete) {
-				Gdx.app.log("GameSprite", "Pressing");
+				Gdx.app.debug("GameSprite", "Pressing");
 				pressedCounter++;
 			}
 			
 			if(pressedCounter > 30 && !pressComplete) {
-				Gdx.app.log("GameSprite", "Long press complete");
+				Gdx.app.debug("GameSprite", "Long press complete");
 				pressComplete = true;
 				
 				//Load sprite state screen
+				setStatsScreen();
 				
 			}
 			if(!click.isPressed() && pressedCounter > 0) {
-				Gdx.app.log("GameSprite", "Pressed reset");
+				Gdx.app.debug("GameSprite", "Pressed reset");
 				pressedCounter = 0;
 				pressComplete = false;
 			}
@@ -122,6 +127,40 @@ public class GameSprite  extends Image {
 			
 			
 		}
+	}
+	
+	private void setStatsScreen() {
+		final Actor screen = getImage("RedStatsScreen", "screens/screensPack");
+		screen.setPosition(30, 50);
+		GameProperties.get().addActorToMainStage(screen);
+		
+		GameProperties.get().GameState = GameProperties.GAME_PAUSED;
+		
+		screen.addListener(new ClickListener() {
+			 public void clicked(InputEvent event, float x, float y) {
+				 Gdx.app.debug("GameSprite", "Closing stats screen");
+				 GameProperties.get().GameState = GameProperties.GAME_RUNNING;
+				 screen.remove();
+			 }
+		});
+	}
+	
+	private Actor getImage(String type, String pack) {
+
+		TextureAtlas txAtlas = null;
+		Skin txSkin = null;
+		
+		try {
+			txAtlas = new TextureAtlas(Gdx.files.internal(pack+".pack"));
+			txSkin = new Skin(txAtlas);
+		}
+		catch(Exception e) {
+		    Gdx.app.debug("Game", "Exception "+e.getMessage());			
+		}
+	
+		Actor image = new Image(txSkin.getDrawable(type));
+		image.setName(type);
+		return image;
 	}
 	
 	public int getXGameCoord() {
