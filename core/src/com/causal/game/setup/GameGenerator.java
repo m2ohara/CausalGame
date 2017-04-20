@@ -125,7 +125,6 @@ public class GameGenerator {
 		removalProb = ((float)((PlayerState.get().getLevel() / 2)*2)/10); 
 	}
 	
-	//Bug loop reaches over 100 before meeting condition TEST
 	protected void setLevelWinAmount() {
 		
 		int voteCount = voteState.toString() == "SUPPORT" ? supportCount : opposeCount;

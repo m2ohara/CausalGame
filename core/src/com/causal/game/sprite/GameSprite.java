@@ -2,6 +2,7 @@ package com.causal.game.sprite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -131,18 +134,46 @@ public class GameSprite  extends Image {
 	
 	private void setStatsScreen() {
 		final Actor screen = getImage("RedStatsScreen", "screens/screensPack");
-		screen.setPosition(30, 50);
+		
+		float x = (Gdx.graphics.getWidth() - screen.getWidth()) /2 ;
+		float y = (Gdx.graphics.getHeight()  - screen.getHeight()) / 2;
+		screen.setPosition(x, y);
 		GameProperties.get().addActorToMainStage(screen);
+		screen.setTouchable(Touchable.disabled);
 		
 		GameProperties.get().GameState = GameProperties.GAME_PAUSED;
 		
-		screen.addListener(new ClickListener() {
+		final Actor playGameBtn = getButton("PlayGameBtn");
+		playGameBtn.setPosition(x + (screen.getWidth() /3), y + playGameBtn.getHeight()/2);
+		
+		GameProperties.get().addActorToMainStage(playGameBtn);
+		
+		ClickListener cListener = new ClickListener() {
 			 public void clicked(InputEvent event, float x, float y) {
-				 Gdx.app.debug("GameSprite", "Closing stats screen");
+				 Gdx.app.log("GameSprite", "Closing stats screen");
 				 GameProperties.get().GameState = GameProperties.GAME_RUNNING;
 				 screen.remove();
+				 playGameBtn.remove();
 			 }
-		});
+		};
+		
+		
+		playGameBtn.addListener(cListener);
+	}
+	
+	private Actor getButton(String type) {
+		TextureAtlas buttonAtlas;
+		Skin skin = new Skin();
+		BitmapFont font = new BitmapFont();
+		TextButtonStyle style = new TextButtonStyle();
+		
+		buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttonsPack.pack"));
+		skin.addRegions(buttonAtlas);
+		style.font = font;
+		style.up = skin.getDrawable(type);
+		style.down = skin.getDrawable(type);
+		
+		return new TextButton("", style);
 	}
 	
 	private Actor getImage(String type, String pack) {

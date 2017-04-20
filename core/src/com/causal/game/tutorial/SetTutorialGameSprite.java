@@ -19,9 +19,11 @@ import com.causal.game.state.PlayerState;
 public class SetTutorialGameSprite extends SetGameSprite {
 	
 	public int orientationIdx = 0;
+	private int indexCount = 9;
 	
 	public void resetIndex() {
 		orientationIdx = 0;
+		indexCount = TutorialGameGenerator.Round == 0 ? 9 : 12;
 	}
 		
 	private List<Orientation> startingOrientations1 = Arrays.asList(
@@ -164,12 +166,30 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
 			
+			new TutorialAnimationProperties( 
+					new ArrayList<Object>(Arrays.asList(
+							new TutorialTapSprite(new Vector2(1,0), Orientation.E), 
+							new TutorialSwipeSprite(Arrays.asList(Orientation.N, Orientation.E), new Vector2(1, 1), new Vector2(0, 2))
+							)),
+					new Vector2(1, 0)
+					), 	
+			new TutorialAnimationProperties(
+					true, 
+					new ArrayList<Object>(Arrays.asList(
+							new TutorialTapSprite(new Vector2(1,1), Orientation.N), 
+							new TutorialSwipeSprite(Arrays.asList(Orientation.N), new Vector2(1, 2), new Vector2(1, 1))
+							)),
+					new Vector2(1, 0)
+					), 
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
-			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+
+					
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)),
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 			
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
 			
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
-			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)), 
+			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0)),
 			new TutorialAnimationProperties(new ArrayList<Object>(Arrays.asList(new TutorialTapSprite(new Vector2(0,0), Orientation.N))), new Vector2(0,0))
 			);
 	
@@ -178,7 +198,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 
 	@Override
 	public GameSprite createGameSprite(float probability, int x, int y) {
-		if(orientationIdx == 9) { orientationIdx = 0;}
+		if(orientationIdx == indexCount) { orientationIdx = 0;}
 		
 		GameSprite current;
 		if(probability < 0.33) {
