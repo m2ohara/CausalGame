@@ -12,6 +12,7 @@ import com.causal.game.animation.TutorialSwipeSprite;
 import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.WorldSystem;
+import com.causal.game.sprite.GameSprite;
 
 public class TutorialAnimationProperties {
 	
@@ -26,8 +27,8 @@ public class TutorialAnimationProperties {
 		this.nextAnimationCoords = nextAnimation;
 	}
 	
-	public TutorialAnimationProperties(ArrayList<Object> arrayList, Vector2 nextAnimation) {
-		this.animations = arrayList;
+	public TutorialAnimationProperties(ArrayList<Object> animations, Vector2 nextAnimation) {
+		this.animations = animations;
 		this.nextAnimationCoords = nextAnimation;
 	}
 	
@@ -62,12 +63,16 @@ public class TutorialAnimationProperties {
 
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
+							
+							Gdx.app.log("TutorialAnimations", "Tap animation fired");
+							
 							animation.setPosition(parent.getX(), parent.getY());
 							animation.setTouchable(Touchable.disabled);
 							GameProperties.get().addToActorGroup(animation);
 							
 						}});
 				}
+
 				
 			}
 			
@@ -80,11 +85,10 @@ public class TutorialAnimationProperties {
 
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
-							
+							Gdx.app.log("TutorialAnimations", "Swipe animation fired");
 							GameProperties.get().addToActorGroup(animation);	
 						}});
-				}
-				
+				}				
 			}
 			
 			if(previous == null && active) {
@@ -99,10 +103,16 @@ public class TutorialAnimationProperties {
 
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
+							
+							Gdx.app.log("TutorialAnimations", "Next animation fired");
+							
 							TutorialGameSprite nextSprite = (TutorialGameSprite)WorldSystem.get().getMemberFromCoords((int)nextAnimationCoords.x, (int)nextAnimationCoords.y);
 							nextSprite.createAnimations();
 
 						}});
+				
+				
+				Gdx.app.log("TutorialAnimations", "Next animation set for "+(int)nextAnimationCoords.x + ", "+(int)nextAnimationCoords.y);
 			}
 			
 			previous = animation;

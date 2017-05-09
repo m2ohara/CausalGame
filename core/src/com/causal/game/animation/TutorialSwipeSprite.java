@@ -23,6 +23,7 @@ import com.causal.game.sprite.GameSprite;
 import com.causal.game.sprite.SwipeSprite;
 import com.causal.game.sprite.GameSprite.InfluenceType;
 import com.causal.game.tutorial.TutorialDisplayMessage;
+import com.causal.game.tutorial.TutorialGameSprite;
 
 public class TutorialSwipeSprite extends Image {
 	
@@ -100,6 +101,9 @@ public class TutorialSwipeSprite extends Image {
 		repeatAction.setCount(RepeatAction.FOREVER);
 
 		this.addAction(repeatAction);
+		
+		Gdx.app.log("TutorialSwipeSprite", "Swipe animation set for "+parentX + ", "+parentY);
+
 	}
 	
 	@Override

@@ -66,7 +66,7 @@ public class TutorialGameGenerator extends GameGenerator {
 	}
 
 	protected void setCrowdProperties() {
-		Gdx.app.log("TutorialGameGenerator", "Setting crowd properties for index "+idx);
+		Gdx.app.debug("TutorialGameGenerator", "Setting crowd properties for index "+idx);
 		starterX = 1;
 		followerTypeProb = followerTypeProbListRounds.get(Round).get(idx);
 		idx++;

@@ -11,6 +11,7 @@ import com.causal.game.act.IOnActing;
 import com.causal.game.act.OnAct;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.main.WorldSystem.Orientation;
+import com.causal.game.sprite.GameSprite;
 import com.causal.game.tutorial.TutorialDisplayMessage;
 import com.causal.game.tutorial.TutorialGameSprite;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
@@ -41,6 +42,7 @@ public class TutorialTapSprite extends Image {
 	
 	public void setSprite() {
 		this.tapGameSprite = (TutorialGameSprite)WorldSystem.get().getMemberFromCoords((int)tapGameSpriteCoords.x, (int)tapGameSpriteCoords.y);
+		Gdx.app.log("TutorialTapSprite", "Tap animation set for "+tapGameSprite.getXGameCoord() + ", "+tapGameSprite.getYGameCoord());
 	}
 	
 	@Override
