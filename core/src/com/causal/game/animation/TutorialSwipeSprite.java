@@ -102,7 +102,7 @@ public class TutorialSwipeSprite extends Image {
 
 		this.addAction(repeatAction);
 		
-		Gdx.app.log("TutorialSwipeSprite", "Swipe animation set for "+parentX + ", "+parentY);
+		Gdx.app.debug(this.getName(), "Swipe animation set for "+parentX + ", "+parentY);
 
 	}
 	

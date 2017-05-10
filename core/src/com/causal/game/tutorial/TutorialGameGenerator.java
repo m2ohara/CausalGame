@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.animation.TutorialTapSprite;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.WorldSystem;
 import com.causal.game.setup.GameGenerator;
+import com.causal.game.sprite.DropSprite;
 import com.causal.game.sprite.GameSprite;
 import com.causal.game.state.Follower;
 import com.causal.game.state.FollowerType;
@@ -57,6 +59,7 @@ public class TutorialGameGenerator extends GameGenerator {
 		Round+=1;
 		idx = 0;
 		levelWinAmount = winAmount.get(Round);
+		setGameSprite.resetIndex();
 		
 	}
 	
@@ -85,6 +88,22 @@ public class TutorialGameGenerator extends GameGenerator {
 	
 	public void setLevelWinAmount() {
 		levelWinAmount = winAmount.get(Round);
+	}
+	
+	public void createDropSprites(ArrayList<DropSprite> followers, ArrayList<Image> placeHolders) {
+		final List<Follower> plFollowers = PlayerState.get().getFollowers();
+		List<FollowerType> types = PlayerState.get().getFollowerTypes();
+		
+		for(int i = 0; i < types.size(); i++) {
+			Image placeHolder = (Image)createTargetImage("icons/iconsPack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
+			placeHolders.add(placeHolder);
+			for(Follower follower : plFollowers) {
+				if(follower.type.head == types.get(i).head) {
+					DropSprite followerInstance = new TutorialDropSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
+					followers.add(followerInstance);
+				}
+			}
+		}
 	}
 	
 	public List<Follower> generateRewardFollowers(int amount) {	

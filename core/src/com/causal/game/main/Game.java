@@ -351,34 +351,21 @@ public class Game extends ApplicationAdapter {
 		GameProperties.get().addActorToStage(GameProperties.get().getGameSpriteGroup());
 		
 		scoreState = new GameScoreState(gameGenerator.getLevelWinAmount(), gameGenerator.getVoteState(), GameProperties.get().getGameSpriteGroup().getChildren().size);
-		//Set remaining votes icon
+
 		setVoteCount();
 		
 		setVoteImage();
 		
-		setFollowerScreen();
+		setItemDropScreen();
 	
 	}
 	
-	private void setFollowerScreen() {	
+	private void setItemDropScreen() {	
 		
 		final ArrayList<DropSprite> followers = new ArrayList<DropSprite>();
 		final ArrayList<Image> placeHolders = new ArrayList<Image>();
-	
 		
-		final List<Follower> plFollowers = plState.getFollowers();
-		List<FollowerType> types = plState.getFollowerTypes();
-		
-		for(int i = 0; i < types.size(); i++) {
-			Image placeHolder = (Image)createTargetImage("icons/iconsPack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
-			placeHolders.add(placeHolder);
-			for(Follower follower : plFollowers) {
-				if(follower.type.head == types.get(i).head) {
-					DropSprite followerInstance = new DropSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
-					followers.add(followerInstance);
-				}
-			}
-		}
+		gameGenerator.createDropSprites(followers, placeHolders);
 		
 		final Actor playerLabel = getButton("Player2Btn");
 		
@@ -396,15 +383,31 @@ public class Game extends ApplicationAdapter {
 		
 	}
 	
-	private Actor createTargetImage(String framesPath, float origX, float origY) {
-		Actor targetImage = getImage("ExpressionBox", framesPath);
-		targetImage.setPosition(origX, origY);
-		targetImage.setScale(WorldSystem.get().getLevelScaleFactor());
-		GameProperties.get().addActorToStage(targetImage);
-		targetImage.setTouchable(Touchable.disabled);
-		
-		return targetImage;
-	}
+//	private void createDropSprites(ArrayList<DropSprite> followers, ArrayList<Image> placeHolders) {
+//		final List<Follower> plFollowers = plState.getFollowers();
+//		List<FollowerType> types = plState.getFollowerTypes();
+//		
+//		for(int i = 0; i < types.size(); i++) {
+//			Image placeHolder = (Image)createTargetImage("icons/iconsPack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
+//			placeHolders.add(placeHolder);
+//			for(Follower follower : plFollowers) {
+//				if(follower.type.head == types.get(i).head) {
+//					DropSprite followerInstance = new DropSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
+//					followers.add(followerInstance);
+//				}
+//			}
+//		}
+//	}
+//	
+//	private Actor createTargetImage(String framesPath, float origX, float origY) {
+//		Actor targetImage = getImage("ExpressionBox", framesPath);
+//		targetImage.setPosition(origX, origY);
+//		targetImage.setScale(WorldSystem.get().getLevelScaleFactor());
+//		GameProperties.get().addActorToStage(targetImage);
+//		targetImage.setTouchable(Touchable.disabled);
+//		
+//		return targetImage;
+//	}
 	
 	private void activateGame(List<DropSprite> followers, ArrayList<Image> placeHolders) {
 		

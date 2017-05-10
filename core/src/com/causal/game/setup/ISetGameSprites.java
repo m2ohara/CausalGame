@@ -9,5 +9,7 @@ public interface ISetGameSprites {
 	int getSupportCount();
 	
 	int getOpposeCount();
+	
+	void resetIndex();
 
 }

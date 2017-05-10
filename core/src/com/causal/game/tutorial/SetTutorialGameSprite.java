@@ -32,7 +32,7 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Orientation.S, Orientation.S, Orientation.N);
 	
 	private List<Orientation> startingOrientations2 = Arrays.asList(
-			Orientation.W, Orientation.N, Orientation.N, 
+			Orientation.E, Orientation.N, Orientation.N, 
 			Orientation.S, Orientation.E, Orientation.N,
 			Orientation.E, Orientation.S, Orientation.N, 
 			Orientation.S, Orientation.N, Orientation.N
@@ -47,11 +47,11 @@ public class SetTutorialGameSprite extends SetGameSprite {
 			Orientation.S, Orientation.S, Orientation.N);
 	
 	//Orientation.N indicates unused coordinates
-	private List<Orientation> autoInteractOrientations2 = Arrays.asList(	//End result
-			Orientation.S, Orientation.N, Orientation.S,      				// Y, Y, N 
-			Orientation.W, Orientation.W, Orientation.W, 					// N, Y, Y
-			Orientation.S, Orientation.S, Orientation.E,					// Y, N, Y
-			Orientation.N, Orientation.N, Orientation.E						// N, Y, N
+	private List<Orientation> autoInteractOrientations2 = Arrays.asList(	
+			Orientation.S, Orientation.N, Orientation.E,      				 
+			Orientation.W, Orientation.W, Orientation.W, 					
+			Orientation.S, Orientation.S, Orientation.E,					
+			Orientation.N, Orientation.N, Orientation.E						
 			);
 	
 	@SuppressWarnings("unchecked")
@@ -117,8 +117,8 @@ public class SetTutorialGameSprite extends SetGameSprite {
 	
 	private List<InfluenceType> influenceTypes2 = Arrays.asList(
 			InfluenceType.OPPOSE, InfluenceType.OPPOSE, InfluenceType.SUPPORT,
-			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.OPPOSE, //2nd column ?
-			InfluenceType.NONE, InfluenceType.NONE, InfluenceType.NONE,
+			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.OPPOSE,
+			InfluenceType.OPPOSE, InfluenceType.SUPPORT, InfluenceType.SUPPORT,
 			InfluenceType.SUPPORT, InfluenceType.SUPPORT, InfluenceType.SUPPORT
 			);
 	

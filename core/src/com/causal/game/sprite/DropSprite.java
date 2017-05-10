@@ -76,14 +76,18 @@ public class DropSprite
 		
 		setDragSource();
 		
-		Group group = GameProperties.get().getGameSpriteGroup();
-		for(Actor actor : group.getChildren()) {
-			addDropTarget(actor);
-		}
+		iterateDropTargets();
 		
 		if(addOrigSource) {
 			this.isPlaceholderActive = true;
 			addPlaceholderTarget();
+		}
+	}
+	
+	protected void iterateDropTargets() {
+		Group group = GameProperties.get().getGameSpriteGroup();
+		for(Actor actor : group.getChildren()) {
+			addDropTarget(actor);
 		}
 	}
 	
@@ -118,7 +122,7 @@ public class DropSprite
 		});
 	}
 	
-	private void addDropTarget(final Actor target) {
+	protected void addDropTarget(final Actor target) {
 		dragAndDrop.addTarget(new Target(target) {			
 			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {			
 				getActor().setColor(Color.RED);

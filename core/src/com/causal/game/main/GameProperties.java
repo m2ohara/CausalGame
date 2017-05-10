@@ -6,10 +6,13 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.causal.game.gestures.ISwipeInteraction;
 import com.causal.game.sprite.DropSprite;
@@ -245,6 +248,25 @@ public class GameProperties {
 
 	public void addActorToMainStage(Actor actor) {
 		this.mainStage.addActor(actor);
+	}
+	
+	public Actor getImage(String type, String pack) {
+
+		TextureAtlas txAtlas = null;
+		Skin txSkin = null;
+		
+		try {
+			txAtlas = new TextureAtlas(Gdx.files.internal(pack+".pack"));
+			txSkin = new Skin(txAtlas);
+		}
+		catch(Exception e) {
+		    Gdx.app.log("Game", "Exception "+e.getMessage());			
+		}
+	
+		Actor image = new Image(txSkin.getDrawable(type));
+		image.setName(type);
+		image.setTouchable(Touchable.disabled);
+		return image;
 	}
 
 }

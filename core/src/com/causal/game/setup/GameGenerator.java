@@ -8,6 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +19,7 @@ import com.causal.game.interact.IInteractionType;
 import com.causal.game.interact.IndividualInteractionType;
 import com.causal.game.main.GameProperties;
 import com.causal.game.main.WorldSystem;
+import com.causal.game.sprite.DropSprite;
 import com.causal.game.sprite.GameSprite;
 import com.causal.game.sprite.GameSprite.Status;
 import com.causal.game.sprite.SwipeSprite;
@@ -130,12 +134,12 @@ public class GameGenerator {
 		int voteCount = voteState.toString() == "SUPPORT" ? supportCount : opposeCount;
 		int offset = PlayerState.get().getLevel() + ((voteCount/4)*3);
 		
-		Gdx.app.log("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
-		Gdx.app.log("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
+		Gdx.app.debug("GameGenerator", "Win state "+voteState.toString()+ " Limit "+voteCount+ " Offset "+offset);
+		Gdx.app.debug("GameGenerator", "Support count "+supportCount+ " OpposeCount "+opposeCount);
 		
 		levelWinAmount = rand.nextInt(offset >= voteCount ? voteCount : voteCount - offset) + (offset > voteCount ? 0 : offset);
 		
-		Gdx.app.log("GameGenerator", "Level win amount "+levelWinAmount);
+		Gdx.app.debug("GameGenerator", "Level win amount "+levelWinAmount);
 
 	
 	}
@@ -162,6 +166,32 @@ public class GameGenerator {
 	
 	public VoteState getVoteState() {
 		return voteState;
+	}
+	
+	public void createDropSprites(ArrayList<DropSprite> followers, ArrayList<Image> placeHolders) {
+		final List<Follower> plFollowers = PlayerState.get().getFollowers();
+		List<FollowerType> types = PlayerState.get().getFollowerTypes();
+		
+		for(int i = 0; i < types.size(); i++) {
+			Image placeHolder = (Image)createTargetImage("icons/iconsPack",WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i));
+			placeHolders.add(placeHolder);
+			for(Follower follower : plFollowers) {
+				if(follower.type.head == types.get(i).head) {
+					DropSprite followerInstance = new DropSprite(follower, WorldSystem.get().getHudXCoords().get(i), WorldSystem.get().getHudYCoords().get(i), placeHolder);
+					followers.add(followerInstance);
+				}
+			}
+		}
+	}
+	
+	protected Actor createTargetImage(String framesPath, float origX, float origY) {
+		Actor targetImage = GameProperties.get().getImage("ExpressionBox", framesPath);
+		targetImage.setPosition(origX, origY);
+		targetImage.setScale(WorldSystem.get().getLevelScaleFactor());
+		GameProperties.get().addActorToStage(targetImage);
+		targetImage.setTouchable(Touchable.disabled);
+		
+		return targetImage;
 	}
 	
 	public List<Follower> generateRewardFollowers(int amount) {	
