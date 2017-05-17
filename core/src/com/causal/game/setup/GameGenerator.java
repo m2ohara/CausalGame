@@ -194,6 +194,10 @@ public class GameGenerator {
 		return targetImage;
 	}
 	
+	public void replaceGameActor(DropSprite dropSprite) {
+		GameProperties.get().replaceActorInGroup(dropSprite);
+	}
+	
 	public List<Follower> generateRewardFollowers(int amount) {	
 		
 		List<Follower> rewardedFollowers = new ArrayList<Follower>();

@@ -93,10 +93,9 @@ public class GameProperties {
 	}
 
 	public List<DropSprite> actorsToReplace = new ArrayList<DropSprite>();
-
-	public void replaceActorInGroup(DropSprite actor) {
-		
-		//Ensure HeadSprite actor gets hit
+	
+	public void replaceActorInGroup(DropSprite actor, GameSprite actorToAdd) {
+		//Ensure gamesprite actor gets hit
 		setActorGroupOriginToZero();
 		actor.getSourceSprite().setTouchable(Touchable.disabled);
 		Gdx.app.debug("GameProperties", "Replacing actor at "+actor.getCurrentX()+", "+actor.getCurrentY());
@@ -105,10 +104,8 @@ public class GameProperties {
 			//Remove current actor at coordinates
 			gameSpriteGroup.removeActor(actorToRemove);
 			actorToRemove.remove();
-
-			GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
-			Gdx.app.debug(this.toString().substring(this.toString().lastIndexOf(".")), 
-					"Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
+			
+			Gdx.app.debug("GameProperties", "Replaced actor "+((GameSprite)actorToRemove).hashCode()+" with actor "+actorToAdd.hashCode());
 			if(((GameSprite)actorToRemove).interactStatus == Status.SELECTED) {
 				actorToAdd.interactStatus = Status.SELECTED;
 				SwipeSprite.get().setStartSprite(actorToAdd);
@@ -123,6 +120,13 @@ public class GameProperties {
 			Gdx.app.error("GameProperties", "Exception replacing actor on stage "+ex);
 		}
 		setActorGroupOriginToCentre();
+	}
+
+	public void replaceActorInGroup(DropSprite actor) {
+		
+		GameSprite actorToAdd = new GameSprite(actor.getBehaviour(), actor.getCurrentX(), actor.getCurrentY(), actor.getFramesPath(), false);
+		
+		replaceActorInGroup(actor, actorToAdd);
 	}
 	
 	//Hack for hitting scaled actors. NB always reset to centre when finished hit

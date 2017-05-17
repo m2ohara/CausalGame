@@ -335,7 +335,6 @@ public class Game extends ApplicationAdapter {
 		setToStage(gameGenerator.getMiddleLabel(), 0, -50);
 		setToStage(gameGenerator.getBottomLabel(), 0, -120);
 		
-//		setGestureDetector(new GestureDetector(new DefaultGestures()));
 		setGestureDetector();
 	}
 	
@@ -416,7 +415,7 @@ public class Game extends ApplicationAdapter {
 		//Set dropped followers into game
 		for(DropSprite follower : followers) {
 			if(follower.isActive()) {
-				GameProperties.get().replaceActorInGroup(follower);
+				gameGenerator.replaceGameActor(follower);
 			}
 			else {
 				//Remove remaining followers

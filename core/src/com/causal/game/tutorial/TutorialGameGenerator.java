@@ -106,6 +106,16 @@ public class TutorialGameGenerator extends GameGenerator {
 		}
 	}
 	
+	public void replaceGameActor(DropSprite dropSprite) {
+		
+		setGameSprite.setIndex(5); 
+		
+		GameSprite actorToAdd = setGameSprite.getGameSprite(dropSprite.getBehaviour(), dropSprite.getCurrentX(), dropSprite.getCurrentY(), dropSprite.getFramesPath(), false);
+		
+		GameProperties.get().replaceActorInGroup(dropSprite, actorToAdd);
+		
+	}
+	
 	public List<Follower> generateRewardFollowers(int amount) {	
 		
 		List<Follower> rewardedFollowers = new ArrayList<Follower>();

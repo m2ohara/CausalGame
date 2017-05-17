@@ -25,6 +25,10 @@ public class SetTutorialGameSprite extends SetGameSprite {
 		orientationIdx = 0;
 		indexCount = TutorialGameGenerator.Round == 0 ? 9 : 12;
 	}
+	
+	public void setIndex(int index) {
+		orientationIdx = index;
+	}
 		
 	private List<Orientation> startingOrientations1 = Arrays.asList(
 			Orientation.E, Orientation.S, Orientation.N, 

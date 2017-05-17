@@ -57,4 +57,9 @@ public class SetGameSprite implements ISetGameSprites {
 	public void resetIndex() {		
 	}
 
+	@Override
+	public void setIndex(int index) {
+		
+	}
+
 }

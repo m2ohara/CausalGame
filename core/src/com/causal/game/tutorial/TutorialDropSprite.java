@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.causal.game.main.GameProperties;
+import com.causal.game.main.WorldSystem;
 import com.causal.game.sprite.DropSprite;
 import com.causal.game.sprite.GameSprite;
 import com.causal.game.state.Follower;
@@ -14,6 +15,8 @@ public class TutorialDropSprite extends DropSprite {
 	public TutorialDropSprite(Follower follower, float x, float y,
 			Image sourceTargetImage) {
 		super(follower, x, y, sourceTargetImage);
+		
+		
 	}
 	
 	protected void iterateDropTargets() {
@@ -28,6 +31,17 @@ public class TutorialDropSprite extends DropSprite {
 				addDropTarget(actor);
 			}
 		}
+	}
+	
+	private void setSourceSprite(float x, float y) {
+//		sourceSprite = new Image(currentFrame);
+//		sourceSprite.setOrigin(sourceSprite.getWidth()/2, sourceSprite.getWidth()/2);
+//		sourceSprite.setPosition(x, y);
+//		sourceSprite.setScale(WorldSystem.get().getLevelScaleFactor());
+//		
+//		Gdx.app.debug("MoveableSprite","Setting source sprite coords "+sourceSprite.getX()+", "+sourceSprite.getY());
+//		
+//		GameProperties.get().addActorToStage(sourceSprite);
 	}
 
 }
