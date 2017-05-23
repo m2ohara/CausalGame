@@ -55,6 +55,7 @@ public class GameGenerator {
 	public GameGenerator() {
 		setRemovalProb();
 		setGameSprite = new SetGameSprite();
+		GameProperties.get().getActorGroup().clear();
 	}
 	
 	public void setGameVoteRules() {

@@ -64,7 +64,7 @@ public class TutorialAnimationProperties {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
 							
-							Gdx.app.log("TutorialAnimations", "Tap animation fired");
+							Gdx.app.debug("TutorialAnimations", "Tap animation fired");
 							
 							animation.setPosition(parent.getX(), parent.getY());
 							animation.setTouchable(Touchable.disabled);
@@ -85,7 +85,7 @@ public class TutorialAnimationProperties {
 
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
-							Gdx.app.log("TutorialAnimations", "Swipe animation fired");
+							Gdx.app.debug("TutorialAnimations", "Swipe animation fired");
 							GameProperties.get().addToActorGroup(animation);	
 						}});
 				}				
@@ -104,7 +104,7 @@ public class TutorialAnimationProperties {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
 							
-							Gdx.app.log("TutorialAnimations", "Next animation fired");
+							Gdx.app.debug("TutorialAnimations", "Next animation fired");
 							
 							TutorialGameSprite nextSprite = (TutorialGameSprite)WorldSystem.get().getMemberFromCoords((int)nextAnimationCoords.x, (int)nextAnimationCoords.y);
 							nextSprite.createAnimations();
@@ -112,7 +112,7 @@ public class TutorialAnimationProperties {
 						}});
 				
 				
-				Gdx.app.log("TutorialAnimations", "Next animation set for "+(int)nextAnimationCoords.x + ", "+(int)nextAnimationCoords.y);
+				Gdx.app.debug("TutorialAnimations", "Next animation set for "+(int)nextAnimationCoords.x + ", "+(int)nextAnimationCoords.y);
 			}
 			
 			previous = animation;

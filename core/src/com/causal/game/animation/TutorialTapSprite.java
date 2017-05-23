@@ -42,7 +42,7 @@ public class TutorialTapSprite extends Image {
 	
 	public void setSprite() {
 		this.tapGameSprite = (TutorialGameSprite)WorldSystem.get().getMemberFromCoords((int)tapGameSpriteCoords.x, (int)tapGameSpriteCoords.y);
-		Gdx.app.log("TutorialTapSprite", "Tap animation set for "+tapGameSprite.getXGameCoord() + ", "+tapGameSprite.getYGameCoord());
+		Gdx.app.debug("TutorialTapSprite", "Tap animation set for "+tapGameSprite.getXGameCoord() + ", "+tapGameSprite.getYGameCoord());
 	}
 	
 	@Override

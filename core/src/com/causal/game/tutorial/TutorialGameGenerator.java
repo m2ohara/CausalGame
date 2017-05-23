@@ -75,13 +75,17 @@ public class TutorialGameGenerator extends GameGenerator {
 		idx++;
 	}
 	
-	protected void generateVoteType(int voteType) {
-		if(voteType == 0) {
-			voteTypeString = "WHITE";
+	protected void generateVoteType() {
+		if(Round == 0) {
+			voteTypeString = "BLUE";
+			voteResultString = "BOOST COMMUNICATORS";
+			bottomLabelString = " TO ENABLE THE MOTION";
 			voteState = VoteState.SUPPORT;
 		}
 		else {
 			voteTypeString = "RED";
+			voteResultString = "PLANETARY JAMMERS TO";
+			bottomLabelString = "PREVENT THE MOTION";
 			voteState = VoteState.OPPOSED;
 		}
 	}
@@ -108,9 +112,9 @@ public class TutorialGameGenerator extends GameGenerator {
 	
 	public void replaceGameActor(DropSprite dropSprite) {
 		
-		setGameSprite.setIndex(5); 
+		setGameSprite.setIndex(5); 	
 		
-		GameSprite actorToAdd = setGameSprite.getGameSprite(dropSprite.getBehaviour(), dropSprite.getCurrentX(), dropSprite.getCurrentY(), dropSprite.getFramesPath(), false);
+		GameSprite actorToAdd = setGameSprite.createGameSprite(0.15f, 1, 2);
 		
 		GameProperties.get().replaceActorInGroup(dropSprite, actorToAdd);
 		
